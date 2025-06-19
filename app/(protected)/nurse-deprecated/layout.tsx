@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import Sidebar from '@/app/(public)/doctor/components/sidebar/index';
+import Sidebar from '@/app/(protected)/nurse-deprecated/components/sidebar/index';
 
 const PublicLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = usePathname();
@@ -11,11 +11,11 @@ const PublicLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
 
   // 배경색이 white인 경로들 리스트
   const whiteBackgroundRoutes = [
-    '/doctor/patient/register',
-    '/doctor/mypage',
-    '/doctor/program',
-    '/doctor/patient/status',
-    '/doctor/quick',
+    '/nurse/patient/register',
+    '/nurse/mypage',
+    '/nurse/program',
+    '/nurse/patient/status',
+    '/nurse/quick',
   ];
 
   // 현재 pathname이 white 배경을 사용해야 하는지 확인
