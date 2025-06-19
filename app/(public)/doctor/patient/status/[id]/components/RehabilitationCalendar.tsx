@@ -1,31 +1,27 @@
-"use client";
-import React, { useState } from "react";
-import ProgressBar from "./ProgressBar";
-import CalendarNavigation from "./CalendarNavigation";
-import CalendarGrid from "./CalendarGrid";
+'use client';
+import React, { useState } from 'react';
+import ProgressBar from './ProgressBar';
+import CalendarNavigation from './CalendarNavigation';
+import CalendarGrid from './CalendarGrid';
 
 const RehabilitationCalendar: React.FC = () => {
-  const [currentMonth, setCurrentMonth] = useState("2024년 10월");
+  const [currentMonth, setCurrentMonth] = useState('2024년 10월');
 
   const handlePrevMonth = () => {
     // In a real implementation, this would update the month
-    console.log("Navigate to previous month");
+    console.log('Navigate to previous month');
   };
 
   const handleNextMonth = () => {
     // In a real implementation, this would update the month
-    console.log("Navigate to next month");
+    console.log('Navigate to next month');
   };
 
   return (
     <div className="w-full ">
       {/* Progress Bar Section */}
       <div className="w-full">
-        <ProgressBar
-          totalDays={12}
-          completedDays={10}
-          progressPercentage={48}
-        />
+        <ProgressBar totalDays={12} completedDays={10} progressPercentage={48} />
       </div>
 
       {/* Total Time Statistics */}

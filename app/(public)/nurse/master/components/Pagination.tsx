@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface PaginationProps {
   totalPages: number;
@@ -30,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     // Add ellipsis if needed
     if (startPage > 2) {
-      pages.push("...");
+      pages.push('...');
     }
 
     // Add middle pages
@@ -42,7 +42,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     // Add ellipsis if needed
     if (endPage < totalPages - 1) {
-      pages.push("...");
+      pages.push('...');
     }
 
     // Always show last page if more than 1 page
@@ -74,13 +74,11 @@ const Pagination: React.FC<PaginationProps> = ({
       {pageNumbers.map((page, index) => (
         <button
           key={index}
-          onClick={() =>
-            typeof page === "number" ? handlePageChange(page) : null
-          }
+          onClick={() => (typeof page === 'number' ? handlePageChange(page) : null)}
           className={`min-h-8 px-[10px] py-2 font-pretendard text-[13px] w-8 h-8 ${
             page === currentPage
-              ? "bg-[#DADFE9] text-[#465463] font-bold rounded-full"
-              : "text-[#8395AC] font-semibold rounded-lg"
+              ? 'bg-[#DADFE9] text-[#465463] font-bold rounded-full'
+              : 'text-[#8395AC] font-semibold rounded-lg'
           }`}
         >
           {page}

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Eye, EyeOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import OrthoInput from "@/components/OrthoInput";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Eye, EyeOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import OrthoInput from '@/components/OrthoInput';
 
 // Define schema with Zod
 const passwordCheckSchema = z.object({
-  password: z.string().min(1, { message: "비밀번호를 입력해주세요" }),
+  password: z.string().min(1, { message: '비밀번호를 입력해주세요' }),
 });
 
 type FormValues = z.infer<typeof passwordCheckSchema>;
@@ -27,20 +27,20 @@ const MemberInfoCheckPage = () => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(passwordCheckSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      password: "",
+      password: '',
     },
   });
 
   // Watch password field to detect changes
-  const password = watch("password");
+  const password = watch('password');
   const isPasswordEntered = password && password.length > 0;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = data => {
     console.log(data);
     // Here you would typically verify the password and then redirect
-    router.push("/doctor/mypage/change");
+    router.push('/doctor/mypage/change');
   };
 
   const togglePasswordVisibility = () => {
@@ -67,9 +67,7 @@ const MemberInfoCheckPage = () => {
           className="flex flex-col gap-6 w-full max-w-[960px] mb-10 md:w-full md:mb-8 sm:mb-6"
         >
           <div className="flex flex-col gap-3">
-            <label className="text-[#8395AC] text-sm font-normal">
-              아이디 (이메일)
-            </label>
+            <label className="text-[#8395AC] text-sm font-normal">아이디 (이메일)</label>
             <div className="flex flex-col gap-2">
               <div className="flex h-12 px-4 py-[14px] items-center gap-3 rounded-xl border border-[#DADFE9] text-base">
                 DK198291
@@ -80,8 +78,8 @@ const MemberInfoCheckPage = () => {
           <OrthoInput
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
-            type={showPassword ? "text" : "password"}
-            registration={register("password")}
+            type={showPassword ? 'text' : 'password'}
+            registration={register('password')}
             error={errors.password?.message}
             rightIcon={
               showPassword ? (
@@ -105,8 +103,8 @@ const MemberInfoCheckPage = () => {
               type="submit"
               className={`h-12 px-5 py-[14px] rounded-full text-sm font-bold text-white w-full md:w-1/2 ${
                 isPasswordEntered
-                  ? "bg-[#0054A6] hover:bg-[#003d7a]"
-                  : "bg-[#BDD5FF] hover:bg-[#BDD5FF]"
+                  ? 'bg-[#0054A6] hover:bg-[#003d7a]'
+                  : 'bg-[#BDD5FF] hover:bg-[#BDD5FF]'
               }`}
             >
               확인

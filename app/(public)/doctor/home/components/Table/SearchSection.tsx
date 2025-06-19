@@ -1,6 +1,6 @@
-"use client";
-import * as React from "react";
-import { Search } from "lucide-react";
+'use client';
+import * as React from 'react';
+import { Search } from 'lucide-react';
 
 function SearchSection() {
   return (
@@ -38,4 +38,4 @@ function SearchSection() {
   );
 }
 
-export default SearchSection; 
+export default SearchSection;

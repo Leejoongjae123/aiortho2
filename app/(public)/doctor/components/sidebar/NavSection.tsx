@@ -1,6 +1,6 @@
-"use client";
-import React, { useState } from "react";
-import { NavSectionProps } from "./types";
+'use client';
+import React, { useState } from 'react';
+import { NavSectionProps } from './types';
 
 const NavSection: React.FC<NavSectionProps> = ({
   icon,
@@ -25,15 +25,11 @@ const NavSection: React.FC<NavSectionProps> = ({
         className="flex items-center w-full h-12 focus:outline-none focus:ring-2 focus:ring-sky-500 focus-visible:ring-2 focus-visible:ring-sky-500 max-md:h-11 max-sm:h-10 relative"
         onClick={handleToggle}
         aria-expanded={isExpanded}
-        aria-controls={`section-${label.replace(/\s+/g, "-").toLowerCase()}`}
+        aria-controls={`section-${label.replace(/\s+/g, '-').toLowerCase()}`}
       >
         <div className="flex absolute top-3.5 left-10 gap-2 items-center h-5 w-[132px] max-md:top-3 max-md:left-8 max-sm:top-2.5 max-sm:left-6">
           <div className="flex-shrink-0">
-            {typeof icon === 'string' ? (
-              <div dangerouslySetInnerHTML={{ __html: icon }} />
-            ) : (
-              icon
-            )}
+            {typeof icon === 'string' ? <div dangerouslySetInnerHTML={{ __html: icon }} /> : icon}
           </div>
           <span className="overflow-hidden shrink-0 h-5 text-sm text-left font-medium tracking-wide leading-6 whitespace-nowrap text-ellipsis text-slate-500 w-[104px] max-md:text-sm max-sm:text-xs">
             {label}
@@ -50,10 +46,10 @@ const NavSection: React.FC<NavSectionProps> = ({
       </button>
       {isExpanded && (
         <ul
-          id={`section-${label.replace(/\s+/g, "-").toLowerCase()}`}
+          id={`section-${label.replace(/\s+/g, '-').toLowerCase()}`}
           className="w-full"
           role="region"
-          aria-labelledby={`section-${label.replace(/\s+/g, "-").toLowerCase()}-heading`}
+          aria-labelledby={`section-${label.replace(/\s+/g, '-').toLowerCase()}-heading`}
         >
           {children}
         </ul>

@@ -1,5 +1,5 @@
-import React from "react";
-import { AvatarIcon } from "./Icons";
+import React from 'react';
+import { AvatarIcon } from './Icons';
 
 const DoctorHeader: React.FC = () => {
   return (
@@ -16,9 +16,7 @@ const DoctorHeader: React.FC = () => {
             안녕하세요
           </span>
         </div>
-        <p className="text-base leading-6 text-slate-500 sm:text-lg">
-          의사 코드 - UH2406001
-        </p>
+        <p className="text-base leading-6 text-slate-500 sm:text-lg">의사 코드 - UH2406001</p>
       </div>
     </header>
   );

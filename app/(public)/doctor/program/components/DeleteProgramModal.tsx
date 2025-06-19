@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+'use client';
+import React from 'react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { X } from 'lucide-react';
 
 interface DeleteProgramModalProps {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const DeleteProgramModal: React.FC<DeleteProgramModalProps> = ({
   programTitle,
 }) => {
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
       <DialogContent className="p-0 border-none max-w-[528px] rounded-[24px] overflow-hidden">
         <div className="rounded-t-[24px] bg-white relative w-full px-8 pt-12 pb-0">
           <div className="w-full font-pretendard">

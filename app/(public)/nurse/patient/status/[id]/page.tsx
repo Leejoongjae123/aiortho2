@@ -1,16 +1,16 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import StatusToggle from "@/components/ui/status-toggle";
-import PrescriptionCard from "./components/PrescriptionProgram";
-import Pagination from "./components/Pagination";
-import RehabilitationStatus from "./components/RehabilitationStatus";
-import ProgressBar from "./components/ProgressBar";
+'use client';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import StatusToggle from '@/components/ui/status-toggle';
+import PrescriptionCard from './components/PrescriptionProgram';
+import Pagination from './components/Pagination';
+import RehabilitationStatus from './components/RehabilitationStatus';
+import ProgressBar from './components/ProgressBar';
 const PatientStatusPage = () => {
   const router = useRouter();
-  const [activeStatus, setActiveStatus] = useState("처방전");
+  const [activeStatus, setActiveStatus] = useState('처방전');
 
-  const statusOptions = ["처방전", "처방대기", "완료"];
+  const statusOptions = ['처방전', '처방대기', '완료'];
 
   const handleStatusChange = (status: string) => {
     setActiveStatus(status);
@@ -27,12 +27,8 @@ const PatientStatusPage = () => {
             <div className="flex mt-1 flex-col items-stretch w-full md:w-auto">
               <div className="self-start flex items-center gap-2 justify-start">
                 <div className="self-stretch flex my-auto min-h-5 items-center gap-1 font-pretandard text-2xl text-[#161621] whitespace-nowrap leading-none justify-start md:whitespace-normal">
-                  <div className="text-[#161621] font-bold self-stretch my-auto">
-                    박명수
-                  </div>
-                  <div className="text-[#161621] font-normal self-stretch my-auto">
-                    님
-                  </div>
+                  <div className="text-[#161621] font-bold self-stretch my-auto">박명수</div>
+                  <div className="text-[#161621] font-normal self-stretch my-auto">님</div>
                 </div>
                 <div className="rounded-full bg-[#E9ECF2] self-stretch flex my-auto min-h-7 p-[5px] items-center justify-center w-7 h-7">
                   <img
@@ -43,9 +39,7 @@ const PatientStatusPage = () => {
                 </div>
               </div>
               <div className="flex mt-3 min-h-4 items-center gap-3 font-pretandard text-base text-[#66798D] font-normal leading-none justify-start">
-                <div className="text-[#66798D] self-stretch my-auto">
-                  환자코드 SKDA19703
-                </div>
+                <div className="text-[#66798D] self-stretch my-auto">환자코드 SKDA19703</div>
                 <div className="text-[#66798D] self-stretch my-auto">|</div>
                 <div className="text-[#66798D] self-stretch my-auto">남성</div>
               </div>
@@ -67,40 +61,28 @@ const PatientStatusPage = () => {
           <div className="flex mt-5 items-center gap-6 font-pretandard flex-col md:flex-row md:justify-between md:mr-1">
             <div className="grid grid-cols-2 gap-4 w-full md:contents">
               <div className="self-stretch my-auto">
-                <div className="text-[#66798D] text-xs font-normal">
-                  병원 환자 번호
-                </div>
+                <div className="text-[#66798D] text-xs font-normal">병원 환자 번호</div>
                 <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">
                   M1012818
                 </div>
               </div>
               <div className="self-stretch my-auto">
                 <div className="text-[#66798D] text-xs font-normal">생년월일</div>
-                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">
-                  980516
-                </div>
+                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">980516</div>
               </div>
               <div className="self-stretch my-auto">
                 <div className="text-[#66798D] text-xs font-normal">보호자명</div>
-                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">
-                  박주호
-                </div>
+                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">박주호</div>
               </div>
               <div className="self-stretch my-auto">
-                <div className="text-[#66798D] text-xs font-normal">
-                  보호자 휴대폰 번호
-                </div>
+                <div className="text-[#66798D] text-xs font-normal">보호자 휴대폰 번호</div>
                 <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">
                   010-2921-2715
                 </div>
               </div>
               <div className="self-stretch my-auto col-span-2 md:col-span-1">
-                <div className="text-[#66798D] text-xs font-normal">
-                  라이센스번호
-                </div>
-                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">
-                  -
-                </div>
+                <div className="text-[#66798D] text-xs font-normal">라이센스번호</div>
+                <div className="text-[#343F4E] text-sm font-semibold leading-none mt-1">-</div>
               </div>
             </div>
           </div>
@@ -135,9 +117,7 @@ const PatientStatusPage = () => {
         {/* Past Prescription Section */}
         <div className="mt-30 font-pretandard md:mt-10">
           <div className="w-full">
-            <div className="text-[#161621] text-[22px] font-bold leading-[1.4]">
-              지난 처방 내역
-            </div>
+            <div className="text-[#161621] text-[22px] font-bold leading-[1.4]">지난 처방 내역</div>
             <div className="mt-5">
               <PrescriptionCard isExpanded={false} />
               <PrescriptionCard isExpanded={false} />
@@ -148,7 +128,7 @@ const PatientStatusPage = () => {
         </div>
 
         <Pagination />
-        
+
         <RehabilitationStatus />
 
         {/* License Number Section */}

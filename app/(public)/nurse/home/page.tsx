@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { useRouter } from "next/navigation";
-import NurseDashboard from "./components/NurseDashboard";
+'use client';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import NurseDashboard from './components/NurseDashboard';
 const NurseHomePage = () => {
   const router = useRouter();
 
@@ -9,7 +9,6 @@ const NurseHomePage = () => {
     <div>
       <NurseDashboard />
     </div>
-    
   );
 };
 

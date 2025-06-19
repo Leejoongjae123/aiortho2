@@ -1,16 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Search } from "lucide-react";
-import MedicalInstitutionModal from "./MedicalInstitutionModal";
+import React, { useState } from 'react';
+import { Search } from 'lucide-react';
+import MedicalInstitutionModal from './MedicalInstitutionModal';
 
 interface MedicalInstitutionSelectorProps {
   label: string;
   cta: string;
   required?: boolean;
-  onChange?: (
-    institution: { id: number; name: string; location: string } | null,
-  ) => void;
+  onChange?: (institution: { id: number; name: string; location: string } | null) => void;
 }
 
 const MedicalInstitutionSelector: React.FC<MedicalInstitutionSelectorProps> = ({
@@ -34,11 +32,7 @@ const MedicalInstitutionSelector: React.FC<MedicalInstitutionSelectorProps> = ({
     setIsModalOpen(false);
   };
 
-  const handleSelectInstitution = (institution: {
-    id: number;
-    name: string;
-    location: string;
-  }) => {
+  const handleSelectInstitution = (institution: { id: number; name: string; location: string }) => {
     setSelectedInstitution(institution);
     if (onChange) {
       onChange(institution);
@@ -74,10 +68,8 @@ const MedicalInstitutionSelector: React.FC<MedicalInstitutionSelectorProps> = ({
         </div>
       </div>
 
-      {selectedInstitution && selectedInstitution.location !== "-" && (
-        <div className="mt-2 text-sm text-[#66798D]">
-          {selectedInstitution.location}
-        </div>
+      {selectedInstitution && selectedInstitution.location !== '-' && (
+        <div className="mt-2 text-sm text-[#66798D]">{selectedInstitution.location}</div>
       )}
 
       <MedicalInstitutionModal

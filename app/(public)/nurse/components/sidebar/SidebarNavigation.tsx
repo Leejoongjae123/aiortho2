@@ -1,13 +1,13 @@
-"use client";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import NavItem from "./NavItem";
-import NavSection from "./NavSection";
-import SubNavItem from "./SubNavItem";
-import NavFooter from "./NavFooter";
-import { NavFooterItemProps } from "./types";
-import { useSidebarStore } from "@/store/sidebarStore";
-import Link from "next/link";
+'use client';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import NavItem from './NavItem';
+import NavSection from './NavSection';
+import SubNavItem from './SubNavItem';
+import NavFooter from './NavFooter';
+import { NavFooterItemProps } from './types';
+import { useSidebarStore } from '@/store/sidebarStore';
+import Link from 'next/link';
 
 const SidebarNavigation: React.FC = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const SidebarNavigation: React.FC = () => {
   // 모바일에서 사이드바 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const sidebar = document.getElementById("mobile-sidebar");
+      const sidebar = document.getElementById('mobile-sidebar');
       const hamburger = document.querySelector('[aria-label="메뉴 토글"]');
 
       if (
@@ -30,11 +30,11 @@ const SidebarNavigation: React.FC = () => {
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, closeSidebar]);
 
@@ -50,29 +50,29 @@ const SidebarNavigation: React.FC = () => {
 
   // 의사관리 아이콘 컴포넌트 - doctors.png 사용
   const DoctorsIcon = () => (
-    <img 
-      src="/doctors.png" 
-      alt="의사관리" 
-      className="nav-icon" 
-      style={{ 
-        width: '20px', 
-        height: '20px', 
+    <img
+      src="/doctors.png"
+      alt="의사관리"
+      className="nav-icon"
+      style={{
+        width: '20px',
+        height: '20px',
         flexShrink: 0,
-        objectFit: 'contain'
+        objectFit: 'contain',
       }}
     />
   );
 
   // Footer items
   const footerItems: NavFooterItemProps[] = [
-    { label: "사용설명서", onClick: () => console.log("사용설명서 clicked") },
+    { label: '사용설명서', onClick: () => console.log('사용설명서 clicked') },
     {
-      label: "소프트웨어 명칭 및 버전",
-      onClick: () => console.log("소프트웨어 명칭 및 버전 clicked"),
+      label: '소프트웨어 명칭 및 버전',
+      onClick: () => console.log('소프트웨어 명칭 및 버전 clicked'),
     },
     {
-      label: "의료기기 인증 정보",
-      onClick: () => console.log("의료기기 인증 정보 clicked"),
+      label: '의료기기 인증 정보',
+      onClick: () => console.log('의료기기 인증 정보 clicked'),
     },
   ];
 
@@ -87,9 +87,7 @@ const SidebarNavigation: React.FC = () => {
   return (
     <>
       {/* 모바일 오버레이 */}
-      {isOpen && (
-        <div className="md:hidden fixed inset-0 bg-black/50 z-40" />
-      )}
+      {isOpen && <div className="md:hidden fixed inset-0 bg-black/50 z-40" />}
 
       {/* 사이드바 */}
       <nav
@@ -100,7 +98,7 @@ const SidebarNavigation: React.FC = () => {
           max-sm:gap-52 max-sm:px-0 max-sm:pt-1 max-sm:pb-52
           md:relative md:translate-x-0
           fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
         aria-label="Main Navigation"
       >
@@ -117,30 +115,20 @@ const SidebarNavigation: React.FC = () => {
               icon={homeIcon}
               label="홈"
               isActive={true}
-              onClick={() =>
-                handleNavItemClick(() => router.push("/nurse/home"))
-              }
+              onClick={() => handleNavItemClick(() => router.push('/nurse/home'))}
             />
 
-            <NavSection
-              icon={prescriptionIcon}
-              label="처방 관리"
-              isExpanded={true}
-            >
+            <NavSection icon={prescriptionIcon} label="처방 관리" isExpanded={true}>
               <SubNavItem
                 label="환자 명단"
-                onClick={() =>
-                  handleNavItemClick(() => router.push("/nurse/patient/list"))
-                }
+                onClick={() => handleNavItemClick(() => router.push('/nurse/patient/list'))}
               />
             </NavSection>
 
             <NavSection icon={myPageIcon} label="마이페이지">
               <SubNavItem
                 label="개인정보 수정"
-                onClick={() =>
-                  handleNavItemClick(() => router.push("/nurse/mypage/check"))
-                }
+                onClick={() => handleNavItemClick(() => router.push('/nurse/mypage/check'))}
               />
             </NavSection>
           </ul>

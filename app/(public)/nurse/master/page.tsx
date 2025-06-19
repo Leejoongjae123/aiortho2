@@ -1,78 +1,78 @@
-"use client";
-import React, { useState } from "react";
-import { Search } from "lucide-react";
-import DoctorTable from "./components/DoctorTable";
-import Pagination from "./components/Pagination";
-import IssueCodeModal from "./components/IssueCodeModal";
+'use client';
+import React, { useState } from 'react';
+import { Search } from 'lucide-react';
+import DoctorTable from './components/DoctorTable';
+import Pagination from './components/Pagination';
+import IssueCodeModal from './components/IssueCodeModal';
 
 const DoctorMasterPage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isIssueCodeModalOpen, setIsIssueCodeModalOpen] = useState(false);
 
   // Mock data for doctors
   const doctors = [
     {
-      id: "최고관리자",
-      code: "00000000",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '최고관리자',
+      code: '00000000',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: true,
     },
     {
-      id: "12451278",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451278',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451276",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451276',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451275",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451275',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451275",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451275',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451275",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451275',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451275",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451275',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
     {
-      id: "12451275",
-      code: "MKD2871",
-      name: "박명수",
-      email: "sfaags281@gmail.com",
-      date: "2025.01.30 (화)",
+      id: '12451275',
+      code: 'MKD2871',
+      name: '박명수',
+      email: 'sfaags281@gmail.com',
+      date: '2025.01.30 (화)',
       isAdmin: false,
     },
   ];
@@ -90,9 +90,7 @@ const DoctorMasterPage = () => {
       <div className="w-full flex px-8 flex-col items-stretch md:px-8 md:mt-8">
         <div className="flex w-full items-stretch gap-5 font-pretendard flex-wrap justify-between">
           <div className="flex mt-auto mb-auto items-center gap-4 justify-start">
-            <div className="text-[#161621] text-[32px] font-bold leading-none">
-              의사 관리
-            </div>
+            <div className="text-[#161621] text-[32px] font-bold leading-none">의사 관리</div>
             <div className="text-[#66798D] text-[22px] font-medium leading-none">
               (최근 3개월 기준)
             </div>
@@ -138,9 +136,6 @@ const DoctorMasterPage = () => {
 
         <Pagination totalPages={197} currentPage={1} />
       </div>
-
-      
-
 
       {/* Issue Registration Code Modal */}
       <IssueCodeModal

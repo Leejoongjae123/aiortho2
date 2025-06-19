@@ -1,131 +1,128 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { arrayMove } from "@dnd-kit/sortable";
-import DraggableTableHeader from "./DraggableTableHeader";
-import DynamicPatientTableRow from "./DynamicPatientTableRow";
-import { 
-  PatientData, 
-  TableColumn 
-} from "../types";
-import { 
-  DEFAULT_COLUMNS, 
-  loadNursePatientListColumnOrder, 
-  saveNursePatientListColumnOrder 
-} from "./PatientListUtils";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { arrayMove } from '@dnd-kit/sortable';
+import DraggableTableHeader from './DraggableTableHeader';
+import DynamicPatientTableRow from './DynamicPatientTableRow';
+import { PatientData, TableColumn } from '../types';
+import {
+  DEFAULT_COLUMNS,
+  loadNursePatientListColumnOrder,
+  saveNursePatientListColumnOrder,
+} from './PatientListUtils';
 
 // Mock 데이터
 const patients: PatientData[] = [
   {
-    id: "1",
-    registrationNumber: "82869",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "홍지원",
-    treatmentPeriod: "2025.01.30 ~ 2025.01.30",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "2025.01.30 (화)",
-    status: "완료",
-    statusType: "completed",
+    id: '1',
+    registrationNumber: '82869',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '홍지원',
+    treatmentPeriod: '2025.01.30 ~ 2025.01.30',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '2025.01.30 (화)',
+    status: '완료',
+    statusType: 'completed',
   },
   {
-    id: "2",
-    registrationNumber: "82870",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "-",
-    treatmentPeriod: "-",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "-",
-    status: "처방전",
-    statusType: "prescription",
+    id: '2',
+    registrationNumber: '82870',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '-',
+    treatmentPeriod: '-',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '-',
+    status: '처방전',
+    statusType: 'prescription',
   },
   {
-    id: "3",
-    registrationNumber: "82866",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "김지희",
-    treatmentPeriod: "2025.01.30 ~ 2025.01.30",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "2025.01.30 (화)",
-    status: "처방전",
-    statusType: "prescription",
+    id: '3',
+    registrationNumber: '82866',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '김지희',
+    treatmentPeriod: '2025.01.30 ~ 2025.01.30',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '2025.01.30 (화)',
+    status: '처방전',
+    statusType: 'prescription',
   },
   {
-    id: "4",
-    registrationNumber: "82864",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "-",
-    treatmentPeriod: "-",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "-",
-    status: "처방대기",
-    statusType: "waiting",
+    id: '4',
+    registrationNumber: '82864',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '-',
+    treatmentPeriod: '-',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '-',
+    status: '처방대기',
+    statusType: 'waiting',
   },
   {
-    id: "5",
-    registrationNumber: "82864",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "-",
-    treatmentPeriod: "-",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "-",
-    status: "처방대기",
-    statusType: "waiting",
+    id: '5',
+    registrationNumber: '82864',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '-',
+    treatmentPeriod: '-',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '-',
+    status: '처방대기',
+    statusType: 'waiting',
   },
   {
-    id: "6",
-    registrationNumber: "82865",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/87d",
-    doctor: "김지희",
-    treatmentPeriod: "2025.01.30 ~ 2025.01.30",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "2025.01.30 (화)",
-    status: "완료",
-    statusType: "completed",
+    id: '6',
+    registrationNumber: '82865',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/87d',
+    doctor: '김지희',
+    treatmentPeriod: '2025.01.30 ~ 2025.01.30',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '2025.01.30 (화)',
+    status: '완료',
+    statusType: 'completed',
   },
   {
-    id: "7",
-    registrationNumber: "82864",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "-",
-    treatmentPeriod: "-",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "-",
-    status: "완료",
-    statusType: "completed",
+    id: '7',
+    registrationNumber: '82864',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '-',
+    treatmentPeriod: '-',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '-',
+    status: '완료',
+    statusType: 'completed',
   },
   {
-    id: "8",
-    registrationNumber: "82864",
-    patientName: "박명수",
-    birthDate: "980530",
-    gender: "남",
-    sa: "M/9m7d",
-    doctor: "-",
-    treatmentPeriod: "-",
-    registrationDate: "2025.01.30 (화)",
-    lastPrescriptionDate: "-",
-    status: "완료",
-    statusType: "completed",
+    id: '8',
+    registrationNumber: '82864',
+    patientName: '박명수',
+    birthDate: '980530',
+    gender: '남',
+    sa: 'M/9m7d',
+    doctor: '-',
+    treatmentPeriod: '-',
+    registrationDate: '2025.01.30 (화)',
+    lastPrescriptionDate: '-',
+    status: '완료',
+    statusType: 'completed',
   },
 ];
 
@@ -146,11 +143,8 @@ export default function UpdatedPatientList() {
   return (
     <div className="mt-7 w-full">
       <div className="min-w-[1080px] md:min-w-0">
-        <DraggableTableHeader 
-          columns={columns}
-          onColumnOrderChange={handleColumnOrderChange}
-        />
-        
+        <DraggableTableHeader columns={columns} onColumnOrderChange={handleColumnOrderChange} />
+
         <div className="w-full">
           {patients.map((patient, index) => (
             <React.Fragment key={patient.id}>
@@ -169,13 +163,11 @@ export default function UpdatedPatientList() {
                 statusType={patient.statusType}
                 columnOrder={columns}
               />
-              {index < patients.length - 1 && (
-                <div className="w-full h-px bg-slate-200" />
-              )}
+              {index < patients.length - 1 && <div className="w-full h-px bg-slate-200" />}
             </React.Fragment>
           ))}
         </div>
       </div>
     </div>
   );
-} 
+}

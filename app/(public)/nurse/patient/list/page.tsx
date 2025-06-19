@@ -1,5 +1,5 @@
-import React from "react";
-import PatientListContainer from "./components/PatientListContainer";
+import React from 'react';
+import PatientListContainer from './components/PatientListContainer';
 
 export default function PatientListPage() {
   return (

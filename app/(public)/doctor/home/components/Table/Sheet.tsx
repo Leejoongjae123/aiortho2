@@ -1,8 +1,8 @@
-"use client";
-import * as React from "react";
-import TitleSection from "./TitleSection";
-import UpdatedPatientTable from "./UpdatedPatientTable";
-import SearchSection from "./SearchSection";
+'use client';
+import * as React from 'react';
+import TitleSection from './TitleSection';
+import UpdatedPatientTable from './UpdatedPatientTable';
+import SearchSection from './SearchSection';
 
 function Sheet() {
   return (
@@ -12,11 +12,11 @@ function Sheet() {
         <TitleSection title="미처방" count={2712} />
         <UpdatedPatientTable />
       </div>
-      
+
       {/* 모바일 레이아웃 */}
       <div className="flex md:hidden z-0 flex-col w-full space-y-4">
         <TitleSection title="미처방" count={2712} />
-        
+
         {/* 내환자만보기 필터 - 모바일에서 세로 배치 */}
         <div className="flex gap-2 items-center text-sm font-medium leading-none text-slate-400">
           <img
@@ -31,13 +31,23 @@ function Sheet() {
             내 환자만 보기
           </button>
         </div>
-        
+
         {/* 검색창 - 모바일에서 세로 배치 */}
         <div className="flex flex-col max-w-full h-10 text-sm whitespace-nowrap rounded-none text-slate-400 w-full">
           <div className="flex flex-col justify-center px-3 py-2.5 w-full rounded-2xl bg-slate-100 fill-slate-100 border border-transparent focus-within:border-[#0054A6] focus-within:border-2 focus-within:bg-white transition-colors">
             <div className="flex gap-2 items-center">
-              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                className="w-5 h-5 text-slate-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
               <input
                 type="text"
@@ -48,7 +58,7 @@ function Sheet() {
             </div>
           </div>
         </div>
-        
+
         {/* 테이블 스크롤 컨테이너 */}
         <div className="w-full overflow-x-auto">
           <div className="min-w-[1080px]">
@@ -56,7 +66,7 @@ function Sheet() {
           </div>
         </div>
       </div>
-      
+
       {/* PC용 SearchSection - 절대 위치 */}
       <div className="hidden md:block">
         <SearchSection />

@@ -1,5 +1,5 @@
-import React from "react";
-import Link from "next/link"; 
+import React from 'react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -30,9 +30,9 @@ const Footer = () => {
               </p>
             </Link>
             <Link href="/doctor/auth/join-membership/agree" target="_blank">
-            <p className="text-xs font-normal text-[color:var(--aiortho-gray-500)]">
-              개인정보 처리방침
-            </p>
+              <p className="text-xs font-normal text-[color:var(--aiortho-gray-500)]">
+                개인정보 처리방침
+              </p>
             </Link>
           </div>
         </div>

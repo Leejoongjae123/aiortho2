@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { toast } from "sonner";
+'use client';
+import React from 'react';
+import { toast } from 'sonner';
 
 interface ToastNotificationProps {
   title: string;
@@ -49,21 +49,16 @@ export const ToastNotification: React.FC<ToastNotificationProps> = ({
 };
 
 export const showSuccessToast = (title: string, description: string) => {
-  toast.custom(
-    () => (
-      <ToastNotification title={title} description={description} />
-    ),
-    {
-      position: "top-center",
-      style: {
-        position: "fixed",
-        top: "100%",
-        left: "50%",
-        transform: "translate(-50%, 10%)",
-        zIndex: 9999,
-      },
-    }
-  );
+  toast.custom(() => <ToastNotification title={title} description={description} />, {
+    position: 'top-center',
+    style: {
+      position: 'fixed',
+      top: '100%',
+      left: '50%',
+      transform: 'translate(-50%, 10%)',
+      zIndex: 9999,
+    },
+  });
 };
 
 export default ToastNotification;

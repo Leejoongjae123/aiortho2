@@ -1,11 +1,10 @@
-import { UseFormRegisterReturn } from "react-hook-form";
-import React, { FC, InputHTMLAttributes, useState, useEffect } from "react";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { cn } from "@/lib/utils";
+import { UseFormRegisterReturn } from 'react-hook-form';
+import React, { FC, InputHTMLAttributes, useState, useEffect } from 'react';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { cn } from '@/lib/utils';
 
-interface OrthoInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+interface OrthoInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   placeholder?: string;
   error?: string;
@@ -30,11 +29,11 @@ const OrthoInput: FC<OrthoInputProps> = ({
   error,
   registration,
   onChange,
-  type = "text",
+  type = 'text',
   required = false,
   rightIcon,
   onRightIconClick,
-  width = "w-full",
+  width = 'w-full',
   apiResponse,
   apiResponseMessage,
   maxLength,
@@ -61,8 +60,8 @@ const OrthoInput: FC<OrthoInputProps> = ({
             <span
               className={`inline-block ${
                 apiResponse || error
-                  ? "text-[color:var(--aiortho-danger)]"
-                  : "text-[color:var(--aiortho-primary)]"
+                  ? 'text-[color:var(--aiortho-danger)]'
+                  : 'text-[color:var(--aiortho-primary)]'
               }`}
             >
               *
@@ -75,13 +74,16 @@ const OrthoInput: FC<OrthoInputProps> = ({
           type={type}
           placeholder={placeholder}
           className={cn(
-            "w-full placeholder:text-[color:var(--aiortho-gray-400)] h-12",
-            error && "border-2 border-[color:var(--aiortho-danger)] focus:border-[color:var(--aiortho-danger)] focus:ring-0 focus:ring-offset-0",
-            hasValue && !error && "border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]",
+            'w-full placeholder:text-[color:var(--aiortho-gray-400)] h-12',
+            error &&
+              'border-2 border-[color:var(--aiortho-danger)] focus:border-[color:var(--aiortho-danger)] focus:ring-0 focus:ring-offset-0',
+            hasValue &&
+              !error &&
+              'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]',
             className
           )}
           {...registration}
-          onChange={(e) => {
+          onChange={e => {
             setHasValue(e.target.value.length > 0);
             registration?.onChange && registration.onChange(e);
             onChange && onChange(e);
@@ -101,16 +103,12 @@ const OrthoInput: FC<OrthoInputProps> = ({
         )}
       </div>
       {error && (
-        <p className="font-normal text-[color:var(--aiortho-danger)] text-xs mt-1">
-          {error}
-        </p>
+        <p className="font-normal text-[color:var(--aiortho-danger)] text-xs mt-1">{error}</p>
       )}
       {apiResponseMessage && (
         <p
           className={`font-normal ${
-            apiResponse
-              ? "text-[color:var(--aiortho-danger)]"
-              : "text-[#1FB059]"
+            apiResponse ? 'text-[color:var(--aiortho-danger)]' : 'text-[#1FB059]'
           }  text-xs mt-1`}
         >
           {apiResponseMessage}

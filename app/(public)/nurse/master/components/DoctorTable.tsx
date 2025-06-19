@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Doctor {
   id: string;
@@ -20,9 +20,7 @@ const DoctorTable: React.FC<DoctorTableProps> = ({ doctors }) => {
       <div className="rounded-xl bg-[rgba(241,244,249,0.5)] flex min-h-[48px] w-full items-center justify-start md:max-w-full">
         <div className="flex min-h-[48px] px-4 py-3 flex-col items-start justify-center w-[124px]">
           <div className="flex w-16 items-center justify-start">
-            <div className="text-[#161621] font-pretendard text-sm font-bold opacity-80">
-              No
-            </div>
+            <div className="text-[#161621] font-pretendard text-sm font-bold opacity-80">No</div>
             <div className="flex min-h-6 px-2 py-1 items-center justify-center w-6">
               <div className="w-[9px]">
                 <img
@@ -67,9 +65,7 @@ const DoctorTable: React.FC<DoctorTableProps> = ({ doctors }) => {
         </div>
 
         <div className="flex min-w-[240px] min-h-[48px] px-3 py-4 items-center gap-[10px] font-pretendard text-sm text-[#161621] font-bold whitespace-nowrap justify-start w-[328px] md:whitespace-normal">
-          <div className="text-[#161621] opacity-80 w-[176px]">
-            아이디(이메일)
-          </div>
+          <div className="text-[#161621] opacity-80 w-[176px]">아이디(이메일)</div>
         </div>
 
         <div className="flex min-w-[240px] min-h-[48px] px-3 py-3 flex-col items-center justify-center w-[256px]">
@@ -102,13 +98,11 @@ const DoctorTable: React.FC<DoctorTableProps> = ({ doctors }) => {
         {doctors.map((doctor, index) => (
           <React.Fragment key={index}>
             <div
-              className={`w-full font-pretendard text-sm ${doctor.isAdmin ? "text-[#0054A6]" : "text-[#161621]"} font-normal md:max-w-full`}
+              className={`w-full font-pretendard text-sm ${doctor.isAdmin ? 'text-[#0054A6]' : 'text-[#161621]'} font-normal md:max-w-full`}
             >
               <div className="flex min-h-[68px] w-full items-center justify-start flex-wrap md:max-w-full">
                 <div className="flex min-h-[68px] px-4 py-[26px] flex-col items-stretch whitespace-nowrap justify-center w-[124px] md:whitespace-normal">
-                  <div
-                    className={`opacity-80 ${doctor.isAdmin ? "font-semibold" : ""}`}
-                  >
+                  <div className={`opacity-80 ${doctor.isAdmin ? 'font-semibold' : ''}`}>
                     {doctor.id}
                   </div>
                 </div>

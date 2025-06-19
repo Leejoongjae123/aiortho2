@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { CalendarIcon } from "lucide-react";
-import { X } from "lucide-react";
+'use client';
+import React from 'react';
+import { CalendarIcon } from 'lucide-react';
+import { X } from 'lucide-react';
 interface ExerciseDetail {
   id: number;
   name: string;
@@ -17,27 +17,27 @@ interface RehabilitationDetailsCardProps {
 }
 
 const RehabilitationDetailsCard: React.FC<RehabilitationDetailsCardProps> = ({
-  date = "2024년 10월 1일",
-  totalRehabTime = "10분 12초",
-  goodPostureTime = "4분 20초",
+  date = '2024년 10월 1일',
+  totalRehabTime = '10분 12초',
+  goodPostureTime = '4분 20초',
   exercises = [
     {
       id: 1,
-      name: "고개 기울이기 스트레칭",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '고개 기울이기 스트레칭',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
     {
       id: 2,
-      name: "정위 반응을 이용한 근력 운동",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '정위 반응을 이용한 근력 운동',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
     {
       id: 3,
-      name: "몸통 스트레칭",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '몸통 스트레칭',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
   ],
 }) => {
@@ -100,7 +100,7 @@ const RehabilitationDetailsCard: React.FC<RehabilitationDetailsCardProps> = ({
                           <div className="mt-2 w-full font-normal leading-none md:max-w-full">
                             <div className="flex w-full items-center gap-2 justify-start flex-wrap md:max-w-full">
                               <div className="text-[#343F4E] self-stretch my-auto line-clamp-1">
-                                총 재활 치료 시간{" "}
+                                총 재활 치료 시간{' '}
                               </div>
                               <div className="text-[#0054A6] self-stretch my-auto w-[158px] line-clamp-1">
                                 {exercise.totalTime}

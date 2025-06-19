@@ -1,7 +1,7 @@
-"use client";
-import * as React from "react";
-import Link from "next/link";
-import Footer from "@/components/Footer";
+'use client';
+import * as React from 'react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
   return (
@@ -25,9 +25,7 @@ export default function HomePage() {
             className="flex gap-2.5 justify-center items-center px-5 py-4 h-16 rounded-2xl cursor-pointer w-[168px] max-sm:w-full max-sm:max-w-[280px] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-sky-700 hover:bg-sky-800 focus:ring-sky-500"
             aria-label="의사로 로그인"
           >
-            <span className="text-lg font-bold leading-6 text-white">
-              의사로 접속
-            </span>
+            <span className="text-lg font-bold leading-6 text-white">의사로 접속</span>
           </Link>
 
           <Link
@@ -35,9 +33,7 @@ export default function HomePage() {
             className="flex gap-2.5 justify-center items-center px-5 py-4 h-16 rounded-2xl cursor-pointer w-[168px] max-sm:w-full max-sm:max-w-[280px] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-700 hover:bg-gray-800 focus:ring-gray-500"
             aria-label="간호사로 로그인"
           >
-            <span className="text-lg font-bold leading-6 text-white">
-              간호사로 접속
-            </span>
+            <span className="text-lg font-bold leading-6 text-white">간호사로 접속</span>
           </Link>
         </section>
 

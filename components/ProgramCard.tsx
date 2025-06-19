@@ -1,22 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { ChevronDown, ChevronUp, Trash, Minus, Plus, Edit, X } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import React, { useState } from 'react';
+import { ChevronDown, ChevronUp, Trash, Minus, Plus, Edit, X } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 interface Exercise {
   id: string;
@@ -69,13 +65,13 @@ export default function ProgramCard({
   };
 
   const exerciseTypes = [
-    "옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)",
-    "고개 돌리기 스트레칭 (Rotation Strectching)",
-    "정위반응을 이용한 근력운동 (Strengthening)",
-    "몸통 스트레칭 (Trunk Stretching)",
+    '옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)',
+    '고개 돌리기 스트레칭 (Rotation Strectching)',
+    '정위반응을 이용한 근력운동 (Strengthening)',
+    '몸통 스트레칭 (Trunk Stretching)',
   ];
 
-  const durations = ["1분", "2분", "3분", "4분", "5분"];
+  const durations = ['1분', '2분', '3분', '4분', '5분'];
 
   return (
     <div className="flex w-full items-start gap-x-7 gap-y-2 flex-col md:flex-row overflow-hidden">
@@ -120,17 +116,17 @@ export default function ProgramCard({
                         {/* 운동 종류 선택 */}
                         <div className="w-full font-pretendard font-normal md:max-w-full">
                           <Label className="text-[#8395AC] text-sm leading-none md:max-w-full">
-                            {index === 0 ? "스트레칭할 근육" : "운동 종류 선택"}
+                            {index === 0 ? '스트레칭할 근육' : '운동 종류 선택'}
                           </Label>
                           <div className="mt-3 w-full">
                             <Select defaultValue={exercise.exerciseType}>
                               <SelectTrigger className="w-full min-h-[48px] rounded-xl border-[#DADFE9] bg-[rgba(240,243,250,0.60)] text-[#66798D] [&>span]:truncate [&>span]:pr-2">
-                                <SelectValue 
-                                  placeholder="운동 종류를 선택하세요" 
+                                <SelectValue
+                                  placeholder="운동 종류를 선택하세요"
                                   className="truncate pr-2"
                                 />
                               </SelectTrigger>
-                              <SelectContent 
+                              <SelectContent
                                 className="max-w-[calc(100vw-2rem)] w-full z-50"
                                 side="bottom"
                                 align="start"
@@ -139,10 +135,10 @@ export default function ProgramCard({
                                 avoidCollisions={true}
                                 collisionPadding={8}
                               >
-                                {exerciseTypes.map((type) => (
-                                  <SelectItem 
-                                    key={type} 
-                                    value={type} 
+                                {exerciseTypes.map(type => (
+                                  <SelectItem
+                                    key={type}
+                                    value={type}
                                     className="text-sm max-w-full"
                                   >
                                     <span className="block truncate pr-2 max-w-[calc(100vw-4rem)]">
@@ -158,11 +154,15 @@ export default function ProgramCard({
                         {/* 근육 방향 */}
                         <div className="flex w-full flex-col items-stretch justify-start md:max-w-full">
                           <Label className="text-[#8395AC] font-pretendard text-sm font-normal leading-none md:max-w-full">
-                            {index === 0 ? "근육 방향" : index === 1 ? "회전 방향 (스트레칭할 근육)" : "강화할 근육"}
+                            {index === 0
+                              ? '근육 방향'
+                              : index === 1
+                                ? '회전 방향 (스트레칭할 근육)'
+                                : '강화할 근육'}
                           </Label>
                           <div className="mt-3">
                             <RadioGroup
-                              defaultValue={exercise.muscleDirection || "left"}
+                              defaultValue={exercise.muscleDirection || 'left'}
                               className="flex items-center gap-4 md:gap-8 flex-wrap"
                             >
                               <div className="flex items-center space-x-1">
@@ -203,12 +203,12 @@ export default function ProgramCard({
                           <div className="mt-3 w-full">
                             <Select defaultValue={exercise.duration}>
                               <SelectTrigger className="w-full min-h-[48px] rounded-xl border-[#DADFE9] bg-[rgba(240,243,250,0.60)] text-[#66798D] [&>span]:truncate [&>span]:pr-2">
-                                <SelectValue 
-                                  placeholder="시간을 선택하세요" 
+                                <SelectValue
+                                  placeholder="시간을 선택하세요"
                                   className="truncate pr-2"
                                 />
                               </SelectTrigger>
-                              <SelectContent 
+                              <SelectContent
                                 className="max-w-[calc(100vw-2rem)] w-full z-50"
                                 side="bottom"
                                 align="start"
@@ -217,10 +217,10 @@ export default function ProgramCard({
                                 avoidCollisions={true}
                                 collisionPadding={8}
                               >
-                                {durations.map((duration) => (
-                                  <SelectItem 
-                                    key={duration} 
-                                    value={duration} 
+                                {durations.map(duration => (
+                                  <SelectItem
+                                    key={duration}
+                                    value={duration}
                                     className="text-sm max-w-full"
                                   >
                                     <span className="block truncate pr-2 max-w-[calc(100vw-4rem)]">
@@ -275,9 +275,7 @@ export default function ProgramCard({
                     >
                       <Minus className="w-4 h-4" />
                     </Button>
-                    <div className="text-[#66798D] w-[52px] text-center">
-                      {currentRepetition}회
-                    </div>
+                    <div className="text-[#66798D] w-[52px] text-center">{currentRepetition}회</div>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -333,4 +331,4 @@ export default function ProgramCard({
       </div>
     </div>
   );
-} 
+}

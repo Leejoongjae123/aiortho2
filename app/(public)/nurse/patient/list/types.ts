@@ -10,12 +10,12 @@ export interface PatientData {
   registrationDate: string;
   lastPrescriptionDate: string;
   status: string;
-  statusType: "waiting" | "prescription" | "completed";
+  statusType: 'waiting' | 'prescription' | 'completed';
 }
 
 export interface StatusBadgeProps {
   status: string;
-  type: "waiting" | "prescription" | "completed";
+  type: 'waiting' | 'prescription' | 'completed';
 }
 
 export interface TableHeaderCellProps {
@@ -47,7 +47,7 @@ export interface PatientTableRowProps {
   registrationDate: string;
   lastPrescriptionDate: string;
   status: string;
-  statusType: "waiting" | "prescription" | "completed";
+  statusType: 'waiting' | 'prescription' | 'completed';
   columnOrder?: TableColumn[];
 }
 
@@ -68,4 +68,4 @@ export interface PatientListSheetProps {
   setShowOnlyMyPatients: (value: boolean) => void;
   searchQuery: string;
   setSearchQuery: (value: string) => void;
-} 
+}

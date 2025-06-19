@@ -1,17 +1,17 @@
-'use client'
-import QuickMenuCard from "./QuickMenuCard";
-import { PrescriptionIcon, PatientRegistrationIcon } from "./Icons";
-import { useRouter } from "next/navigation";
+'use client';
+import QuickMenuCard from './QuickMenuCard';
+import { PrescriptionIcon, PatientRegistrationIcon } from './Icons';
+import { useRouter } from 'next/navigation';
 
 const QuickMenu: React.FC = () => {
   const router = useRouter();
 
   const handlePrescriptionClick = (): void => {
-    router.push("/doctor/quick");
+    router.push('/doctor/quick');
   };
 
   const handlePatientRegistrationClick = (): void => {
-    router.push("/doctor/patient/register");
+    router.push('/doctor/patient/register');
   };
 
   return (

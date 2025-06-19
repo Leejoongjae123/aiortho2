@@ -5,9 +5,24 @@ import Link from 'next/link';
 
 const termsData = [
   { id: 1, label: '만 14세 이상입니다.', required: true, link: null },
-  { id: 2, label: '서비스 이용약관에 동의합니다.', required: true, link: '/doctor/auth/join-membership/service' },
-  { id: 3, label: '개인정보 수집 및 이용에 동의합니다.', required: true, link: '/doctor/auth/join-membership/agree' },
-  { id: 4, label: '이벤트 및 할인 혜택 안내에 동의합니다.', required: false, link: '/doctor/auth/join-membership/event' },
+  {
+    id: 2,
+    label: '서비스 이용약관에 동의합니다.',
+    required: true,
+    link: '/doctor/auth/join-membership/service',
+  },
+  {
+    id: 3,
+    label: '개인정보 수집 및 이용에 동의합니다.',
+    required: true,
+    link: '/doctor/auth/join-membership/agree',
+  },
+  {
+    id: 4,
+    label: '이벤트 및 할인 혜택 안내에 동의합니다.',
+    required: false,
+    link: '/doctor/auth/join-membership/event',
+  },
 ];
 
 export default function TermsAgreement() {
@@ -42,7 +57,9 @@ export default function TermsAgreement() {
       {/* Select All */}
       <div className="flex items-center gap-2 cursor-pointer" onClick={toggleAll}>
         {renderCheckBox(isAllChecked)}
-        <Label className="font-bold text-[color:var(--aiortho-gray-900)] text-sm">약관 전체 동의</Label>
+        <Label className="font-bold text-[color:var(--aiortho-gray-900)] text-sm">
+          약관 전체 동의
+        </Label>
       </div>
 
       {/* Terms List */}
@@ -60,14 +77,16 @@ export default function TermsAgreement() {
                 <Label className="text-[color:var(--aiortho-gray-900)] text-sm font-medium">
                   {item.label}
                   {item.required ? (
-                    <span className="text-[color:var(--aiortho-primary)] text-sm font-medium ml-1">*</span>
+                    <span className="text-[color:var(--aiortho-primary)] text-sm font-medium ml-1">
+                      *
+                    </span>
                   ) : (
                     <span className="text-[#66798D] font-medium ml-1">(선택)</span>
                   )}
                 </Label>
               </div>
               {item.link && (
-                <Link href={item.link} target='_blank'>
+                <Link href={item.link} target="_blank">
                   <span className="text-sm text-[#8395AC] cursor-pointer font-normal">보기</span>
                 </Link>
               )}

@@ -1,5 +1,5 @@
-import React from "react";
-import DoctorDashboard from "./components/DoctorDashboard";
+import React from 'react';
+import DoctorDashboard from './components/DoctorDashboard';
 
 const DoctorHomePage = () => {
   return (

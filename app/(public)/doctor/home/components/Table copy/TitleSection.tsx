@@ -1,5 +1,5 @@
-"use client";
-import * as React from "react";
+'use client';
+import * as React from 'react';
 
 interface TitleSectionProps {
   title: string;
@@ -18,4 +18,4 @@ function TitleSection({ title, count }: TitleSectionProps) {
   );
 }
 
-export default TitleSection; 
+export default TitleSection;

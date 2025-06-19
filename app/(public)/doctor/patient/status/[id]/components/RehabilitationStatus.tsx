@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import RehabilitationDetailsCard from "./RehabilitationDetailsCard";
-import RehabilitationCalendar from "./RehabilitationCalendar";
-import ProgressBar from "./ProgressBar";
-import TreatmentDetailReport from "./TreatmentDetailReport";
+'use client';
+import React from 'react';
+import RehabilitationDetailsCard from './RehabilitationDetailsCard';
+import RehabilitationCalendar from './RehabilitationCalendar';
+import ProgressBar from './ProgressBar';
+import TreatmentDetailReport from './TreatmentDetailReport';
 
 const RehabilitationStatus = () => {
   return (

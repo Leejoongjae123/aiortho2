@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Search, X, Plus } from "lucide-react";
-import NurseSearchModal from "./NurseSearchModal";
-import { Nurse } from "../types/nurse";
+import React, { useState } from 'react';
+import { Search, X, Plus } from 'lucide-react';
+import NurseSearchModal from './NurseSearchModal';
+import { Nurse } from '../types/nurse';
 
 interface NurseManagerProps {
   label: string;
@@ -12,12 +12,7 @@ interface NurseManagerProps {
   onChange?: (nurses: Nurse[]) => void;
 }
 
-const NurseManager: React.FC<NurseManagerProps> = ({
-  label,
-  cta,
-  required = false,
-  onChange,
-}) => {
+const NurseManager: React.FC<NurseManagerProps> = ({ label, cta, required = false, onChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNurses, setSelectedNurses] = useState<Nurse[]>([]);
 
@@ -31,9 +26,7 @@ const NurseManager: React.FC<NurseManagerProps> = ({
 
   const handleSelectNurse = (nurse: Nurse) => {
     // 이미 선택된 간호사인지 확인
-    const isAlreadySelected = selectedNurses.some(
-      (selectedNurse) => selectedNurse.id === nurse.id
-    );
+    const isAlreadySelected = selectedNurses.some(selectedNurse => selectedNurse.id === nurse.id);
 
     if (!isAlreadySelected) {
       const updatedNurses = [...selectedNurses, nurse];
@@ -45,9 +38,7 @@ const NurseManager: React.FC<NurseManagerProps> = ({
   };
 
   const handleRemoveNurse = (nurseId: number) => {
-    const updatedNurses = selectedNurses.filter(
-      (nurse) => nurse.id !== nurseId
-    );
+    const updatedNurses = selectedNurses.filter(nurse => nurse.id !== nurseId);
     setSelectedNurses(updatedNurses);
     if (onChange) {
       onChange(updatedNurses);
@@ -76,22 +67,18 @@ const NurseManager: React.FC<NurseManagerProps> = ({
       <div className="space-y-2">
         {selectedNurses.length === 0 ? (
           <div className="flex h-12 px-4 py-3.5 items-center self-stretch rounded-xl border border-[#DADFE9] bg-[#F8F9FA]">
-            <span className="text-[#8395AC] text-base font-normal">
-              담당 간호사를 추가해주세요
-            </span>
+            <span className="text-[#8395AC] text-base font-normal">담당 간호사를 추가해주세요</span>
           </div>
         ) : (
-          selectedNurses.map((nurse) => (
+          selectedNurses.map(nurse => (
             <div
               key={nurse.id}
               className="flex h-12 px-4 py-3.5 items-center justify-between self-stretch rounded-xl border border-[#DADFE9] bg-white"
             >
               <div className="flex flex-col">
-                <span className="text-[#161621] text-base font-medium">
-                  {nurse.name}
-                </span>
+                <span className="text-[#161621] text-base font-medium">{nurse.name}</span>
                 <span className="text-[#8395AC] text-sm">
-                  {nurse.department} • {nurse.experience || "정보 없음"}
+                  {nurse.department} • {nurse.experience || '정보 없음'}
                 </span>
               </div>
               <button
@@ -115,4 +102,4 @@ const NurseManager: React.FC<NurseManagerProps> = ({
   );
 };
 
-export default NurseManager; 
+export default NurseManager;

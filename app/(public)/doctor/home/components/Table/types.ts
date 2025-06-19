@@ -10,12 +10,12 @@ export interface PatientData {
   registrationDate: string;
   lastPrescriptionDate: string;
   status: string;
-  statusType: "waiting" | "prescription";
+  statusType: 'waiting' | 'prescription';
 }
 
 export interface StatusBadgeProps {
   status: string;
-  type: "waiting" | "prescription";
+  type: 'waiting' | 'prescription';
 }
 
 export interface TableColumn {
@@ -42,6 +42,6 @@ export interface PatientTableRowProps {
   registrationDate: string;
   lastPrescriptionDate: string;
   status: string;
-  statusType: "waiting" | "prescription";
+  statusType: 'waiting' | 'prescription';
   columnOrder: TableColumn[];
-} 
+}

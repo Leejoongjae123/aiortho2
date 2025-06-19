@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 // Define the type for specialty items
 export type ArrayItem = {
@@ -22,13 +22,13 @@ type MultiColumnDropdownProps = {
 
 export default function MultiColumnDropdown({
   onSelect,
-  className = "",
+  className = '',
   isOpen = false,
   onClose,
   array,
-  width = "w-full",
-  height = "auto",
-  maxHeight = "360px",
+  width = 'w-full',
+  height = 'auto',
+  maxHeight = '360px',
   containerStyle = {},
   columns = 4,
 }: MultiColumnDropdownProps) {
@@ -39,17 +39,14 @@ export default function MultiColumnDropdown({
     if (!isOpen) return;
 
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         if (onClose) onClose();
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -67,13 +64,13 @@ export default function MultiColumnDropdown({
   // Determine column grid class
   const gridClass =
     {
-      1: "grid-cols-1",
-      2: "grid-cols-2",
-      3: "grid-cols-3",
-      4: "grid-cols-4",
-      5: "grid-cols-5",
-      6: "grid-cols-6",
-    }[columns] || "grid-cols-4";
+      1: 'grid-cols-1',
+      2: 'grid-cols-2',
+      3: 'grid-cols-3',
+      4: 'grid-cols-4',
+      5: 'grid-cols-5',
+      6: 'grid-cols-6',
+    }[columns] || 'grid-cols-4';
 
   return (
     <div
@@ -82,14 +79,14 @@ export default function MultiColumnDropdown({
       style={{
         height,
         maxHeight,
-        overflowY: "auto",
+        overflowY: 'auto',
         ...containerStyle,
       }}
     >
       <div className="p-2">
         {array?.map((row, rowIndex) => (
           <div key={rowIndex} className={`grid ${gridClass} gap-1 mb-1`}>
-            {row.map((item) => (
+            {row.map(item => (
               <button
                 key={item.id}
                 className="px-2 py-3 text-sm font-bold text-center text-[#343A47] hover:bg-[#F3F5FB] rounded-md focus:outline-none focus:bg-[#F3F5FB]"

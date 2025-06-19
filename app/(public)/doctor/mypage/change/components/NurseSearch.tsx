@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X } from "lucide-react";
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
 interface NurseSearchProps {
   searchQuery: string;
@@ -7,11 +7,7 @@ interface NurseSearchProps {
   onClear: () => void;
 }
 
-const NurseSearch: React.FC<NurseSearchProps> = ({
-  searchQuery,
-  onSearch,
-  onClear,
-}) => {
+const NurseSearch: React.FC<NurseSearchProps> = ({ searchQuery, onSearch, onClear }) => {
   const [inputValue, setInputValue] = useState(searchQuery);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,12 +19,12 @@ const NurseSearch: React.FC<NurseSearchProps> = ({
   };
 
   const handleClear = () => {
-    setInputValue("");
+    setInputValue('');
     onClear();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };
@@ -65,4 +61,4 @@ const NurseSearch: React.FC<NurseSearchProps> = ({
   );
 };
 
-export default NurseSearch; 
+export default NurseSearch;

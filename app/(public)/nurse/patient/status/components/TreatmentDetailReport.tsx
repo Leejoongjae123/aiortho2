@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 interface TreatmentDetailReportProps {
   date?: string;
@@ -14,27 +14,27 @@ interface TreatmentDetailReportProps {
 }
 
 const TreatmentDetailReport: React.FC<TreatmentDetailReportProps> = ({
-  date = "2024년 10월 1일",
-  totalTreatmentTime = "10분 12초",
-  goodPostureTime = "4분 20초",
+  date = '2024년 10월 1일',
+  totalTreatmentTime = '10분 12초',
+  goodPostureTime = '4분 20초',
   exercises = [
     {
       id: 1,
-      name: "고개 기울이기 스트레칭",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '고개 기울이기 스트레칭',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
     {
       id: 2,
-      name: "정위 반응을 이용한 근력 운동",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '정위 반응을 이용한 근력 운동',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
     {
       id: 3,
-      name: "몸통 스트레칭",
-      totalTime: "10분 12초",
-      goodPostureTime: "4분 08초",
+      name: '몸통 스트레칭',
+      totalTime: '10분 12초',
+      goodPostureTime: '4분 08초',
     },
   ],
 }) => {
@@ -69,20 +69,12 @@ const TreatmentDetailReport: React.FC<TreatmentDetailReportProps> = ({
           <div className="w-full text-sm leading-none">
             <div className="w-[232px] max-w-full flex flex-col">
               <div className="flex items-center gap-2">
-                <div className="text-[#161621] font-medium">
-                  총 재활 치료 시간
-                </div>
-                <div className="text-[#0054A6] font-normal">
-                  {totalTreatmentTime}
-                </div>
+                <div className="text-[#161621] font-medium">총 재활 치료 시간</div>
+                <div className="text-[#0054A6] font-normal">{totalTreatmentTime}</div>
               </div>
               <div className="flex mt-3 w-full items-center gap-2">
-                <div className="text-[#161621] font-medium">
-                  좋은 자세 치료 시간
-                </div>
-                <div className="text-[#0054A6] font-normal">
-                  {goodPostureTime}
-                </div>
+                <div className="text-[#161621] font-medium">좋은 자세 치료 시간</div>
+                <div className="text-[#0054A6] font-normal">{goodPostureTime}</div>
               </div>
             </div>
 
@@ -117,7 +109,7 @@ const TreatmentDetailReport: React.FC<TreatmentDetailReportProps> = ({
                           <div className="mt-2 w-full font-normal leading-none">
                             <div className="flex w-full items-center gap-2 flex-wrap">
                               <div className="text-[#343F4E] line-clamp-1 text-ellipsis">
-                                총 재활 치료 시간{" "}
+                                총 재활 치료 시간{' '}
                               </div>
                               <div className="text-[#0054A6] line-clamp-1 text-ellipsis w-[158px]">
                                 {exercise.totalTime}
@@ -141,9 +133,7 @@ const TreatmentDetailReport: React.FC<TreatmentDetailReportProps> = ({
                       )}
 
                       {/* Space between exercises */}
-                      {index < exercises.length - 1 && (
-                        <div className="mt-3"></div>
-                      )}
+                      {index < exercises.length - 1 && <div className="mt-3"></div>}
                     </div>
                   ))}
                 </div>

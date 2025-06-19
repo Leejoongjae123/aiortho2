@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X } from "lucide-react";
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
 interface MedicalInstitutionSearchProps {
   searchQuery: string;
@@ -23,12 +23,12 @@ const MedicalInstitutionSearch: React.FC<MedicalInstitutionSearchProps> = ({
   };
 
   const handleClear = () => {
-    setInputValue("");
+    setInputValue('');
     onClear();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };
@@ -65,4 +65,4 @@ const MedicalInstitutionSearch: React.FC<MedicalInstitutionSearchProps> = ({
   );
 };
 
-export default MedicalInstitutionSearch; 
+export default MedicalInstitutionSearch;

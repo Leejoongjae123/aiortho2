@@ -1,21 +1,17 @@
-"use client";
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client';
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useSidebarStore } from '@/store/sidebarStore';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const Navbar = () => {
   const { isOpen, toggleSidebar } = useSidebarStore();
   const pathname = usePathname();
-  
+
   // auth 페이지인지 확인 (doctor 또는 nurse)
   const isAuthPage = pathname.startsWith('/doctor/auth') || pathname.startsWith('/nurse/auth');
-  
+
   // 현재 사용자 타입 확인
   const isNurse = pathname.startsWith('/nurse');
   const isDoctor = pathname.startsWith('/doctor');
@@ -59,7 +55,7 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-        
+
         {/* 우측 메뉴 */}
         <div className="flex items-center">
           <Popover>
@@ -70,15 +66,13 @@ const Navbar = () => {
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0" align="end" alignOffset={0}>
               <div className="grid gap-4 p-4">
-                <div className="font-medium">
-                  {isNurse ? "박간호사 님" : "박의사 님"}
-                </div>
+                <div className="font-medium">{isNurse ? '박간호사 님' : '박의사 님'}</div>
                 <div className="text-sm text-muted-foreground">
-                  {isNurse ? "간호사 코드 (UH2406001)" : "의사 코드 (UH2406001)"}
+                  {isNurse ? '간호사 코드 (UH2406001)' : '의사 코드 (UH2406001)'}
                 </div>
                 <hr className="my-2" />
                 <Link
-                  href={isNurse ? "/nurse/mypage/check" : "/doctor/mypage/check"}
+                  href={isNurse ? '/nurse/mypage/check' : '/doctor/mypage/check'}
                   className="text-sm hover:bg-accent hover:text-accent-foreground rounded p-2 -mx-2"
                 >
                   프로필 설정

@@ -1,6 +1,6 @@
-import React from "react";
-import { useRouter } from "next/navigation";
-export const AvatarIcon: React.FC = () => ( 
+import React from 'react';
+import { useRouter } from 'next/navigation';
+export const AvatarIcon: React.FC = () => (
   <svg
     width="84"
     height="85"

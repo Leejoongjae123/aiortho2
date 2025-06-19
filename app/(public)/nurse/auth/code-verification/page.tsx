@@ -1,27 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import OrthoInput from "@/components/OrthoInput";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import OrthoInput from '@/components/OrthoInput';
+import { Button } from '@/components/ui/button';
 
 // Define schema with Zod
 const preRegisterSchema = z.object({
-  code: z.string().min(8, "가입코드 8자리를 입력해주세요").max(8, "가입코드 8자리를 입력해주세요"),
-  phoneNumber: z
-    .string()
-    .min(9, "9자리 이상 입력해주세요")
-    .max(11, "11자리 이하 입력해주세요"),
-  email: z.string().email({ message: "올바르지 않은 이메일 형식이에요." }),
-  hospitalName: z.string().min(1, { message: "병원명을 입력해주세요" }),
-  hospitalAddress: z.string().min(1, { message: "병원 주소를 입력해주세요" }),
-  hospitalPhone: z
-    .string()
-    .min(9, "9자리 이상 입력해주세요")
-    .max(11, "11자리 이하 입력해주세요"),
+  code: z.string().min(8, '가입코드 8자리를 입력해주세요').max(8, '가입코드 8자리를 입력해주세요'),
+  phoneNumber: z.string().min(9, '9자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
+  email: z.string().email({ message: '올바르지 않은 이메일 형식이에요.' }),
+  hospitalName: z.string().min(1, { message: '병원명을 입력해주세요' }),
+  hospitalAddress: z.string().min(1, { message: '병원 주소를 입력해주세요' }),
+  hospitalPhone: z.string().min(9, '9자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
 });
 
 type FormValues = z.infer<typeof preRegisterSchema>;
@@ -36,14 +30,14 @@ const PreRegisterPage = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(preRegisterSchema),
     defaultValues: {
-      code: "",
-      phoneNumber: "",
-      email: "",
-      hospitalName: "",
-      hospitalAddress: "",
-      hospitalPhone: "",
+      code: '',
+      phoneNumber: '',
+      email: '',
+      hospitalName: '',
+      hospitalAddress: '',
+      hospitalPhone: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const onSubmit = (data: FormValues) => {
@@ -55,7 +49,6 @@ const PreRegisterPage = () => {
   return (
     <div className="flex flex-col items-center bg-white w-full justify-start h-full pt-[10vh]">
       {/* Breadcrumb navigation */}
-
 
       {/* Main content */}
       <div className="w-full max-w-[540px] pt-[100px] md:pt-10 sm:pt-5">
@@ -71,13 +64,9 @@ const PreRegisterPage = () => {
             <OrthoInput
               label="의사 가입 코드"
               placeholder="가입코드 8자리"
-              registration={register("code")}
+              registration={register('code')}
               error={errors.code?.message}
             />
-
-            
-
-           
           </div>
 
           <div className="flex justify-end mt-12 sm:mt-8">
@@ -85,12 +74,12 @@ const PreRegisterPage = () => {
               type="submit"
               className={`w-full rounded-full py-3.5 text-white text-sm font-bold ${
                 isValid
-                  ? "bg-[#0054A6] hover:bg-[#0054A6]"
-                  : "bg-[#BDD5FF] hover:bg-[#BDD5FF] cursor-not-allowed"
+                  ? 'bg-[#0054A6] hover:bg-[#0054A6]'
+                  : 'bg-[#BDD5FF] hover:bg-[#BDD5FF] cursor-not-allowed'
               }`}
               disabled={!isValid}
             >
-             다음
+              다음
             </Button>
           </div>
         </form>

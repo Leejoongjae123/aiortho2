@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import { Plus } from "lucide-react";
-import ProgramCard from "@/components/ProgramCard";
-import { Button } from "@/components/ui/button";
-import DeleteProgramModal from "./components/DeleteProgramModal";
+'use client';
+import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
+import ProgramCard from '@/components/ProgramCard';
+import { Button } from '@/components/ui/button';
+import DeleteProgramModal from './components/DeleteProgramModal';
 
 interface Exercise {
   id: string;
@@ -25,86 +25,86 @@ export default function ProgramPage() {
   const [programToDelete, setProgramToDelete] = useState<Program | null>(null);
   const [programs, setPrograms] = useState<Program[]>([
     {
-      id: "1",
-      title: "Non-Mass (Lt)",
+      id: '1',
+      title: 'Non-Mass (Lt)',
       repetitionCount: 3,
       exercises: [
         {
-          id: "1-1",
-          name: "재활 운동 1",
-          exerciseType: "옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)",
-          muscleDirection: "left",
-          duration: "3분",
+          id: '1-1',
+          name: '재활 운동 1',
+          exerciseType: '옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)',
+          muscleDirection: 'left',
+          duration: '3분',
         },
         {
-          id: "1-2",
-          name: "재활 운동 2",
-          exerciseType: "고개 돌리기 스트레칭 (Rotation Strectching)",
-          muscleDirection: "left",
-          duration: "3분",
+          id: '1-2',
+          name: '재활 운동 2',
+          exerciseType: '고개 돌리기 스트레칭 (Rotation Strectching)',
+          muscleDirection: 'left',
+          duration: '3분',
         },
         {
-          id: "1-3",
-          name: "재활 운동 3",
-          exerciseType: "정위반응을 이용한 근력운동 (Strengthening)",
-          muscleDirection: "right",
-          duration: "2분",
+          id: '1-3',
+          name: '재활 운동 3',
+          exerciseType: '정위반응을 이용한 근력운동 (Strengthening)',
+          muscleDirection: 'right',
+          duration: '2분',
         },
         {
-          id: "1-4",
-          name: "재활 운동 4",
-          exerciseType: "몸통 스트레칭 (Trunk Stretching)",
-          muscleDirection: "left",
-          duration: "2분",
-        },
-      ],
-    },
-    {
-      id: "2",
-      title: "Non-Mass (Rt)",
-      repetitionCount: 5,
-      exercises: [
-        {
-          id: "2-1",
-          name: "재활 운동 1",
-          exerciseType: "옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)",
-          muscleDirection: "right",
-          duration: "3분",
+          id: '1-4',
+          name: '재활 운동 4',
+          exerciseType: '몸통 스트레칭 (Trunk Stretching)',
+          muscleDirection: 'left',
+          duration: '2분',
         },
       ],
     },
     {
-      id: "3",
-      title: "Mass torticollis (Lt)",
+      id: '2',
+      title: 'Non-Mass (Rt)',
       repetitionCount: 5,
       exercises: [
         {
-          id: "3-1",
-          name: "재활 운동 1",
-          exerciseType: "고개 돌리기 스트레칭 (Rotation Strectching)",
-          muscleDirection: "left",
-          duration: "3분",
+          id: '2-1',
+          name: '재활 운동 1',
+          exerciseType: '옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)',
+          muscleDirection: 'right',
+          duration: '3분',
         },
       ],
     },
     {
-      id: "4",
-      title: "Mass torticollis (Rt)",
+      id: '3',
+      title: 'Mass torticollis (Lt)',
       repetitionCount: 5,
       exercises: [
         {
-          id: "4-1",
-          name: "재활 운동 1",
-          exerciseType: "몸통 스트레칭 (Trunk Stretching)",
-          muscleDirection: "right",
-          duration: "2분",
+          id: '3-1',
+          name: '재활 운동 1',
+          exerciseType: '고개 돌리기 스트레칭 (Rotation Strectching)',
+          muscleDirection: 'left',
+          duration: '3분',
+        },
+      ],
+    },
+    {
+      id: '4',
+      title: 'Mass torticollis (Rt)',
+      repetitionCount: 5,
+      exercises: [
+        {
+          id: '4-1',
+          name: '재활 운동 1',
+          exerciseType: '몸통 스트레칭 (Trunk Stretching)',
+          muscleDirection: 'right',
+          duration: '2분',
         },
       ],
     },
   ]);
 
   const handleProgramDelete = (programId: string) => {
-    const program = programs.find((p) => p.id === programId);
+    const program = programs.find(p => p.id === programId);
     if (program) {
       setProgramToDelete(program);
       setIsDeleteModalOpen(true);
@@ -113,9 +113,7 @@ export default function ProgramPage() {
 
   const confirmDelete = () => {
     if (programToDelete) {
-      setPrograms(
-        programs.filter((program) => program.id !== programToDelete.id),
-      );
+      setPrograms(programs.filter(program => program.id !== programToDelete.id));
       setIsDeleteModalOpen(false);
       setProgramToDelete(null);
     }
@@ -123,31 +121,27 @@ export default function ProgramPage() {
 
   const handleProgramEdit = (programId: string) => {
     // 편집 로직 구현
-    console.log("Edit program:", programId);
+    console.log('Edit program:', programId);
   };
 
   const handleExerciseDelete = (programId: string, exerciseId: string) => {
     setPrograms(
-      programs.map((program) =>
+      programs.map(program =>
         program.id === programId
           ? {
               ...program,
-              exercises: program.exercises.filter(
-                (exercise) => exercise.id !== exerciseId,
-              ),
+              exercises: program.exercises.filter(exercise => exercise.id !== exerciseId),
             }
-          : program,
-      ),
+          : program
+      )
     );
   };
 
   const handleRepetitionChange = (programId: string, count: number) => {
     setPrograms(
-      programs.map((program) =>
-        program.id === programId
-          ? { ...program, repetitionCount: count }
-          : program,
-      ),
+      programs.map(program =>
+        program.id === programId ? { ...program, repetitionCount: count } : program
+      )
     );
   };
 
@@ -168,31 +162,31 @@ export default function ProgramPage() {
       exercises: [
         {
           id: `${newProgramId}-1`,
-          name: "재활 운동 1",
-          exerciseType: "옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)",
-          muscleDirection: "left",
-          duration: "3분",
+          name: '재활 운동 1',
+          exerciseType: '옆쪽 목 늘리기 스트레칭 (Lateral Flexion Strectching)',
+          muscleDirection: 'left',
+          duration: '3분',
         },
         {
           id: `${newProgramId}-2`,
-          name: "재활 운동 2",
-          exerciseType: "고개 돌리기 스트레칭 (Rotation Strectching)",
-          muscleDirection: "left",
-          duration: "3분",
+          name: '재활 운동 2',
+          exerciseType: '고개 돌리기 스트레칭 (Rotation Strectching)',
+          muscleDirection: 'left',
+          duration: '3분',
         },
         {
           id: `${newProgramId}-3`,
-          name: "재활 운동 3",
-          exerciseType: "정위반응을 이용한 근력운동 (Strengthening)",
-          muscleDirection: "right",
-          duration: "2분",
+          name: '재활 운동 3',
+          exerciseType: '정위반응을 이용한 근력운동 (Strengthening)',
+          muscleDirection: 'right',
+          duration: '2분',
         },
         {
           id: `${newProgramId}-4`,
-          name: "재활 운동 4",
-          exerciseType: "몸통 스트레칭 (Trunk Stretching)",
-          muscleDirection: "left",
-          duration: "2분",
+          name: '재활 운동 4',
+          exerciseType: '몸통 스트레칭 (Trunk Stretching)',
+          muscleDirection: 'left',
+          duration: '2분',
         },
       ],
     };
@@ -213,9 +207,7 @@ export default function ProgramPage() {
         <div className="self-start flex mt-[53px] items-center gap-2 font-pretendard text-[20px] font-bold whitespace-nowrap leading-none justify-start md:mt-10 md:whitespace-normal">
           <div className="text-[#161621] self-stretch my-auto">프로그램</div>
           <div className="self-stretch flex my-auto items-center justify-start md:whitespace-normal">
-            <div className="text-[#0054A6] self-stretch my-auto">
-              {programs.length}
-            </div>
+            <div className="text-[#0054A6] self-stretch my-auto">{programs.length}</div>
             <div className="text-[#161621] self-stretch my-auto">개</div>
           </div>
         </div>
@@ -230,12 +222,8 @@ export default function ProgramPage() {
                 repetitionCount={program.repetitionCount}
                 onDelete={() => handleProgramDelete(program.id)}
                 onEdit={() => handleProgramEdit(program.id)}
-                onExerciseDelete={(exerciseId) =>
-                  handleExerciseDelete(program.id, exerciseId)
-                }
-                onRepetitionChange={(count) =>
-                  handleRepetitionChange(program.id, count)
-                }
+                onExerciseDelete={exerciseId => handleExerciseDelete(program.id, exerciseId)}
+                onRepetitionChange={count => handleRepetitionChange(program.id, count)}
               />
 
               {/* 마지막 카드에만 프로그램 추가 버튼 표시 */}
@@ -249,9 +237,7 @@ export default function ProgramPage() {
                           className="justify-center items-center rounded-xl border border-[#0054A6] bg-transparent hover:bg-[#0054A6]/10 flex min-h-[48px] w-full py-3 gap-1 text-base text-[#0054A6] font-semibold text-center flex-wrap md:max-w-full"
                         >
                           <Plus className="w-6 h-6 text-[#0054A6] flex-shrink-0 self-stretch my-auto" />
-                          <span className="text-[#0054A6] self-stretch my-auto">
-                            프로그램 추가
-                          </span>
+                          <span className="text-[#0054A6] self-stretch my-auto">프로그램 추가</span>
                         </Button>
                       </div>
                     </div>
@@ -268,9 +254,7 @@ export default function ProgramPage() {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={confirmDelete}
-        programTitle={
-          programToDelete ? `표준 프로그램 ${programToDelete.title}` : ""
-        }
+        programTitle={programToDelete ? `표준 프로그램 ${programToDelete.title}` : ''}
       />
     </div>
   );

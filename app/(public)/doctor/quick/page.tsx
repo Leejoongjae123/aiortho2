@@ -1,27 +1,27 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import UpdatedQuickPatientList from "./components/UpdatedQuickPatientList";
-import Pagination from "./components/Pagination";
+'use client';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import UpdatedQuickPatientList from './components/UpdatedQuickPatientList';
+import Pagination from './components/Pagination';
 
 export default function QuickPage() {
   const router = useRouter();
-  const [patientName, setPatientName] = useState("");
-  const [error, setError] = useState("");
+  const [patientName, setPatientName] = useState('');
+  const [error, setError] = useState('');
 
   const handleSearch = () => {
     if (!patientName.trim()) {
-      setError("환자명을 입력해주세요.");
+      setError('환자명을 입력해주세요.');
       return;
     }
 
     // Clear any existing errors
-    setError("");
+    setError('');
 
     // Here you would typically search for the patient
     // For now, just simulate an error for demonstration
-    setError("올바른 생년월일 형식이 아니에요.");
+    setError('올바른 생년월일 형식이 아니에요.');
 
     // Navigate to patient status or results page
     // router.push(`/doctor/patient/status?search=${encodeURIComponent(patientName)}`);
@@ -31,12 +31,12 @@ export default function QuickPage() {
     setPatientName(e.target.value);
     // Clear error when user starts typing
     if (error) {
-      setError("");
+      setError('');
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };
@@ -122,7 +122,7 @@ export default function QuickPage() {
             <div className="hidden md:block w-full">
               <UpdatedQuickPatientList />
             </div>
-            
+
             {/* 모바일 레이아웃 - 가로 스크롤 */}
             <div className="block md:hidden w-full">
               <div className="w-full overflow-x-auto">

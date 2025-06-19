@@ -1,3 +1,3 @@
-import SidebarNavigation from "./SidebarNavigation";
+import SidebarNavigation from './SidebarNavigation';
 
 export default SidebarNavigation;

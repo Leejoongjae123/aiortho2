@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -94,12 +94,12 @@
   --aiortho-gray-200: #dadfe9;
   --aiortho-gray-300: #b6c2d9;
   --aiortho-gray-400: #97a8c3;
-  --aiortho-gray-500: #8395AC;
-  --aiortho-gray-600: #6679AD;
+  --aiortho-gray-500: #8395ac;
+  --aiortho-gray-600: #6679ad;
   --aiortho-gray-700: #465463;
-  --aiortho-gray-800: #343F4E;
+  --aiortho-gray-800: #343f4e;
   --aiortho-gray-900: #161621;
-  --aiortho-danger: #FF0D4E;
+  --aiortho-danger: #ff0d4e;
 }
 
 .dark {
@@ -145,8 +145,7 @@
   }
 }
 
-
-.aiortho-tabs{
+.aiortho-tabs {
   @apply data-[state=active]:text-[color:var(--aiortho-gray-900)] data-[state=active]:font-bold text-[color:var(--aiortho-gray-400)] font-medium;
 }
 
@@ -155,12 +154,11 @@
   display: none;
 }
 
-
 /* Custom scrollbar for elements with .scrollable class */
 .scrollable::-webkit-scrollbar {
   display: block;
   width: 8px;
-  border:var(--aiortho-gray-300) solid 1px;
+  border: var(--aiortho-gray-300) solid 1px;
 }
 
 .scrollable::-webkit-scrollbar-track {
@@ -177,10 +175,9 @@
 }
 
 .scrollable {
-  -ms-overflow-style: auto;  /* IE and Edge */
-  scrollbar-width: thin;  /* Firefox */
+  -ms-overflow-style: auto; /* IE and Edge */
+  scrollbar-width: thin; /* Firefox */
 }
 .scrollable::-webkit-scrollbar-button {
   display: none; /* Removes up/down arrows */
 }
-

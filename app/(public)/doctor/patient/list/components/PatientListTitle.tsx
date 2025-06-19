@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { PatientListTitleProps } from "../types";
+'use client';
+import React from 'react';
+import { PatientListTitleProps } from '../types';
 
 export default function PatientListTitle({ title, count }: PatientListTitleProps) {
   return (
@@ -12,4 +12,4 @@ export default function PatientListTitle({ title, count }: PatientListTitleProps
       </div>
     </header>
   );
-} 
+}

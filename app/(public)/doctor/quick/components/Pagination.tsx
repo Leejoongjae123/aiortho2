@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+'use client';
+import React from 'react';
+import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 export default function Pagination() {
   return (
@@ -35,4 +35,4 @@ export default function Pagination() {
       </button>
     </div>
   );
-} 
+}

@@ -1,29 +1,27 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Eye, EyeOff } from "lucide-react";
-import OrthoInput from "@/components/OrthoInput";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Eye, EyeOff } from 'lucide-react';
+import OrthoInput from '@/components/OrthoInput';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Define schema with Zod
 const loginSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "올바르지 않은 아이디 (이메일) 형식이에요." }),
+  email: z.string().email({ message: '올바르지 않은 아이디 (이메일) 형식이에요.' }),
 
   password: z
     .string()
-    .min(8, { message: "8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요." })
+    .min(8, { message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.' })
     .max(16, {
-      message: "8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.",
+      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.',
     })
     .regex(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\-+={\[}\]:;"'<,>.?/~])/, {
-      message: "8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요",
+      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요',
     }),
 });
 
@@ -43,14 +41,14 @@ const NurseAuth = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   // 입력 필드 값 실시간 감시
-  const emailValue = watch("email");
-  const passwordValue = watch("password");
+  const emailValue = watch('email');
+  const passwordValue = watch('password');
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     console.log(data);
@@ -65,8 +63,8 @@ const NurseAuth = () => {
     if (errors.email?.message) {
       return errors.email.message;
     }
-    if (!emailValue || emailValue.trim() === "") {
-      return "아이디를 입력해주세요.";
+    if (!emailValue || emailValue.trim() === '') {
+      return '아이디를 입력해주세요.';
     }
     return undefined;
   };
@@ -75,8 +73,8 @@ const NurseAuth = () => {
     if (errors.password?.message) {
       return errors.password.message;
     }
-    if (!passwordValue || passwordValue.trim() === "") {
-      return "비밀번호를 입력해주세요.";
+    if (!passwordValue || passwordValue.trim() === '') {
+      return '비밀번호를 입력해주세요.';
     }
     return undefined;
   };
@@ -85,9 +83,7 @@ const NurseAuth = () => {
     <div className=" flex flex-col items-center pt-10 bg-white w-full h-full justify-center">
       <div className="w-full max-w-[540px] mx-auto">
         <div className="space-y-4">
-          <h1 className="font-bold text-3xl text-[color:var(--aiortho-gray-900)]">
-             간호사 로그인
-          </h1>
+          <h1 className="font-bold text-3xl text-[color:var(--aiortho-gray-900)]">간호사 로그인</h1>
           <p className="font-normal text-base text-[color:var(--aiortho-gray-600)]">
             서비스 사용을 위해 로그인 해주세요.
           </p>
@@ -97,7 +93,7 @@ const NurseAuth = () => {
           <OrthoInput
             label="이메일"
             placeholder="이메일을 입력하세요"
-            registration={register("email")}
+            registration={register('email')}
             error={getEmailError()}
             value={emailValue}
             required
@@ -106,8 +102,8 @@ const NurseAuth = () => {
           <OrthoInput
             label="비밀번호"
             placeholder="비밀번호를 입력하세요"
-            type={showPassword ? "text" : "password"}
-            registration={register("password")}
+            type={showPassword ? 'text' : 'password'}
+            registration={register('password')}
             error={getPasswordError()}
             value={passwordValue}
             required
@@ -126,17 +122,17 @@ const NurseAuth = () => {
               <Checkbox
                 className="w-4 h-4 border-gray-400 bg-white data-[state=checked]:bg-[#0054A6] data-[state=checked]:border-[#0054A6] data-[state=checked]:text-white"
                 checked={isChecked}
-                onCheckedChange={(e) => setIsChecked(!isChecked)}
+                onCheckedChange={e => setIsChecked(!isChecked)}
               />
               <p className="font-medium text-sm text-[color:var(--aiortho-gray-700))]">
                 자동 로그인
               </p>
             </div>
             <p
-              onClick={() => router.push("/nurse/auth/find-id")}
+              onClick={() => router.push('/nurse/auth/find-id')}
               className="cursor-pointer text-[color:var(--aiortho-primary)] font-nomral text-[13px]"
             >
-              아이디 · 비밀번호 찾기 &nbsp;{">"}
+              아이디 · 비밀번호 찾기 &nbsp;{'>'}
             </p>
           </div>
 
@@ -148,7 +144,7 @@ const NurseAuth = () => {
           </Button>
         </form>
         <p
-          onClick={() => router.push("/nurse/auth/join-membership")}
+          onClick={() => router.push('/nurse/auth/join-membership')}
           className="font-medium text-center text-sm text-[color:var(--aiortho-gray-800)] my-4 underline cursor-pointer"
         >
           회원가입

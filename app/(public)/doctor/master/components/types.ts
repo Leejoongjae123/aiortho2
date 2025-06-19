@@ -23,4 +23,4 @@ export interface TableHeaderCellProps {
 export interface DoctorTableRowProps {
   doctor: Doctor;
   onRowClick: (doctor: Doctor) => void;
-} 
+}

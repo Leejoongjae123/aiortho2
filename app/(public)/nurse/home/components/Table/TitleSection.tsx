@@ -1,5 +1,5 @@
-"use client";
-import * as React from "react";
+'use client';
+import * as React from 'react';
 
 interface TitleSectionProps {
   title: string;
@@ -17,7 +17,7 @@ function TitleSection({ title, count, onResetColumnOrder }: TitleSectionProps) {
           <span className="self-stretch my-auto text-zinc-900">명</span>
         </div>
       </div>
-      
+
       {onResetColumnOrder && (
         <button
           onClick={onResetColumnOrder}
@@ -31,4 +31,4 @@ function TitleSection({ title, count, onResetColumnOrder }: TitleSectionProps) {
   );
 }
 
-export default TitleSection; 
+export default TitleSection;

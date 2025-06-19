@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   DndContext,
   closestCenter,
@@ -8,19 +8,16 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import {
-  restrictToHorizontalAxis,
-  restrictToParentElement,
-} from "@dnd-kit/modifiers";
-import DraggableHeaderCell from "./DraggableHeaderCell";
-import { TableColumn } from "./types";
+} from '@dnd-kit/sortable';
+import { restrictToHorizontalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
+import DraggableHeaderCell from './DraggableHeaderCell';
+import { TableColumn } from './types';
 
 interface DraggableTableHeaderProps {
   columns: TableColumn[];
@@ -43,8 +40,8 @@ function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHe
     const { active, over } = event;
 
     if (active.id !== over?.id) {
-      const oldIndex = columns.findIndex((column) => column.id === active.id);
-      const newIndex = columns.findIndex((column) => column.id === over?.id);
+      const oldIndex = columns.findIndex(column => column.id === active.id);
+      const newIndex = columns.findIndex(column => column.id === over?.id);
 
       const newColumns = arrayMove(columns, oldIndex, newIndex);
       onColumnOrderChange(newColumns);
@@ -59,13 +56,12 @@ function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHe
         onDragEnd={handleDragEnd}
         modifiers={[restrictToHorizontalAxis, restrictToParentElement]}
       >
-        <SortableContext items={columns.map(col => col.id)} strategy={horizontalListSortingStrategy}>
+        <SortableContext
+          items={columns.map(col => col.id)}
+          strategy={horizontalListSortingStrategy}
+        >
           {columns.map((column, index) => (
-            <DraggableHeaderCell
-              key={column.id}
-              column={column}
-              index={index}
-            />
+            <DraggableHeaderCell key={column.id} column={column} index={index} />
           ))}
         </SortableContext>
       </DndContext>
@@ -73,4 +69,4 @@ function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHe
   );
 }
 
-export default DraggableTableHeader; 
+export default DraggableTableHeader;

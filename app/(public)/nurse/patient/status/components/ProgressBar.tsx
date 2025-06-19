@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ProgressBarProps {
   totalDays: number;
@@ -15,18 +15,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className="w-full h-[92px] rounded-xl p-5 bg-[rgba(189,213,255,0.14)]">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-0.5">
-          <span className="text-[#0054A6] text-lg font-bold leading-6">
-            {totalDays}
-          </span>
-          <span className="text-[#465463] text-lg font-medium leading-6">
-            일 중
-          </span>
-          <span className="text-[#0054A6] text-lg font-bold leading-6">
-            {completedDays}
-          </span>
-          <span className="text-[#465463] text-lg font-medium leading-6">
-            일 시행
-          </span>
+          <span className="text-[#0054A6] text-lg font-bold leading-6">{totalDays}</span>
+          <span className="text-[#465463] text-lg font-medium leading-6">일 중</span>
+          <span className="text-[#0054A6] text-lg font-bold leading-6">{completedDays}</span>
+          <span className="text-[#465463] text-lg font-medium leading-6">일 시행</span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -39,12 +31,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           </div>
 
           <div className="flex items-center w-[52px]">
-            <span className="text-[#0054A6] text-xl font-bold leading-5">
-              {progressPercentage}
-            </span>
-            <span className="text-[#0054A6] text-lg font-bold leading-5">
-              %
-            </span>
+            <span className="text-[#0054A6] text-xl font-bold leading-5">{progressPercentage}</span>
+            <span className="text-[#0054A6] text-lg font-bold leading-5">%</span>
           </div>
         </div>
       </div>

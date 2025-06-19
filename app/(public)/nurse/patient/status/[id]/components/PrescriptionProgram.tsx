@@ -1,23 +1,19 @@
-"use client";
-import React, { useState } from "react";
-import { ChevronDown, ChevronUp, Minus, Plus } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+'use client';
+import React, { useState } from 'react';
+import { ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { IoClose } from "react-icons/io5";
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { IoClose } from 'react-icons/io5';
 interface PrescriptionProgramProps {
   date?: string;
   programName?: string;
@@ -26,40 +22,38 @@ interface PrescriptionProgramProps {
 }
 
 const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
-  date = "2025.04.22 (화)",
-  programName = "표준 프로그램 5",
-  programDuration = "10주 처방",
+  date = '2025.04.22 (화)',
+  programName = '표준 프로그램 5',
+  programDuration = '10주 처방',
   isExpanded = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(isExpanded);
-  const [selectedExercise, setSelectedExercise] = useState<string>(
-    "lateral-flexion"
-  );
-  const [selectedDirection, setSelectedDirection] = useState<string>("left");
-  const [selectedTime, setSelectedTime] = useState<string>("15");
+  const [selectedExercise, setSelectedExercise] = useState<string>('lateral-flexion');
+  const [selectedDirection, setSelectedDirection] = useState<string>('left');
+  const [selectedTime, setSelectedTime] = useState<string>('15');
   const [repetitions, setRepetitions] = useState<number>(3);
 
   const exerciseOptions = [
     {
-      value: "lateral-flexion",
-      label: "옆쪽 목 늘리기 스트레칭 (Lateral Flexion Stretching)",
+      value: 'lateral-flexion',
+      label: '옆쪽 목 늘리기 스트레칭 (Lateral Flexion Stretching)',
     },
     {
-      value: "forward-flexion",
-      label: "앞쪽 목 늘리기 스트레칭 (Forward Flexion Stretching)",
+      value: 'forward-flexion',
+      label: '앞쪽 목 늘리기 스트레칭 (Forward Flexion Stretching)',
     },
     {
-      value: "rotation",
-      label: "목 회전 스트레칭 (Rotation Stretching)",
+      value: 'rotation',
+      label: '목 회전 스트레칭 (Rotation Stretching)',
     },
   ];
 
   const timeOptions = [
-    { value: "5", label: "5분" },
-    { value: "10", label: "10분" },
-    { value: "15", label: "15분" },
-    { value: "20", label: "20분" },
-    { value: "30", label: "30분" },
+    { value: '5', label: '5분' },
+    { value: '10', label: '10분' },
+    { value: '15', label: '15분' },
+    { value: '20', label: '20분' },
+    { value: '30', label: '30분' },
   ];
 
   const handleRepetitionsChange = (change: number) => {
@@ -71,10 +65,8 @@ const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
 
   return (
     <div className="w-full ">
-      <div className="text-[#66798D] text-base font-normal mb-5 font-pretendard">
-        {date}
-      </div>
-      
+      <div className="text-[#66798D] text-base font-normal mb-5 font-pretendard">{date}</div>
+
       <Card className="border border-[#F0F3FA] shadow-none w-full">
         <Collapsible open={isOpen} onOpenChange={setIsOpen}>
           <CollapsibleTrigger asChild>
@@ -85,17 +77,11 @@ const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
                     {programName}
                   </h3>
                   <div className="rounded-md bg-[rgba(254,197,61,0.2)] px-2 py-1">
-                    <span className="text-xs text-[#A77600] font-bold">
-                      {programDuration}
-                    </span>
+                    <span className="text-xs text-[#A77600] font-bold">{programDuration}</span>
                   </div>
                 </div>
                 <div className="text-[#66798D]">
-                  {isOpen ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
+                  {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
                 </div>
               </div>
             </div>
@@ -114,15 +100,13 @@ const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
                 <div className="space-y-6">
                   {/* 운동 종류 선택 */}
                   <div className="space-y-3">
-                    <Label className="text-[#8395AC] text-sm font-pretendard">
-                      운동 종류 선택
-                    </Label>
+                    <Label className="text-[#8395AC] text-sm font-pretendard">운동 종류 선택</Label>
                     <Select value={selectedExercise} onValueChange={setSelectedExercise}>
                       <SelectTrigger className="w-full bg-[rgba(240,243,250,0.6)] border-[#DADFE9] text-[#66798D]">
                         <SelectValue className="truncate" />
                       </SelectTrigger>
                       <SelectContent>
-                        {exerciseOptions.map((option) => (
+                        {exerciseOptions.map(option => (
                           <SelectItem key={option.value} value={option.value} className="truncate">
                             <span className="truncate block" title={option.label}>
                               {option.label}
@@ -135,35 +119,33 @@ const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
 
                   {/* 근육 방향 */}
                   <div className="space-y-3">
-                    <Label className="text-[#8395AC] text-sm font-pretendard">
-                      근육 방향
-                    </Label>
+                    <Label className="text-[#8395AC] text-sm font-pretendard">근육 방향</Label>
                     <RadioGroup
                       value={selectedDirection}
                       onValueChange={setSelectedDirection}
                       className="flex gap-8"
                     >
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem 
-                          value="left" 
+                        <RadioGroupItem
+                          value="left"
                           id="left"
                           className="border-[#DADFE9] data-[state=checked]:border-[#8395AC] data-[state=checked]:bg-[#8395AC]"
                         />
-                        <Label 
-                          htmlFor="left" 
+                        <Label
+                          htmlFor="left"
                           className="text-[#161621] text-sm font-pretendard opacity-80"
                         >
                           왼쪽 (Lt)
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem 
-                          value="right" 
+                        <RadioGroupItem
+                          value="right"
                           id="right"
                           className="border-[#DADFE9] data-[state=checked]:border-[#8395AC] data-[state=checked]:bg-[#8395AC]"
                         />
-                        <Label 
-                          htmlFor="right" 
+                        <Label
+                          htmlFor="right"
                           className="text-[#161621] text-sm font-pretendard opacity-80"
                         >
                           오른쪽 (Rt)
@@ -174,15 +156,13 @@ const PrescriptionProgram: React.FC<PrescriptionProgramProps> = ({
 
                   {/* 시간 선택 */}
                   <div className="space-y-3">
-                    <Label className="text-[#8395AC] text-sm font-pretendard">
-                      시간 선택
-                    </Label>
+                    <Label className="text-[#8395AC] text-sm font-pretendard">시간 선택</Label>
                     <Select value={selectedTime} onValueChange={setSelectedTime}>
                       <SelectTrigger className="w-full bg-[rgba(240,243,250,0.6)] border-[#DADFE9] text-[#66798D]">
                         <SelectValue className="truncate" />
                       </SelectTrigger>
                       <SelectContent>
-                        {timeOptions.map((option) => (
+                        {timeOptions.map(option => (
                           <SelectItem key={option.value} value={option.value} className="truncate">
                             <span className="truncate block" title={option.label}>
                               {option.label}

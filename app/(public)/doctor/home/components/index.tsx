@@ -1,3 +1,3 @@
-import DoctorDashboard from "./DoctorDashboard";
+import DoctorDashboard from './DoctorDashboard';
 
 export default DoctorDashboard;

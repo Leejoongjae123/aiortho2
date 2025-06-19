@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { X } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const phoneNumberSchema = z.object({
   phoneNumber: z
     .string()
-    .min(10, "올바른 휴대폰 번호 형식이 아니에요.")
-    .max(11, "올바른 휴대폰 번호 형식이 아니에요.")
-    .regex(/^01[0-9]{8,9}$/, "올바른 휴대폰 번호 형식이 아니에요."),
+    .min(10, '올바른 휴대폰 번호 형식이 아니에요.')
+    .max(11, '올바른 휴대폰 번호 형식이 아니에요.')
+    .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호 형식이 아니에요.'),
 });
 
 type FormValues = z.infer<typeof phoneNumberSchema>;
@@ -34,9 +34,9 @@ const IssueCodeModal: React.FC<IssueCodeModalProps> = ({ isOpen, onClose }) => {
     reset,
   } = useForm<FormValues>({
     resolver: zodResolver(phoneNumberSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      phoneNumber: "",
+      phoneNumber: '',
     },
   });
 
@@ -44,10 +44,10 @@ const IssueCodeModal: React.FC<IssueCodeModalProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Success notification
-      toast.success("가입 코드가 전송되었습니다", {
+      toast.success('가입 코드가 전송되었습니다', {
         description: `${data.phoneNumber}로 가입 코드가 전송되었습니다.`,
       });
 
@@ -55,8 +55,8 @@ const IssueCodeModal: React.FC<IssueCodeModalProps> = ({ isOpen, onClose }) => {
       reset();
       onClose();
     } catch (error) {
-      toast.error("가입 코드 전송에 실패했습니다", {
-        description: "잠시 후 다시 시도해주세요.",
+      toast.error('가입 코드 전송에 실패했습니다', {
+        description: '잠시 후 다시 시도해주세요.',
       });
     } finally {
       setIsSubmitting(false);
@@ -97,13 +97,11 @@ const IssueCodeModal: React.FC<IssueCodeModalProps> = ({ isOpen, onClose }) => {
                 <input
                   type="text"
                   placeholder="휴대폰 번호를 입력해주세요"
-                  {...register("phoneNumber")}
+                  {...register('phoneNumber')}
                   className="w-full rounded-[12px] border border-[#DADFE9] min-h-[48px] px-4 py-[15px] text-base focus:border-[#0054A6] focus:outline-none placeholder:text-[#97A8C4]"
                 />
                 {errors.phoneNumber && (
-                  <div className="text-[#FF0D4E] text-sm mt-2">
-                    {errors.phoneNumber.message}
-                  </div>
+                  <div className="text-[#FF0D4E] text-sm mt-2">{errors.phoneNumber.message}</div>
                 )}
               </div>
             </div>
@@ -121,12 +119,10 @@ const IssueCodeModal: React.FC<IssueCodeModalProps> = ({ isOpen, onClose }) => {
               type="submit"
               disabled={!isValid || isSubmitting}
               className={`flex-1 rounded-full min-h-[48px] px-6 py-3 text-sm font-bold text-white ${
-                isValid
-                  ? "bg-[#0054A6] hover:bg-[#0054A6]/90"
-                  : "bg-[#BDD5FF] hover:bg-[#BDD5FF]"
+                isValid ? 'bg-[#0054A6] hover:bg-[#0054A6]/90' : 'bg-[#BDD5FF] hover:bg-[#BDD5FF]'
               }`}
             >
-              {isSubmitting ? "전송 중..." : "전송하기"}
+              {isSubmitting ? '전송 중...' : '전송하기'}
             </Button>
           </div>
         </form>

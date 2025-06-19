@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   Dialog,
@@ -9,8 +9,8 @@ import {
   DialogTrigger,
   DialogFooter,
   DialogClose,
-} from "./dialog"
-import { Button } from "./button"
+} from './dialog';
+import { Button } from './button';
 
 // 방법 1: 일반적인 사용법 (제목이 보이는 경우)
 export function DialogExample() {
@@ -31,11 +31,7 @@ export function DialogExample() {
             <label htmlFor="name" className="text-right">
               이름
             </label>
-            <input
-              id="name"
-              defaultValue="홍길동"
-              className="col-span-3"
-            />
+            <input id="name" defaultValue="홍길동" className="col-span-3" />
           </div>
         </div>
         <DialogFooter>
@@ -48,7 +44,7 @@ export function DialogExample() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 // 방법 2: 제목을 숨기고 싶은 경우 (접근성을 위해 숨겨진 제목 사용)
@@ -58,17 +54,11 @@ export function DialogWithHiddenTitle() {
       <DialogTrigger asChild>
         <Button variant="outline">알림 다이얼로그</Button>
       </DialogTrigger>
-      <DialogContent 
-        className="sm:max-w-[425px]" 
-        hideTitle={true} 
-        hiddenTitle="알림 메시지"
-      >
+      <DialogContent className="sm:max-w-[425px]" hideTitle={true} hiddenTitle="알림 메시지">
         <div className="flex flex-col items-center gap-4 py-4">
           <div className="text-6xl">🎉</div>
           <h2 className="text-xl font-semibold">축하합니다!</h2>
-          <p className="text-center text-muted-foreground">
-            작업이 성공적으로 완료되었습니다.
-          </p>
+          <p className="text-center text-muted-foreground">작업이 성공적으로 완료되었습니다.</p>
         </div>
         <DialogFooter>
           <DialogClose asChild>
@@ -77,7 +67,7 @@ export function DialogWithHiddenTitle() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 // 방법 3: 기존 방식 (VisuallyHidden을 직접 사용)
@@ -105,5 +95,5 @@ export function DialogWithManualHiddenTitle() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-} 
+  );
+}

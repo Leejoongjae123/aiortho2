@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import OrthoInput from "@/components/OrthoInput";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import OrthoInput from '@/components/OrthoInput';
+import { Button } from '@/components/ui/button';
 
 // Define schema with Zod
 const codeVerificationSchema = z.object({
-  code: z.string().min(8, "가입코드 8자리를 입력해주세요").max(8, "가입코드 8자리를 입력해주세요"),
+  code: z.string().min(8, '가입코드 8자리를 입력해주세요').max(8, '가입코드 8자리를 입력해주세요'),
 });
 
 type FormValues = z.infer<typeof codeVerificationSchema>;
@@ -26,17 +26,17 @@ const CodeVerificationPage = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(codeVerificationSchema),
     defaultValues: {
-      code: "",
+      code: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
-  const codeValue = watch("code");
+  const codeValue = watch('code');
   const isCodeValid = codeValue && codeValue.length === 8;
 
   const onSubmit = (data: FormValues) => {
     // 코드 검증 로직을 여기에 추가할 수 있습니다
-    router.push("/doctor/auth/join-membership");
+    router.push('/doctor/auth/join-membership');
   };
 
   return (
@@ -57,7 +57,7 @@ const CodeVerificationPage = () => {
             <OrthoInput
               label="의사 가입 코드"
               placeholder="가입코드 8자리"
-              registration={register("code")}
+              registration={register('code')}
               error={errors.code?.message}
             />
           </div>
@@ -67,12 +67,12 @@ const CodeVerificationPage = () => {
               type="submit"
               className={`w-full rounded-full py-3.5 text-white text-sm font-bold h-12 ${
                 isCodeValid
-                  ? "bg-[#0054A6] hover:bg-[#0054A6]"
-                  : "bg-[#BDD5FF] hover:bg-[#BDD5FF] cursor-not-allowed"
+                  ? 'bg-[#0054A6] hover:bg-[#0054A6]'
+                  : 'bg-[#BDD5FF] hover:bg-[#BDD5FF] cursor-not-allowed'
               }`}
               disabled={!isCodeValid}
             >
-             다음
+              다음
             </Button>
           </div>
         </form>

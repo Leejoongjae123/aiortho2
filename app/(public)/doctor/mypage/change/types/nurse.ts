@@ -5,4 +5,4 @@ export interface Nurse {
   license: string;
   experience?: string;
   phone: string;
-} 
+}

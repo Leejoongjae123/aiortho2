@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface CalendarNavigationProps {
   currentMonth: string;
@@ -13,11 +13,7 @@ const CalendarNavigation: React.FC<CalendarNavigationProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-4 mb-5">
-      <button
-        onClick={onPrevMonth}
-        className="cursor-pointer"
-        aria-label="Previous month"
-      >
+      <button onClick={onPrevMonth} className="cursor-pointer" aria-label="Previous month">
         <svg
           width="24"
           height="24"
@@ -37,15 +33,9 @@ const CalendarNavigation: React.FC<CalendarNavigationProps> = ({
         </svg>
       </button>
 
-      <div className="flex-1 text-center text-[#161621] text-base font-medium">
-        {currentMonth}
-      </div>
+      <div className="flex-1 text-center text-[#161621] text-base font-medium">{currentMonth}</div>
 
-      <button
-        onClick={onNextMonth}
-        className="cursor-pointer"
-        aria-label="Next month"
-      >
+      <button onClick={onNextMonth} className="cursor-pointer" aria-label="Next month">
         <svg
           width="24"
           height="24"
