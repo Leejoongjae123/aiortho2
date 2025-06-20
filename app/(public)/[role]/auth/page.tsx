@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,6 +9,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useLogin } from './hooks/useLogin';
 
 // Define schema with Zod
 const loginSchema = z.object({
@@ -28,10 +29,13 @@ const loginSchema = z.object({
 type FormValues = z.infer<typeof loginSchema>;
 
 const AuthPage = () => {
+  const router = useRouter();
+  const { role } = useParams();
+
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
-  const router = useRouter();
+  const loginMutation = useLogin(isChecked);
 
   const {
     register,
@@ -51,7 +55,11 @@ const AuthPage = () => {
   const passwordValue = watch('password');
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    console.log(data);
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        router.push('/home');
+      },
+    });
   };
 
   const togglePasswordVisibility = () => {
@@ -80,10 +88,12 @@ const AuthPage = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center pt-10 bg-white w-full h-full justify-center">
+    <div className=" flex flex-col items-center pt-10 bg-white w-full h-full justify-center px-4 md:px-7">
       <div className="w-full max-w-[540px] mx-auto">
         <div className="space-y-4">
-          <h1 className="font-bold text-3xl text-[color:var(--aiortho-gray-900)]">의사 로그인</h1>
+          <h1 className="font-bold text-3xl text-[color:var(--aiortho-gray-900)]">
+            {role === 'doctor' ? '의사' : '간호사'} 로그인
+          </h1>
           <p className="font-normal text-base text-[color:var(--aiortho-gray-600)]">
             서비스 사용을 위해 로그인 해주세요.
           </p>
