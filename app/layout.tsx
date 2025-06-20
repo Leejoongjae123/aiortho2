@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import Providers from './providers';
 import { Toaster } from '@/components/ui/sonner';
+
 import './globals.css';
 
 const pretandard = localFont({
@@ -16,8 +18,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${pretandard.className} antialiased `}>
-        {children}
-        <Toaster position="top-center" />
+        <Providers>
+          {children}
+          <Toaster position="top-center" />
+        </Providers>
       </body>
     </html>
   );
