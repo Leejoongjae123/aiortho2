@@ -8,6 +8,13 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
+export interface FindIdRequest {
+  name: string;
+  phoneNumber: string;
+}
+
+export interface FindIdResponse {}
+
 export interface ResetPasswordRequest {
   newPassword: string;
 }
