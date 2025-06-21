@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -30,6 +30,7 @@ type FormValues = z.infer<typeof loginSchema>;
 
 const AuthPage = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { role } = useParams();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -139,7 +140,7 @@ const AuthPage = () => {
               </p>
             </div>
             <p
-              onClick={() => router.push('/doctor/auth/find-id')}
+              onClick={() => router.push(`${pathname}/find-id`)}
               className="cursor-pointer text-[color:var(--aiortho-primary)] font-nomral text-[13px]"
             >
               아이디 · 비밀번호 찾기 &nbsp;{'>'}
