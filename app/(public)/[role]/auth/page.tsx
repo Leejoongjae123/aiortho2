@@ -10,6 +10,7 @@ import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useLogin } from './hooks/useLogin';
+import Spinner from '@/components/Spiner';
 
 // Define schema with Zod
 const loginSchema = z.object({
@@ -42,7 +43,7 @@ const AuthPage = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -149,9 +150,10 @@ const AuthPage = () => {
 
           <Button
             type="submit"
-            className="w-full bg-[#0054A6] hover:bg-[#0054A6] text-white py-5 rounded-full h-12 cursor-pointer"
+            className="w-full bg-[#0054A6] hover:bg-[#0054A6] disabled:bg-[#BDD5FF] text-white py-5 rounded-full h-12 cursor-pointer"
+            disabled={!isValid || loginMutation.isPending}
           >
-            로그인
+            {loginMutation.isPending ? <Spinner /> : '로그인'}
           </Button>
         </form>
         <p
