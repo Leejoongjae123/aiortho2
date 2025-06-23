@@ -24,6 +24,22 @@ export interface FindIdVerifyResponse {
   email: string;
 }
 
+export interface FindPasswordRequest {
+  name: string;
+  phoneNumber: string;
+  email: string;
+}
+
+export interface FindPasswordResponse {}
+
+export interface FindPasswordVerifyRequest {
+  email: string;
+  phoneNumber: string;
+  code: string;
+}
+
+export interface FindPasswordVerifyResponse {}
+
 export interface ResetPasswordRequest {
   newPassword: string;
 }

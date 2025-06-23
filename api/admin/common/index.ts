@@ -7,6 +7,10 @@ import {
   FindIdResponse,
   FindIdVerifyResponse,
   FindIdVerifyRequest,
+  FindPasswordRequest,
+  FindPasswordResponse,
+  FindPasswordVerifyRequest,
+  FindPasswordVerifyResponse,
   ResetPasswordRequest,
   ResetPasswordResponse,
 } from './types';
@@ -21,6 +25,14 @@ export const findId = async (data: FindIdRequest): Promise<FindIdResponse> =>
 
 export const findIdVerify = async (data: FindIdVerifyRequest): Promise<FindIdVerifyResponse> =>
   await apiClient.post(`${RESOURCE}/find/id/verify`, data);
+
+export const findPassword = async (data: FindPasswordRequest): Promise<FindPasswordResponse> =>
+  await apiClient.post(`${RESOURCE}/find/passwd`, data);
+
+export const findPasswordVerify = async (
+  data: FindPasswordVerifyRequest
+): Promise<FindPasswordVerifyResponse> =>
+  await apiClient.post(`${RESOURCE}/find/passwd/verify`, data);
 
 export const resetPassword = async (data: ResetPasswordRequest): Promise<ResetPasswordResponse> =>
   await apiClient.post(`${RESOURCE}/reset/passwd`, data);

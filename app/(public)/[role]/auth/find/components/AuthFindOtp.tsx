@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useFindIdOtp } from '../../hooks/useFindIdOtp';
 import { useFindId } from '../../hooks/useFindId';
+import { useFindPassword } from '../../hooks/useFindPassword';
+import { useFindPasswordOtp } from '../../hooks/useFindPasswordOtp';
 import Spinner from '@/components/Spinner';
 import { AuthFindIdFormValues, AuthFindPasswordFormValues } from '../types';
 
@@ -19,7 +21,7 @@ type FormOtpValues = z.infer<typeof otpSchema>;
 
 interface AuthFindOtpProps {
   formValues?: AuthFindIdFormValues | AuthFindPasswordFormValues;
-  onSubmit?: (values: string) => void;
+  onSubmit?: (values?: string) => void;
 }
 
 const MAX_TIME_LIMIT = 300;
@@ -29,6 +31,8 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
   const [isActive, setIsActive] = React.useState(true);
   const postFindIdMutation = useFindId();
   const postFindIdOtpMutation = useFindIdOtp();
+  const postFindPasswordMutation = useFindPassword();
+  const postFindPasswordOtpMutation = useFindPasswordOtp();
 
   const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
@@ -59,13 +63,19 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
         email: formValues.email,
       };
 
-      // postFindPasswordMutation.mutate(values);
+      postFindPasswordMutation.mutate(values, {
+        onSuccess: () => {
+          setIsActive(true);
+          setTimer(MAX_TIME_LIMIT);
+        },
+      });
     } else {
       // 아이디 찾기
       const values: AuthFindIdFormValues = {
         name: formValues.name,
         phoneNumber: formValues.phoneNumber,
       };
+
       postFindIdMutation.mutate(values, {
         onSuccess: () => {
           setIsActive(true);
@@ -80,6 +90,27 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
 
     if ('email' in formValues) {
       // 비밀번호 인증
+      postFindPasswordOtpMutation.mutate(
+        {
+          email: formValues.email,
+          phoneNumber: formValues.phoneNumber,
+          code: data.otp,
+        },
+        {
+          onSuccess: () => {
+            onSubmit && onSubmit();
+          },
+          onError: () => {
+            setError('otp', {
+              type: 'manual',
+              message: '유효하지 않은 인증코드 입니다. 인증번호를 다시 전송 받으세요.',
+            });
+
+            setIsActive(false);
+            setTimer(0);
+          },
+        }
+      );
     } else {
       postFindIdOtpMutation.mutate(
         {

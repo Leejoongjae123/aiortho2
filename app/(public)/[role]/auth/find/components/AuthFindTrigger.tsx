@@ -44,7 +44,7 @@ const AuthFindTrigger = ({ foundAuth, onSubmit }: AuthFindTriggerProps) => {
           )}
         </TabsContent>
         <TabsContent value="비밀번호 찾기">
-          <AuthFindPasswordForm />
+          <AuthFindPasswordForm onSubmit={handleSubmitPassword} />
         </TabsContent>
       </Tabs>
     </div>
