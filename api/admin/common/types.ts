@@ -15,6 +15,15 @@ export interface FindIdRequest {
 
 export interface FindIdResponse {}
 
+export interface FindIdVerifyRequest {
+  phoneNumber: string;
+  code: string;
+}
+
+export interface FindIdVerifyResponse {
+  email: string;
+}
+
 export interface ResetPasswordRequest {
   newPassword: string;
 }

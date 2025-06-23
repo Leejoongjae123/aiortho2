@@ -10,7 +10,7 @@ import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useLogin } from './hooks/useLogin';
-import Spinner from '@/components/Spiner';
+import Spinner from '@/components/Spinner';
 
 // Define schema with Zod
 const loginSchema = z.object({
@@ -141,7 +141,7 @@ const AuthPage = () => {
               </p>
             </div>
             <p
-              onClick={() => router.push(`${pathname}/find-id`)}
+              onClick={() => router.push(`${pathname}/find`)}
               className="cursor-pointer text-[color:var(--aiortho-primary)] font-nomral text-[13px]"
             >
               아이디 · 비밀번호 찾기 &nbsp;{'>'}
