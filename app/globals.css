@@ -89,6 +89,7 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --aiortho-primary: #0054a6;
+  --aiortho-secondary: #dadfe9;
   --aiortho-disabled: #bdd5ff;
   --aiortho-gray-100: #f0f3fa;
   --aiortho-gray-200: #dadfe9;
