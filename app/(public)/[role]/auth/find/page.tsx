@@ -12,6 +12,7 @@ const AuthSteps = ['authFind', 'authFindOtp', 'authFindIdResult', 'authFindPassw
 const AuthFind = () => {
   const [formValues, setFormValues] = useState<AuthFindIdFormValues | AuthFindPasswordFormValues>();
   const [foundId, setFoundId] = useState<string>();
+  const [foundPasswordToken, setFoundPasswordToken] = useState<string>();
 
   const [Funnel, nextStep] = useFunnel(AuthSteps, { initialStep: 'authFind' });
 
@@ -27,12 +28,20 @@ const AuthFind = () => {
 
     if ('email' in formValues) {
       // 새 비밀번호 변경
+      setFoundPasswordToken(values);
       nextStep('authFindPasswordReset');
     } else {
       // 계정정보 결과
       setFoundId(values);
       nextStep('authFindIdResult');
     }
+  };
+
+  const handleAuthFindPasswordResetCancel = () => {
+    setFormValues(undefined);
+    setFoundId(undefined);
+    setFoundPasswordToken(undefined);
+    nextStep('authFind');
   };
 
   const foundAuth = useMemo(
@@ -53,7 +62,10 @@ const AuthFind = () => {
           <AuthFindTrigger foundAuth={foundAuth} />
         </Funnel.Step>
         <Funnel.Step name="authFindPasswordReset">
-          <AuthFindPasswordReset />
+          <AuthFindPasswordReset
+            token={foundPasswordToken}
+            onCancel={handleAuthFindPasswordResetCancel}
+          />
         </Funnel.Step>
       </Funnel>
     </div>

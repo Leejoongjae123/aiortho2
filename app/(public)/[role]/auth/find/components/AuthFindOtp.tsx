@@ -97,8 +97,8 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
           code: data.otp,
         },
         {
-          onSuccess: () => {
-            onSubmit && onSubmit();
+          onSuccess: ({ accessToken }) => {
+            onSubmit && onSubmit(accessToken);
           },
           onError: () => {
             setError('otp', {

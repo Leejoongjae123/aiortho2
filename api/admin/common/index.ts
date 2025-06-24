@@ -34,5 +34,12 @@ export const findPasswordVerify = async (
 ): Promise<FindPasswordVerifyResponse> =>
   await apiClient.post(`${RESOURCE}/find/passwd/verify`, data);
 
-export const resetPassword = async (data: ResetPasswordRequest): Promise<ResetPasswordResponse> =>
-  await apiClient.post(`${RESOURCE}/reset/passwd`, data);
+export const resetPassword = async (
+  data: ResetPasswordRequest,
+  token: string
+): Promise<ResetPasswordResponse> =>
+  await apiClient.post(`${RESOURCE}/reset/passwd`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

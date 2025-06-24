@@ -38,7 +38,9 @@ export interface FindPasswordVerifyRequest {
   code: string;
 }
 
-export interface FindPasswordVerifyResponse {}
+export interface FindPasswordVerifyResponse {
+  accessToken: string;
+}
 
 export interface ResetPasswordRequest {
   newPassword: string;
