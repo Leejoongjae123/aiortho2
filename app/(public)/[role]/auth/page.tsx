@@ -45,6 +45,7 @@ const AuthPage = () => {
     watch,
     formState: { errors, isValid },
   } = useForm<FormValues>({
+    mode: 'onChange',
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -108,7 +109,6 @@ const AuthPage = () => {
             registration={register('email')}
             error={getEmailError()}
             value={emailValue}
-            required
           />
 
           <OrthoInput
@@ -118,7 +118,6 @@ const AuthPage = () => {
             registration={register('password')}
             error={getPasswordError()}
             value={passwordValue}
-            required
             rightIcon={
               showPassword ? (
                 <EyeOff size={20} color="#97A8C4" />
@@ -150,7 +149,7 @@ const AuthPage = () => {
 
           <Button
             type="submit"
-            className="w-full bg-[#0054A6] hover:bg-[#0054A6] disabled:bg-[#BDD5FF] text-white py-5 rounded-full h-12 cursor-pointer"
+            className="w-full text-white py-5 rounded-full h-12 cursor-pointer"
             disabled={!isValid || loginMutation.isPending}
           >
             {loginMutation.isPending ? <Spinner /> : '로그인'}
