@@ -26,17 +26,21 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
     const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
 
+    console.log('request', originalRequest);
+
     // 응답 에러 처리 (401)
     if (error.response?.status === 401 && refreshToken && !originalRequest._retry) {
       // _retry: 같은 요청 반복 방지
       originalRequest._retry = true;
 
       try {
+        console.log(1);
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await axios
           .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
             refreshToken,
           })
           .then(res => res.data.data);
+        console.log(2);
 
         // 새로운 토큰 저장
         setTokens(newAccessToken, newRefreshToken);
@@ -45,6 +49,7 @@ apiClient.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return apiClient(originalRequest);
       } catch (refreshError) {
+        console.log(3);
         // Refresh 실패 → 로그아웃 처리
         clearTokens();
 
@@ -55,6 +60,8 @@ apiClient.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
+    console.log(4);
 
     return Promise.reject(error);
   }
