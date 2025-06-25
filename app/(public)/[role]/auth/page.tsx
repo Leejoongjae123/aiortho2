@@ -90,6 +90,10 @@ const AuthPage = () => {
     return undefined;
   };
 
+  const handleSignUpClick = () => {
+    router.push(`/${role}/auth/signup`);
+  };
+
   return (
     <div className=" flex flex-col items-center pt-10 bg-white w-full h-full justify-center px-4 md:px-7">
       <div className="w-full max-w-[540px] mx-auto">
@@ -156,7 +160,7 @@ const AuthPage = () => {
           </Button>
         </form>
         <p
-          onClick={() => router.push('/doctor/auth/code-verification')}
+          onClick={handleSignUpClick}
           className="font-medium text-center text-sm text-[color:var(--aiortho-gray-800)] my-4 underline cursor-pointer"
         >
           회원가입
