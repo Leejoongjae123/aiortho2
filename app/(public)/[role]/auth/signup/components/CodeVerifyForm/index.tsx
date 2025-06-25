@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
-import useDoctorSignupActivateCode from '../../hooks/useDoctorSignupActivateCode';
+import { useDoctorSignupActivateCode } from '../../hooks';
 import Spinner from '@/components/Spinner';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 
