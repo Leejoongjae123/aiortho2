@@ -40,6 +40,7 @@ const OrthoInput: FC<OrthoInputProps> = ({
   minLength,
   className,
   value,
+  readOnly,
   ...props
 }) => {
   const [hasValue, setHasValue] = useState(false);
@@ -80,6 +81,8 @@ const OrthoInput: FC<OrthoInputProps> = ({
             hasValue &&
               !error &&
               'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]',
+            readOnly &&
+              'focus:ring-0 focus:border-[#DADFE9] focus:outline-none cursor-not-allowed text-[color:var(--aiortho-gray-600)]',
             className
           )}
           {...registration}
@@ -87,6 +90,11 @@ const OrthoInput: FC<OrthoInputProps> = ({
             setHasValue(e.target.value.length > 0);
             registration?.onChange && registration.onChange(e);
             onChange && onChange(e);
+          }}
+          onFocus={e => {
+            if (readOnly) {
+              e.target.blur();
+            }
           }}
           maxLength={maxLength}
           minLength={minLength}
