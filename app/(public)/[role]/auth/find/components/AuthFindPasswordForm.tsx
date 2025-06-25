@@ -4,7 +4,7 @@ import OrthoInput from '@/components/OrthoInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { useFindPassword } from '../../hooks/useFindPassword';
+import { useFindPassword } from '../hooks/useFindPassword';
 import Spinner from '@/components/Spinner';
 import { AuthFindPasswordFormValues } from '../types';
 

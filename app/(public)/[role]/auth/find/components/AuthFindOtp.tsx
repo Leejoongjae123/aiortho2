@@ -6,10 +6,10 @@ import { z } from 'zod';
 import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useFindIdOtp } from '../../hooks/useFindIdOtp';
-import { useFindId } from '../../hooks/useFindId';
-import { useFindPassword } from '../../hooks/useFindPassword';
-import { useFindPasswordOtp } from '../../hooks/useFindPasswordOtp';
+import { useFindIdOtp } from '../hooks/useFindIdOtp';
+import { useFindId } from '../hooks/useFindId';
+import { useFindPassword } from '../hooks/useFindPassword';
+import { useFindPasswordOtp } from '../hooks/useFindPasswordOtp';
 import Spinner from '@/components/Spinner';
 import { AuthFindIdFormValues, AuthFindPasswordFormValues } from '../types';
 

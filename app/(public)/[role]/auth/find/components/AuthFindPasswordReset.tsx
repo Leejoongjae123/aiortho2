@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import Spinner from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
 import ToastNotification from '@/components/ui/toast-notification';
-import { useResetPassword } from '../../hooks/useResetPassword';
+import { useResetPassword } from '../hooks/useResetPassword';
 
 const resetPasswordSchema = z.object({
   password: z

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import Spinner from '@/components/Spinner';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useFindId } from '../../hooks/useFindId';
+import { useFindId } from '../hooks/useFindId';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthFindIdFormValues } from '../types';
 
