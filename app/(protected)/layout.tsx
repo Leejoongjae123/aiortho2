@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import { useAuthStore } from '@/store/authStore';
 import { decodeJWT } from '@/lib/utils';
 import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
+import { getStorage } from '@/lib/storage';
 
 const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const router = useRouter();
@@ -13,8 +14,8 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
-    const refreshToken = sessionStorage.getItem(REFRESH_KEY) || localStorage.getItem(REFRESH_KEY);
+    const accessToken = getStorage('local', TOKEN_KEY) || getStorage('session', TOKEN_KEY);
+    const refreshToken = getStorage('local', REFRESH_KEY) || getStorage('session', REFRESH_KEY);
 
     if (!accessToken || !refreshToken) {
       router.replace('/');

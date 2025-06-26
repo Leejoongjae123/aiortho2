@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { login } from '@/api/admin/common';
 import { decodeJWT } from '@/lib/utils';
 import { TOKEN_KEY, REFRESH_KEY } from '@/constants/auth';
+import { removeStorage, setStorage } from '@/lib/storage';
 
 export const useLogin = (isAutoLogin: boolean) => {
   const { setAuth, setTokens } = useAuthStore();
@@ -15,14 +16,14 @@ export const useLogin = (isAutoLogin: boolean) => {
       setAuth(payload);
       setTokens(accessToken, refreshToken);
 
-      const storage = isAutoLogin ? localStorage : sessionStorage;
-      const altStorage = isAutoLogin ? sessionStorage : localStorage;
+      const storage = isAutoLogin ? 'local' : 'session';
+      const altStorage = isAutoLogin ? 'session' : 'local';
 
-      storage.setItem(TOKEN_KEY, accessToken);
-      storage.setItem(REFRESH_KEY, refreshToken);
+      setStorage(storage, TOKEN_KEY, accessToken);
+      setStorage(storage, REFRESH_KEY, refreshToken);
 
-      altStorage.removeItem(TOKEN_KEY);
-      altStorage.removeItem(REFRESH_KEY);
+      removeStorage(altStorage, TOKEN_KEY);
+      removeStorage(altStorage, REFRESH_KEY);
     },
   });
 };
