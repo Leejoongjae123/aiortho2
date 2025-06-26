@@ -1,8 +1,9 @@
+import { toMatrix } from '@/lib/utils';
 import { useRef, useEffect } from 'react';
 
 // Define the type for specialty items
 export type ArrayItem = {
-  id: string;
+  code: string;
   name: string;
 };
 
@@ -12,7 +13,7 @@ type MultiColumnDropdownProps = {
   className?: string;
   isOpen?: boolean;
   onClose?: () => void;
-  array?: ArrayItem[][];
+  items: ArrayItem[];
   width?: string;
   height?: string;
   maxHeight?: string;
@@ -25,7 +26,7 @@ export default function MultiColumnDropdown({
   className = '',
   isOpen = false,
   onClose,
-  array,
+  items,
   width = 'w-full',
   height = 'auto',
   maxHeight = '360px',
@@ -84,11 +85,11 @@ export default function MultiColumnDropdown({
       }}
     >
       <div className="p-2">
-        {array?.map((row, rowIndex) => (
+        {toMatrix(items, columns).map((row, rowIndex) => (
           <div key={rowIndex} className={`grid ${gridClass} gap-1 mb-1`}>
             {row.map(item => (
               <button
-                key={item.id}
+                key={item.code}
                 className="px-2 py-3 text-sm font-bold text-center text-[#343A47] hover:bg-[#F3F5FB] rounded-md focus:outline-none focus:bg-[#F3F5FB]"
                 onClick={() => handleSelect(item)}
               >
