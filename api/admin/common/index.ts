@@ -13,6 +13,12 @@ import {
   FindPasswordVerifyResponse,
   ResetPasswordRequest,
   ResetPasswordResponse,
+  CheckEmailRequest,
+  CheckEmailResponse,
+  GetHospitalListResponse,
+  GetDepartmentListResponse,
+  PostPhoneVerifyRequest,
+  PostPhoneVerifyResponse,
 } from './types';
 
 const RESOURCE = '/ums/common';
@@ -43,3 +49,16 @@ export const resetPassword = async (
       Authorization: `Bearer ${token}`,
     },
   });
+
+export const checkEmail = async (data: CheckEmailRequest): Promise<CheckEmailResponse> =>
+  await apiClient.post(`${RESOURCE}/check/email`, data);
+
+export const getHospitalList = async (): Promise<GetHospitalListResponse> =>
+  await apiClient.get(`${RESOURCE}/hospitals`);
+
+export const getDepartmentList = async (): Promise<GetDepartmentListResponse> =>
+  await apiClient.get(`${RESOURCE}/departments`);
+
+export const postPhoneVerifySend = async (
+  data: PostPhoneVerifyRequest
+): Promise<PostPhoneVerifyResponse> => await apiClient.post(`${RESOURCE}/phoneverify/send`, data);

@@ -1,3 +1,5 @@
+import { Hospital, MedicalDepartment } from '@/models';
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -47,3 +49,23 @@ export interface ResetPasswordRequest {
 }
 
 export interface ResetPasswordResponse {}
+
+export interface CheckEmailRequest {
+  email: string;
+}
+
+export interface CheckEmailResponse {}
+
+export interface GetHospitalListRequest {}
+
+export interface GetHospitalListResponse extends Array<Hospital> {}
+
+export interface GetDepartmentListRequest {}
+
+export interface GetDepartmentListResponse extends Array<MedicalDepartment> {}
+
+export interface PostPhoneVerifyRequest {
+  phoneNumber: string;
+}
+
+export interface PostPhoneVerifyResponse {}
