@@ -82,7 +82,7 @@ const OrthoInput: FC<OrthoInputProps> = ({
               !error &&
               'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]',
             readOnly &&
-              'focus:ring-0 focus:border-[#DADFE9] focus:outline-none cursor-not-allowed text-[color:var(--aiortho-gray-600)]',
+              'bg-[#F0F3FA99] border-[#DADFE9] cursor-not-allowed text-[color:var(--aiortho-gray-600)]',
             className
           )}
           {...registration}
@@ -103,7 +103,7 @@ const OrthoInput: FC<OrthoInputProps> = ({
         />
         {rightIcon && (
           <div
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
             onClick={onRightIconClick}
           >
             {rightIcon}
