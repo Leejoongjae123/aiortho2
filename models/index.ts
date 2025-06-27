@@ -1,3 +1,5 @@
+export type UserRole = 'Root' | 'Doctor' | 'Nurse';
+
 export interface Hospital {
   hospitalCode: string;
   name: string;

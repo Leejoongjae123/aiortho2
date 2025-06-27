@@ -108,7 +108,7 @@ const SidebarNavigation: React.FC = () => {
         aria-label="Main Navigation"
       >
         <div className="flex flex-col items-start w-60">
-          <div className="flex items-center gap-2 justify-center py-4 px-4 md:hidden block">
+          <div className="flex items-center gap-2 justify-center py-4 px-4 md:hidden">
             <Link href="/">
               <div className="text-[#0054A6] font-bold text-[22px] leading-6 sm:text-[20px]">
                 AIOrtho

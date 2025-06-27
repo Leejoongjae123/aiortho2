@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/authStore';
 import { decodeJWT } from '@/lib/utils';
 import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
 import { getStorage } from '@/lib/storage';
+import Sidebar from '@/components/Sidebar';
 
 const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const router = useRouter();
@@ -34,7 +35,17 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <main className="min-h-screen flex flex-col overflow-x-hidden">
       <Navbar />
-      {children}
+
+      <div className="flex min-h-screen">
+        <div className="hidden md:block">
+          <Sidebar />
+        </div>
+
+        <div className="md:hidden">
+          <Sidebar />
+        </div>
+        {children}
+      </div>
     </main>
   );
 };

@@ -4,9 +4,10 @@ import DoctorHeader from './DoctorHeader';
 import QuickMenu from './QuickMenu';
 import Pagination from './Pagination';
 import Sheet from './Table/Sheet';
+
 const DoctorDashboard: React.FC = () => {
   return (
-    <main className="min-h-screen bg-[#F5F9FF]">
+    <div className="flex flex-col w-full bg-[#F5F9FF]">
       <div className="px-4 py-8 sm:px-6 lg:px-8 w-full">
         {/* Header Section */}
         <div className="mb-8">
@@ -34,7 +35,7 @@ const DoctorDashboard: React.FC = () => {
           <Pagination />
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

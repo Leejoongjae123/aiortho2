@@ -1,11 +1,12 @@
 import { create } from 'zustand';
-import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
-import { setStorage, removeStorage } from '@/lib/storage';
+// import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
+// import { setStorage, removeStorage } from '@/lib/storage';
+import { UserRole } from '@/models';
 
 interface JWTTokenPayload {
   sub: string;
   adminId: string;
-  role: string;
+  role: UserRole;
   hospitalCode: string;
   iat: number;
   exp: number;
