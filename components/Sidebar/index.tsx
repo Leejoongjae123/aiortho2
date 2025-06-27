@@ -8,7 +8,7 @@ import NavSection from './NavSection';
 import SubNavItem from './SubNavItem';
 import NavFooter from './NavFooter';
 import { NavFooterItemProps } from './types';
-import { homeIcon, prescriptionIcon, myPageIcon, DoctorsIcon } from './Icon';
+import { HomeIcon, PrescriptionIcon, MyPageIcon, DoctorsIcon } from '../Icon';
 import { useSidebarStore } from '@/store/sidebarStore';
 import { useAuthStore } from '@/store/authStore';
 
@@ -96,14 +96,14 @@ const Sidebar: React.FC = () => {
           </div>
           <ul className="w-full">
             <NavItem
-              icon={homeIcon}
+              icon={HomeIcon}
               label="홈"
               isActive={true}
               onClick={() => handleNavItemClick(() => router.push('/doctor/home'))}
             />
 
             <NavSection
-              icon={prescriptionIcon}
+              icon={PrescriptionIcon}
               label="처방 관리"
               isExpanded={true}
               onToggle={handleDropdownToggle}
@@ -130,7 +130,7 @@ const Sidebar: React.FC = () => {
               />
             )}
 
-            <NavSection icon={myPageIcon} label="마이페이지" onToggle={handleDropdownToggle}>
+            <NavSection icon={MyPageIcon} label="마이페이지" onToggle={handleDropdownToggle}>
               <SubNavItem
                 label="개인정보 수정"
                 onClick={() => handleNavItemClick(() => router.push('/doctor/mypage/check'))}
