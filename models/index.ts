@@ -19,6 +19,19 @@ export interface MedicalDepartment {
   name: string;
 }
 
+export interface DoctorProfile {
+  adminId: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  licenseNumber: string;
+  medicalInstitutionId: string;
+  departmentId: string;
+  isVerified: true;
+  specialty: string;
+  hospitalCode: string;
+}
+
 export interface Nurse {
   id: number;
   name: string;
@@ -26,4 +39,16 @@ export interface Nurse {
   license: string;
   experience?: string;
   phone: string;
+}
+
+export interface NurseProfile {
+  adminId: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  hospitalCode: string;
+  doctorInfo: {
+    name: string;
+    adminId: string;
+  };
 }
