@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useAuthStore } from '@/store/authStore';
 import { getStorage, removeStorage, setStorage } from './storage';
 import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
+import { decodeJWT } from './utils';
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -35,7 +36,7 @@ apiClient.interceptors.response.use(
     const accessToken = getStorage(storage, TOKEN_KEY);
     const refreshToken = getStorage(storage, REFRESH_KEY);
 
-    const { setTokens, clearTokens } = useAuthStore.getState();
+    const { setAuth, setTokens, clearTokens } = useAuthStore.getState();
 
     // 응답 에러 처리 (401)
     if (error.response?.status === 401 && accessToken && refreshToken && !originalRequest._retry) {
@@ -43,16 +44,16 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        console.log(1);
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await axios
           .post(`${process.env.NEXT_PUBLIC_API_URL}/ums/common/refresh`, {
-            accessToken,
             refreshToken,
           })
           .then(res => res.data.data);
 
         setStorage(storage, TOKEN_KEY, newAccessToken);
         setStorage(storage, REFRESH_KEY, newRefreshToken);
+
+        setAuth(decodeJWT(newAccessToken));
         setTokens(newAccessToken, newRefreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
