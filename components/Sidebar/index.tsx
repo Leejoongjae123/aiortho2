@@ -8,7 +8,7 @@ import NavSection from './NavSection';
 import SubNavItem from './SubNavItem';
 import NavFooter from './NavFooter';
 import { NavFooterItemProps } from './types';
-import { HomeIcon, PrescriptionIcon, MyPageIcon, DoctorsIcon } from '../Icon';
+import { HomeIcon, PrescriptionIcon, MyPageIcon, DoctorsIcon } from './icons';
 import { useSidebarStore } from '@/store/sidebarStore';
 import { useAuthStore } from '@/store/authStore';
 
