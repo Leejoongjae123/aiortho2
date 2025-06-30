@@ -1,8 +1,11 @@
 'use client';
 
 import { useAuthStore } from '@/store/authStore';
-import HomeProfile from './components/HomeProfile';
 import useProfile from '@/hooks/useProfile';
+import Divider from '@/components/Divider';
+import Breadcrumb from '@/components/Breadcrumb';
+import HomeProfile from './components/HomeProfile';
+import QuickMenu from './components/QuickMenu';
 
 const HomePage = () => {
   const { auth } = useAuthStore();
@@ -14,13 +17,17 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* TODO: 세부 페이지 라우팅 구성 후 구현 */}
       {/* Breadcrumb */}
+      <Breadcrumb />
 
       {/* HomeProfile */}
       <HomeProfile name={name} role={auth.role} code={adminId} />
 
+      <Divider className="my-13" />
+
       {/* QuickMenu */}
+      <QuickMenu />
+
       {/* PatientDashboard */}
     </div>
   );
