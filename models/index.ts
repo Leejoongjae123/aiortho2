@@ -1,5 +1,22 @@
 export type UserRole = 'Root' | 'Doctor' | 'Nurse';
 
+export enum PrescriptionStatus {
+  Not_Created = 'not_created',
+  Pending = 'pending',
+  Prescripted = 'prescripted',
+}
+
+export const PrescriptionStatusLabel = {
+  [PrescriptionStatus.Not_Created]: '처방전',
+  [PrescriptionStatus.Pending]: '처방대기',
+  [PrescriptionStatus.Prescripted]: '완료',
+};
+
+export enum ExerciseDirection {
+  left = '왼쪽',
+  right = '오른쪽',
+}
+
 export interface Hospital {
   hospitalCode: string;
   name: string;
@@ -51,4 +68,42 @@ export interface NurseProfile {
     name: string;
     adminId: string;
   };
+}
+
+export interface Patient {
+  name: string;
+  residentRegistrationNumber: string;
+  hospitalPatientNum: string;
+  guardianName: string;
+  guardianPhoneNum: string;
+  patientId: number;
+  prescriptionStatus?: PrescriptionStatus;
+  createdAt: string;
+  updatedAt: string;
+  prescription?: Prescription;
+  license: string;
+  doctorId?: string;
+  doctorName?: string;
+  gender: string;
+  age: string;
+  birth: string;
+}
+
+export interface Prescription {
+  prescriptionId: string;
+  name: string;
+  patientId: number;
+  createdAt: string;
+  updatedAt: string;
+  exercises: Exercise[];
+  repeatCount: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface Exercise {
+  exerciseId: string;
+  name: string;
+  duration: number;
+  direction: ExerciseDirection;
 }
