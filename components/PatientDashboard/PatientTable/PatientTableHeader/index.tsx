@@ -18,13 +18,21 @@ import {
 import { restrictToHorizontalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
 import PatientTableHeaderCell from '../PatientTableHeaderCell';
 import { TableColumn } from '../types';
+import { Patient } from '@/models';
 
 interface DraggableTableHeaderProps {
   columns: TableColumn[];
+  sortBy: keyof Patient | 'createdAt';
   onColumnOrderChange: (newColumns: TableColumn[]) => void;
+  onColumnSortChange: (newSortBy: keyof Patient | 'createdAt') => void;
 }
 
-function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHeaderProps) {
+function DraggableTableHeader({
+  columns,
+  sortBy,
+  onColumnOrderChange,
+  onColumnSortChange,
+}: DraggableTableHeaderProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -61,7 +69,12 @@ function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHe
           strategy={horizontalListSortingStrategy}
         >
           {columns.map(column => (
-            <PatientTableHeaderCell key={column.id} column={column} />
+            <PatientTableHeaderCell
+              key={column.id}
+              column={column}
+              sortBy={sortBy}
+              onColumnSortChange={onColumnSortChange}
+            />
           ))}
         </SortableContext>
       </DndContext>

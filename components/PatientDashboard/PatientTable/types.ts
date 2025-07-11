@@ -1,3 +1,5 @@
+import { Patient } from '@/models';
+
 type TableColumnKey =
   | '병원 환자 번호'
   | '환자명'
@@ -10,7 +12,7 @@ type TableColumnKey =
   | '처방 상태';
 
 export interface TableColumn {
-  id: string;
+  id: keyof Patient;
   flex: string;
-  key: TableColumnKey;
+  label: TableColumnKey;
 }

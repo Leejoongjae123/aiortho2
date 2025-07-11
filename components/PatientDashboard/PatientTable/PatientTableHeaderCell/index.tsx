@@ -1,22 +1,37 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { RiExpandUpDownFill } from 'react-icons/ri';
 import { TableColumn } from '../types';
+import { Patient } from '@/models';
+import { cn } from '@/lib/utils';
 
 export interface DraggableTableHeaderCellProps {
   column: TableColumn;
+  sortBy: keyof Patient | 'createdAt';
+  onColumnSortChange: (newSortBy: keyof Patient | 'createdAt') => void;
 }
 
-function DraggableHeaderCell({ column }: DraggableTableHeaderCellProps) {
+function DraggableHeaderCell({
+  column,
+  sortBy,
+  onColumnSortChange,
+}: DraggableTableHeaderCellProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column.id,
   });
 
+  const [selectedSortColumn, setSelectedSortColumn] = useState<keyof Patient | 'createdAt'>(sortBy);
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+  };
+
+  const handleSortClick = (columnId: keyof Patient | 'createdAt') => {
+    setSelectedSortColumn(columnId);
+    onColumnSortChange(columnId);
   };
 
   return (
@@ -29,8 +44,14 @@ function DraggableHeaderCell({ column }: DraggableTableHeaderCellProps) {
       {...attributes}
       {...listeners}
     >
-      <h2 className="text-sm font-bold opacity-80 text-zinc-900 select-none">{column.key}</h2>
-      <RiExpandUpDownFill className="w-3 h-3 text-zinc-400 ml-1" />
+      <h2 className="text-sm font-bold opacity-80 text-zinc-900 select-none">{column.label}</h2>
+      <RiExpandUpDownFill
+        className={cn(
+          'w-5 h-5 text-zinc-400 ml-1',
+          selectedSortColumn === sortBy && 'fill-[var(--aiortho-primary)]'
+        )}
+        onClick={() => handleSortClick(column.id)}
+      />
 
       {/* 드래그 중임을 나타내는 시각적 피드백 */}
       {isDragging && (

@@ -2,19 +2,20 @@ import { TableColumn } from './PatientTable/types';
 
 // 기본 컬럼 순서 정의
 export const DEFAULT_COLUMNS: TableColumn[] = [
-  { id: 'registrationNumber', flex: 'flex-[0.8]', key: '병원 환자 번호' },
-  { id: 'patientName', flex: 'flex-[0.7]', key: '환자명' },
-  { id: 'birthDate', flex: 'flex-[0.8]', key: '생년월일' },
-  { id: 'sa', flex: 'flex-[0.6]', key: 'S/A' },
-  { id: 'doctor', flex: 'flex-[0.7]', key: '담당 의사' },
-  { id: 'treatmentPeriod', flex: 'flex-[1.2]', key: '치료 처방 기간' },
-  { id: 'registrationDate', flex: 'flex-[1.0]', key: '환자 등록일' },
+  { id: 'residentRegistrationNumber', flex: 'flex-[0.8]', label: '병원 환자 번호' },
+  { id: 'name', flex: 'flex-[0.7]', label: '환자명' },
+  { id: 'birth', flex: 'flex-[0.8]', label: '생년월일' },
+  { id: 'gender', flex: 'flex-[0.6]', label: 'S/A' },
+  { id: 'doctorName', flex: 'flex-[0.7]', label: '담당 의사' },
+  // FIXME: 치료 처방 기간 키 필요
+  { id: 'patientId', flex: 'flex-[1.2]', label: '치료 처방 기간' },
+  { id: 'createdAt', flex: 'flex-[1.0]', label: '환자 등록일' },
   {
-    id: 'lastPrescriptionDate',
+    id: 'updatedAt',
     flex: 'flex-[1.0]',
-    key: '최종 처방일',
+    label: '최종 처방일',
   },
-  { id: 'prescriptionStatus', flex: 'flex-[0.8]', key: '처방 상태' },
+  { id: 'prescriptionStatus', flex: 'flex-[0.8]', label: '처방 상태' },
 ];
 
 const STORAGE_KEY = 'doctor-patient-table-column-order';

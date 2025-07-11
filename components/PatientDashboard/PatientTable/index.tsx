@@ -11,6 +11,7 @@ import { usePatients } from '@/hooks/usePatients';
 import Spinner from '@/components/Spinner';
 import Pagination from '@/components/Pagination';
 import Divider from '@/components/Divider';
+import { Patient } from '@/models';
 
 const PER_PAGE_SIZE = 10;
 
@@ -20,6 +21,7 @@ const PatientTable = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [isFindMyPatient, setIsFindMyPatient] = useState(false);
   const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState<keyof Patient | 'createdAt'>('createdAt');
   const debouncedSearch = useDebounce(search, 2000);
 
   const patientsQuery = usePatients({
@@ -27,6 +29,7 @@ const PatientTable = () => {
     count: PER_PAGE_SIZE,
     findMyPatient: isFindMyPatient,
     ...(debouncedSearch && { searchKey: debouncedSearch }),
+    ...(sortBy && { sortBy }),
   });
 
   // 컴포넌트 마운트 시 localStorage에서 컬럼 순서 불러오기
@@ -47,6 +50,10 @@ const PatientTable = () => {
   const handleColumnOrderChange = (newColumns: TableColumn[]) => {
     setColumns(newColumns);
     saveColumnOrder(newColumns);
+  };
+
+  const handleColumnSortChange = (newSortBy: keyof Patient | 'createdAt') => {
+    setSortBy(newSortBy);
   };
 
   return (
@@ -96,7 +103,12 @@ const PatientTable = () => {
         </div>
         <div className="mt-7 w-full overflow-x-auto">
           {/* 드래그 가능한 헤더 */}
-          <PatientTableHeader columns={columns} onColumnOrderChange={handleColumnOrderChange} />
+          <PatientTableHeader
+            columns={columns}
+            sortBy={sortBy}
+            onColumnSortChange={handleColumnSortChange}
+            onColumnOrderChange={handleColumnOrderChange}
+          />
 
           {/* 테이블 본문 */}
           <div className="w-full">

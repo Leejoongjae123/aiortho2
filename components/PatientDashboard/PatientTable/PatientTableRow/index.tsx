@@ -73,13 +73,13 @@ const PatientTableRow = ({ patient, columnOrder }: PatientTableRowProps) => {
         <div
           key={column.id}
           className={`flex justify-center items-center self-stretch px-2.5 py-7 my-auto min-h-[68px] ${column.flex} ${
-            column.key === '처방 상태'
+            column.label === '처방 상태'
               ? 'font-bold leading-none text-center whitespace-nowrap'
               : 'whitespace-nowrap'
           }`}
         >
           <div className="opacity-80 text-zinc-900 truncate text-ellipsis">
-            {renderCellContent(column.key)}
+            {renderCellContent(column.label)}
           </div>
         </div>
       ))}
