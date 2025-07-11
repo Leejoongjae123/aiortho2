@@ -3,9 +3,13 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { RiExpandUpDownFill } from 'react-icons/ri';
-import { DraggableTableHeaderCellProps } from './types';
+import { TableColumn } from '../types';
 
-function DraggableHeaderCell({ column, index }: DraggableTableHeaderCellProps) {
+export interface DraggableTableHeaderCellProps {
+  column: TableColumn;
+}
+
+function DraggableHeaderCell({ column }: DraggableTableHeaderCellProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column.id,
   });
@@ -25,7 +29,7 @@ function DraggableHeaderCell({ column, index }: DraggableTableHeaderCellProps) {
       {...attributes}
       {...listeners}
     >
-      <h2 className="text-sm font-bold opacity-80 text-zinc-900 select-none">{column.label}</h2>
+      <h2 className="text-sm font-bold opacity-80 text-zinc-900 select-none">{column.key}</h2>
       <RiExpandUpDownFill className="w-3 h-3 text-zinc-400 ml-1" />
 
       {/* 드래그 중임을 나타내는 시각적 피드백 */}

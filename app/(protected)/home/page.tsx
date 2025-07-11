@@ -6,6 +6,7 @@ import Divider from '@/components/Divider';
 import Breadcrumb from '@/components/Breadcrumb';
 import HomeProfile from './components/HomeProfile';
 import QuickMenu from './components/QuickMenu';
+import PatientDashboard from '@/components/PatientDashboard';
 
 const HomePage = () => {
   const { auth } = useAuthStore();
@@ -28,7 +29,10 @@ const HomePage = () => {
       {/* QuickMenu */}
       <QuickMenu />
 
+      <Divider className="my-13 bg-transparent" />
+
       {/* PatientDashboard */}
+      <PatientDashboard />
     </div>
   );
 };

@@ -1,22 +1,20 @@
-import { TableColumn } from './types';
+import { TableColumn } from './PatientTable/types';
 
 // 기본 컬럼 순서 정의
 export const DEFAULT_COLUMNS: TableColumn[] = [
-  { id: 'registrationNumber', label: '등록번호', flex: 'flex-[0.8]', key: 'registrationNumber' },
-  { id: 'patientName', label: '환자명', flex: 'flex-[0.7]', key: 'patientName' },
-  { id: 'birthDate', label: '생년월일', flex: 'flex-[0.8]', key: 'birthDate' },
-  { id: 'gender', label: '성별', flex: 'flex-[0.5]', key: 'gender' },
-  { id: 'sa', label: 'S/A', flex: 'flex-[0.6]', key: 'sa' },
-  { id: 'doctor', label: '담당 의사', flex: 'flex-[0.7]', key: 'doctor' },
-  { id: 'treatmentPeriod', label: '치료 처방 기간', flex: 'flex-[1.2]', key: 'treatmentPeriod' },
-  { id: 'registrationDate', label: '환자 등록일', flex: 'flex-[1.0]', key: 'registrationDate' },
+  { id: 'registrationNumber', flex: 'flex-[0.8]', key: '병원 환자 번호' },
+  { id: 'patientName', flex: 'flex-[0.7]', key: '환자명' },
+  { id: 'birthDate', flex: 'flex-[0.8]', key: '생년월일' },
+  { id: 'sa', flex: 'flex-[0.6]', key: 'S/A' },
+  { id: 'doctor', flex: 'flex-[0.7]', key: '담당 의사' },
+  { id: 'treatmentPeriod', flex: 'flex-[1.2]', key: '치료 처방 기간' },
+  { id: 'registrationDate', flex: 'flex-[1.0]', key: '환자 등록일' },
   {
     id: 'lastPrescriptionDate',
-    label: '최종 처방일',
     flex: 'flex-[1.0]',
-    key: 'lastPrescriptionDate',
+    key: '최종 처방일',
   },
-  { id: 'status', label: '처방 상태', flex: 'flex-[0.8]', key: 'status' },
+  { id: 'prescriptionStatus', flex: 'flex-[0.8]', key: '처방 상태' },
 ];
 
 const STORAGE_KEY = 'doctor-patient-table-column-order';

@@ -16,8 +16,8 @@ import {
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { restrictToHorizontalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
-import DraggableHeaderCell from './DraggableHeaderCell';
-import { TableColumn } from './types';
+import PatientTableHeaderCell from '../PatientTableHeaderCell';
+import { TableColumn } from '../types';
 
 interface DraggableTableHeaderProps {
   columns: TableColumn[];
@@ -60,8 +60,8 @@ function DraggableTableHeader({ columns, onColumnOrderChange }: DraggableTableHe
           items={columns.map(col => col.id)}
           strategy={horizontalListSortingStrategy}
         >
-          {columns.map((column, index) => (
-            <DraggableHeaderCell key={column.id} column={column} index={index} />
+          {columns.map(column => (
+            <PatientTableHeaderCell key={column.id} column={column} />
           ))}
         </SortableContext>
       </DndContext>
