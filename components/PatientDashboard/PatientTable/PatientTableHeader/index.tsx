@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+
+import React, { useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -33,6 +34,8 @@ function DraggableTableHeader({
   onColumnOrderChange,
   onColumnSortChange,
 }: DraggableTableHeaderProps) {
+  const [selectedSortColumn, setSelectedSortColumn] = useState<keyof Patient | 'createdAt'>(sortBy);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -56,6 +59,11 @@ function DraggableTableHeader({
     }
   };
 
+  const handleColumnSortChange = (newSortBy: keyof Patient | 'createdAt') => {
+    setSelectedSortColumn(newSortBy);
+    onColumnSortChange(newSortBy);
+  };
+
   return (
     <div className="flex items-center w-full rounded-xl bg-slate-100 bg-opacity-50 min-h-12">
       <DndContext
@@ -72,8 +80,8 @@ function DraggableTableHeader({
             <PatientTableHeaderCell
               key={column.id}
               column={column}
-              sortBy={sortBy}
-              onColumnSortChange={onColumnSortChange}
+              sortBy={selectedSortColumn === column.id}
+              onColumnSortChange={handleColumnSortChange}
             />
           ))}
         </SortableContext>

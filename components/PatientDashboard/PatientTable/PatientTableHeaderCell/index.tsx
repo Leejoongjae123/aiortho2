@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 export interface DraggableTableHeaderCellProps {
   column: TableColumn;
-  sortBy: keyof Patient | 'createdAt';
+  sortBy: boolean;
   onColumnSortChange: (newSortBy: keyof Patient | 'createdAt') => void;
 }
 
@@ -22,16 +22,9 @@ function DraggableHeaderCell({
     id: column.id,
   });
 
-  const [selectedSortColumn, setSelectedSortColumn] = useState<keyof Patient | 'createdAt'>(sortBy);
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  };
-
-  const handleSortClick = (columnId: keyof Patient | 'createdAt') => {
-    setSelectedSortColumn(columnId);
-    onColumnSortChange(columnId);
   };
 
   return (
@@ -47,10 +40,10 @@ function DraggableHeaderCell({
       <h2 className="text-sm font-bold opacity-80 text-zinc-900 select-none">{column.label}</h2>
       <RiExpandUpDownFill
         className={cn(
-          'w-5 h-5 text-zinc-400 ml-1',
-          selectedSortColumn === sortBy && 'fill-[var(--aiortho-primary)]'
+          'w-5 h-5 text-zinc-400 ml-1 shrink-0 cursor-pointer',
+          sortBy && 'fill-[var(--aiortho-primary)]'
         )}
-        onClick={() => handleSortClick(column.id)}
+        onClick={() => onColumnSortChange(column.id)}
       />
 
       {/* 드래그 중임을 나타내는 시각적 피드백 */}
