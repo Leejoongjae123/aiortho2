@@ -89,7 +89,7 @@ const Sidebar: React.FC = () => {
       <nav
         id="sidebar"
         className={cn(
-          'flex flex-col w-60 bg-white md:relative md:translate-x-0 fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out lg:border-r lg:border-[var(--aiortho-gray-100)]',
+          'flex flex-col w-60 bg-white md:relative md:translate-x-0 fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out md:border-r border-[var(--aiortho-gray-100)]',
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         )}
         aria-label="Main Navigation"
