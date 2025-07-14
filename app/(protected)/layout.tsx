@@ -12,13 +12,26 @@ import { cn } from '@/lib/utils';
 import Breadcrumb from '@/components/Breadcrumb';
 import { ROUTES } from '@/constants/routes';
 
-type PATHNAME = keyof typeof ROUTES;
+// 배경색이 필요한 경로들 (key 기준)
+const HAS_BACKGROUND_COLOR_PATHS = ['home', 'patients'];
 
-const HAS_BACKGROUND_COLOR_PATHS: PATHNAME[] = ['home', 'patients'];
+// pathname을 ROUTES key로 변환하는 함수
+const getPathnameKey = (pathname: string): string | null => {
+  // ROUTES에서 해당 경로를 찾아 key 반환
+  const findKey = (routes: typeof ROUTES, targetPath: string): string | null => {
+    for (const [routeKey, route] of Object.entries(routes)) {
+      if (route.path === targetPath) {
+        return route.key; // route.key 반환
+      }
+      if (route.children) {
+        const found = findKey(route.children, targetPath);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
 
-const getPathnameKey = (pathname: string): PATHNAME | null => {
-  const routeEntry = Object.entries(ROUTES).find(([_, route]) => route.path === pathname);
-  return routeEntry ? (routeEntry[0] as PATHNAME) : null;
+  return findKey(ROUTES, pathname);
 };
 
 const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -26,6 +39,8 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = usePathname();
   const { setAuth, setTokens } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
+
+  // 타입 안전한 방식으로 pathname 처리
   const pathnameKey = getPathnameKey(pathname);
   const hasBackgroundColor = pathnameKey ? HAS_BACKGROUND_COLOR_PATHS.includes(pathnameKey) : false;
 

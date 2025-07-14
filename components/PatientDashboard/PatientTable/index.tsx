@@ -12,10 +12,13 @@ import Spinner from '@/components/Spinner';
 import Pagination from '@/components/Pagination';
 import Divider from '@/components/Divider';
 import { Patient } from '@/models';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const PER_PAGE_SIZE = 10;
 
 const PatientTable = () => {
+  const router = useRouter();
   const [columns, setColumns] = useState<TableColumn[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
@@ -101,6 +104,7 @@ const PatientTable = () => {
             </div>
           </div>
         </div>
+
         <div className="mt-7 w-full overflow-x-auto">
           {/* 드래그 가능한 헤더 */}
           <PatientTableHeader
@@ -112,7 +116,20 @@ const PatientTable = () => {
 
           {/* 테이블 본문 */}
           <div className="w-full">
-            {isFetching ? (
+            {true ? (
+              <div className="flex flex-col items-center w-full mt-10 xl:mt-15">
+                <p className="text-[var(--aiortho-gray-600)] mb-4 ">
+                  ‘환자 등록’ 후 처방이 가능합니다.
+                </p>
+                <Button
+                  type="button"
+                  className="cursor-pointer h-12"
+                  onClick={() => router.push('/prescriptions/patients/register')}
+                >
+                  환자 등록하기
+                </Button>
+              </div>
+            ) : isFetching ? (
               <div className="flex items-center justify-center w-full h-full">
                 <Spinner className="my-10 w-16 h-16" />
               </div>

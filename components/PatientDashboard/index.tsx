@@ -2,10 +2,13 @@
 
 import { Button } from '../ui/button';
 import PatientTable from './PatientTable';
+import { useRouter } from 'next/navigation';
 
 interface PatientDashboardProps {}
 
 const PatientDashboard = ({}: PatientDashboardProps) => {
+  const router = useRouter();
+
   return (
     <section className="flex flex-col gap-6">
       <div className="flex w-full flex-col md:flex-row gap-2 md:gap-0 justify-between md:jitems-center">
@@ -18,7 +21,11 @@ const PatientDashboard = ({}: PatientDashboardProps) => {
           </span>
         </div>
 
-        <Button type="button" className="cursor-pointer">
+        <Button
+          type="button"
+          className="cursor-pointer h-12"
+          onClick={() => router.push('/prescriptions/patients/register')}
+        >
           환자 등록하기
         </Button>
       </div>
