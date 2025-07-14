@@ -27,8 +27,6 @@ const NavSection: React.FC<NavSectionProps> = ({
     if (onToggle) onToggle();
   };
 
-  console.log(isExpanded, label);
-
   return (
     <li className="relative w-full flex flex-col gap-2 px-6">
       <button

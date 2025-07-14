@@ -51,8 +51,6 @@ const Sidebar: React.FC = () => {
 
   // // 현재 경로가 해당 섹션의 하위 경로인지 확인하는 함수
   const isActiveSection = (sectionPath: string) => {
-    console.log(pathname, sectionPath);
-    console.log(pathname.startsWith(sectionPath));
     return pathname.startsWith(sectionPath);
   };
 
