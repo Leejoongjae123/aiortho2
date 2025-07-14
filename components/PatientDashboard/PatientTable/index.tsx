@@ -116,7 +116,7 @@ const PatientTable = () => {
 
           {/* 테이블 본문 */}
           <div className="w-full">
-            {true ? (
+            {patients.length === 0 ? (
               <div className="flex flex-col items-center w-full mt-10 xl:mt-15">
                 <p className="text-[var(--aiortho-gray-600)] mb-4 ">
                   ‘환자 등록’ 후 처방이 가능합니다.
