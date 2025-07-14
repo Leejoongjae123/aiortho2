@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
 
   // 현재 경로가 해당 메뉴와 일치하는지 확인하는 함수
   const isActivePath = (path: string) => {
-    return pathname === path;
+    return pathname === path || pathname.startsWith(path);
   };
 
   // // 현재 경로가 해당 섹션의 하위 경로인지 확인하는 함수
@@ -105,7 +105,7 @@ const Sidebar: React.FC = () => {
           </div>
 
           {/* 메인 네비게이션 */}
-          <div className="flex-1">
+          <div className="flex-1 pt-2">
             <ul className="w-full flex flex-col gap-2">
               <NavItem
                 icon={<HomeIcon />}
@@ -123,7 +123,10 @@ const Sidebar: React.FC = () => {
               >
                 <SubNavItem
                   label="환자 명단"
-                  isActive={isActivePath('/prescriptions/patients')}
+                  isActive={
+                    isActivePath('/prescriptions/patients')
+                    // isActivePath('/prescriptions/patients/register')
+                  }
                   onClick={() => handleNavItemClick(() => router.push('/prescriptions/patients'))}
                 />
 
