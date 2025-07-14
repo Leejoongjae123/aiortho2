@@ -54,8 +54,6 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     return pages;
   };
 
-  if (totalPages <= 1) return null;
-
   return (
     <div className="self-start flex items-start gap-1 justify-start">
       {/* Previous Page Button */}
