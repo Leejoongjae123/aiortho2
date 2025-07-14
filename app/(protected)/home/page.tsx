@@ -3,9 +3,8 @@
 import { useAuthStore } from '@/store/authStore';
 import useProfile from '@/hooks/useProfile';
 import Divider from '@/components/Divider';
-import HomeProfile from './components/HomeProfile';
-import QuickMenu from './components/QuickMenu';
 import PatientDashboard from '@/components/PatientDashboard';
+import { HomeProfile, QuickMenu } from './components';
 
 const HomePage = () => {
   const { auth } = useAuthStore();

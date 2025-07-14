@@ -1,3 +1,2 @@
-import DoctorDashboard from './DoctorDashboard';
-
-export default DoctorDashboard;
+export { default as HomeProfile } from './HomeProfile';
+export { default as QuickMenu } from './QuickMenu';
