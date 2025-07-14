@@ -17,7 +17,7 @@ const Navbar = () => {
   const isDoctor = pathname.startsWith('/doctor');
 
   return (
-    <div className="w-full h-[72px] bg-white">
+    <div className="w-full h-[72px] bg-white border-b border-[var(--aiortho-gray-100)]">
       <div className="w-full h-full flex items-center justify-between px-4 md:px-7">
         {/* 왼쪽: 햄버거 메뉴 + 로고 */}
         <div className="flex items-center gap-2">

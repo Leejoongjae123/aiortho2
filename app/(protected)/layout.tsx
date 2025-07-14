@@ -71,7 +71,7 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
     >
       <Navbar />
 
-      <div className="flex min-h-screen">
+      <div className="flex min-h-[calc(100vh-72px)]">
         <div className="hidden md:block">
           <Sidebar />
         </div>

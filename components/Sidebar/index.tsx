@@ -11,6 +11,7 @@ import { NavFooterItemProps } from './types';
 import { HomeIcon, PrescriptionIcon, MyPageIcon, DoctorsIcon } from './icons';
 import { useSidebarStore } from '@/store/sidebarStore';
 import { useAuthStore } from '@/store/authStore';
+import { cn } from '@/lib/utils';
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -87,17 +88,14 @@ const Sidebar: React.FC = () => {
       {/* 사이드바 */}
       <nav
         id="sidebar"
-        className={`
-          flex flex-col items-start px-0 w-60 bg-white gap-[542px] 
-          max-md:gap-96 max-md:px-0 max-md:pt-1.5 max-md:pb-96 
-          max-sm:gap-52 max-sm:px-0 max-sm:pt-1 max-sm:pb-52
-          md:relative md:translate-x-0
-          fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        `}
+        className={cn(
+          'flex flex-col w-60 bg-white md:relative md:translate-x-0 fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out lg:border-r lg:border-[var(--aiortho-gray-100)]',
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        )}
         aria-label="Main Navigation"
       >
-        <div className="flex flex-col items-start w-60">
+        <div className="flex flex-col items-start h-full">
+          {/* 헤더 */}
           <div className="flex items-center gap-2 justify-center py-4 px-4 md:hidden">
             <Link href="/">
               <div className="text-[#0054A6] font-bold text-[22px] leading-6 sm:text-[20px]">
@@ -105,61 +103,68 @@ const Sidebar: React.FC = () => {
               </div>
             </Link>
           </div>
-          <ul className="w-full flex flex-col gap-2">
-            <NavItem
-              icon={<HomeIcon />}
-              label="홈"
-              isActive={isActivePath('/home')}
-              onClick={() => handleNavItemClick(() => router.push('/home'))}
-            />
 
-            <NavSection
-              icon={<PrescriptionIcon />}
-              label="처방 관리"
-              isActive={isActiveSection('/prescriptions')}
-              isExpanded={isActiveSection('/prescriptions')}
-              onToggle={handleDropdownToggle}
-            >
-              <SubNavItem
-                label="환자 명단"
-                isActive={isActivePath('/prescriptions/patients')}
-                onClick={() => handleNavItemClick(() => router.push('/prescriptions/patients'))}
+          {/* 메인 네비게이션 */}
+          <div className="flex-1">
+            <ul className="w-full flex flex-col gap-2">
+              <NavItem
+                icon={<HomeIcon />}
+                label="홈"
+                isActive={isActivePath('/home')}
+                onClick={() => handleNavItemClick(() => router.push('/home'))}
               />
 
-              {(auth?.role === 'Doctor' || auth?.role === 'Root') && (
+              <NavSection
+                icon={<PrescriptionIcon />}
+                label="처방 관리"
+                isActive={isActiveSection('/prescriptions')}
+                isExpanded={isActiveSection('/prescriptions')}
+                onToggle={handleDropdownToggle}
+              >
                 <SubNavItem
-                  label="표준 치료 프로그램"
-                  isActive={isActivePath('/doctor/program')}
-                  onClick={() => handleNavItemClick(() => router.push('/doctor/program'))}
+                  label="환자 명단"
+                  isActive={isActivePath('/prescriptions/patients')}
+                  onClick={() => handleNavItemClick(() => router.push('/prescriptions/patients'))}
+                />
+
+                {(auth?.role === 'Doctor' || auth?.role === 'Root') && (
+                  <SubNavItem
+                    label="표준 치료 프로그램"
+                    isActive={isActivePath('/doctor/program')}
+                    onClick={() => handleNavItemClick(() => router.push('/doctor/program'))}
+                  />
+                )}
+              </NavSection>
+
+              {auth?.role === 'Root' && (
+                <NavItem
+                  icon={<DoctorsIcon />}
+                  label="의사 관리"
+                  isActive={isActivePath('/doctor/master')}
+                  onClick={() => handleNavItemClick(() => router.push('/doctor/master'))}
                 />
               )}
-            </NavSection>
 
-            {auth?.role === 'Root' && (
-              <NavItem
-                icon={<DoctorsIcon />}
-                label="의사 관리"
-                isActive={isActivePath('/doctor/master')}
-                onClick={() => handleNavItemClick(() => router.push('/doctor/master'))}
-              />
-            )}
+              <NavSection
+                icon={<MyPageIcon />}
+                label="마이페이지"
+                isExpanded={isActiveSection('/doctor/mypage')}
+                onToggle={handleDropdownToggle}
+              >
+                <SubNavItem
+                  label="개인정보 수정"
+                  isActive={isActivePath('/doctor/mypage/check')}
+                  onClick={() => handleNavItemClick(() => router.push('/doctor/mypage/check'))}
+                />
+              </NavSection>
+            </ul>
+          </div>
 
-            <NavSection
-              icon={<MyPageIcon />}
-              label="마이페이지"
-              isExpanded={isActiveSection('/doctor/mypage')}
-              onToggle={handleDropdownToggle}
-            >
-              <SubNavItem
-                label="개인정보 수정"
-                isActive={isActivePath('/doctor/mypage/check')}
-                onClick={() => handleNavItemClick(() => router.push('/doctor/mypage/check'))}
-              />
-            </NavSection>
-          </ul>
+          {/* 푸터 */}
+          <div className="px-6 pb-6">
+            <NavFooter items={footerItems} />
+          </div>
         </div>
-
-        <NavFooter items={footerItems} />
       </nav>
     </>
   );

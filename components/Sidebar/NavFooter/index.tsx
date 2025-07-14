@@ -5,14 +5,14 @@ import { NavFooterProps } from '../types';
 const NavFooter: React.FC<NavFooterProps> = ({ items }) => {
   return (
     <section className="w-full" aria-label="Additional information">
-      <ul className="flex flex-col items-start w-full">
+      <ul className="flex flex-col items-start w-full gap-1">
         {items.map((item, index) => (
-          <li key={index} className="flex flex-col justify-center items-start w-full h-10">
+          <li key={index} className="w-full">
             <button
-              className="w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-sky-500 focus-visible:ring-2 focus-visible:ring-sky-500 relative"
+              className="w-full h-10 text-left focus:outline-none focus:ring-2 focus:ring-sky-500 focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg px-4 hover:bg-gray-50 transition-colors"
               onClick={item.onClick}
             >
-              <span className="overflow-hidden absolute left-10 shrink-0 w-40 h-5 text-sm leading-5 whitespace-nowrap text-ellipsis text-slate-400 max-md:left-8 max-md:text-xs max-sm:left-6 max-sm:text-xs">
+              <span className="text-sm leading-5 text-slate-500 hover:text-slate-700 transition-colors">
                 {item.label}
               </span>
             </button>
