@@ -1,21 +1,37 @@
 'use client';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface SubNavItemProps {
   label: string;
+  isActive?: boolean;
   onClick?: () => void;
 }
 
-const SubNavItem: React.FC<SubNavItemProps> = ({ label, onClick }) => {
+const SubNavItem: React.FC<SubNavItemProps> = ({ label, isActive = false, onClick }) => {
   return (
-    <li className="relative w-full h-12 max-md:h-11 max-sm:h-10">
+    <li className="relative w-full">
       <button
-        className="w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-sky-500 focus-visible:ring-2 focus-visible:ring-sky-500"
+        className={cn(
+          'flex items-center w-full h-12 max-md:h-11 max-sm:h-10 rounded-xl',
+          isActive
+            ? 'font-bold text-[var(--aiortho-primary)] bg-[#EEF4FF]'
+            : 'font-medium text-[var(--aiortho-gray-600)] hover:bg-gray-100'
+        )}
         onClick={onClick}
+        aria-current={isActive ? 'page' : undefined}
       >
-        <span className=" absolute top-3.5 shrink-0 h-5 text-sm tracking-wide leading-6 whitespace-nowrap left-[68px] text-ellipsis text-slate-500 w-[104px] max-md:top-3 max-md:left-14 max-md:text-sm max-sm:top-2.5 max-sm:left-12 max-sm:text-xs">
-          {label}
-        </span>
+        <div className="flex items-center gap-2 px-4">
+          <div className="w-5 h-5 flex-shrink-0" />
+          <span
+            className={cn(
+              'overflow-hidden shrink-0 text-sm tracking-wide leading-6 whitespace-nowrap text-ellipsis w-[104px] text-left max-md:text-sm max-sm:text-xs text-[var(--aiortho-gray-600)]',
+              isActive && 'text-[var(--aiortho-primary)] font-bold'
+            )}
+          >
+            {label}
+          </span>
+        </div>
       </button>
     </li>
   );

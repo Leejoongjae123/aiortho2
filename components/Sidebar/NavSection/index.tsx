@@ -1,15 +1,23 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { NavSectionProps } from '../types';
+import { cn } from '@/lib/utils';
 
 const NavSection: React.FC<NavSectionProps> = ({
   icon,
   label,
   children,
+  isActive,
   isExpanded: initialExpanded = false,
   onToggle,
 }) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
+
+  // isExpanded prop이 변경될 때마다 상태 업데이트
+  useEffect(() => {
+    setIsExpanded(initialExpanded);
+  }, [initialExpanded]);
 
   const handleToggle = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -19,35 +27,53 @@ const NavSection: React.FC<NavSectionProps> = ({
     if (onToggle) onToggle();
   };
 
+  console.log(isExpanded, label);
+
   return (
-    <li className="relative w-full">
+    <li className="relative w-full flex flex-col gap-2 px-6">
       <button
-        className="flex items-center w-full h-12 focus:outline-none focus:ring-2 focus:ring-sky-500 focus-visible:ring-2 focus-visible:ring-sky-500 max-md:h-11 max-sm:h-10 relative"
+        className="flex items-center w-full h-12 focus:outline-none max-md:h-11 max-sm:h-10 rounded-xl px-4 hover:bg-gray-100 cursor-pointer"
         onClick={handleToggle}
         aria-expanded={isExpanded}
         aria-controls={`section-${label.replace(/\s+/g, '-').toLowerCase()}`}
       >
-        <div className="flex absolute top-3.5 left-10 gap-2 items-center h-5 w-[132px] max-md:top-3 max-md:left-8 max-sm:top-2.5 max-sm:left-6">
+        <div className="flex items-center gap-2 flex-1">
           <div className="flex-shrink-0">
-            {typeof icon === 'string' ? <div dangerouslySetInnerHTML={{ __html: icon }} /> : icon}
+            {typeof icon === 'string' ? (
+              <div dangerouslySetInnerHTML={{ __html: icon }} />
+            ) : (
+              React.cloneElement(icon as React.ReactElement<any>, {
+                className: cn(
+                  'nav-icon text-[var(--aiortho-gray-600)]',
+                  isExpanded && 'text-[var(--aiortho-gray-700)] font-bold',
+                  isActive && 'text-[var(--aiortho-gray-700)]'
+                ),
+              })
+            )}
           </div>
-          <span className="overflow-hidden shrink-0 h-5 text-sm text-left font-medium tracking-wide leading-6 whitespace-nowrap text-ellipsis text-slate-500 w-[104px] max-md:text-sm max-sm:text-xs">
+          <span
+            className={cn(
+              'overflow-hidden shrink-0 text-sm font-medium tracking-wide leading-6 whitespace-nowrap text-ellipsis w-[104px] text-left max-md:text-sm max-sm:text-xs text-[var(--aiortho-gray-600)]',
+              isExpanded && 'text-[var(--aiortho-gray-700)] font-bold',
+              isActive && 'text-[var(--aiortho-gray-700)] font-bold'
+            )}
+          >
             {label}
           </span>
         </div>
-        <div className="absolute right-9 top-3">
-          <div
-            dangerouslySetInnerHTML={{
-              __html:
-                '<svg layer-name="icon/normal" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="expand-icon"> <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2355 10.1141C16.0603 9.95211 15.7881 9.96405 15.6275 10.1407L12 14.132L8.37263 10.1407C8.21204 9.96405 7.93983 9.95211 7.76464 10.1141C7.58945 10.2761 7.57761 10.5506 7.7382 10.7273L11.3656 14.7185C11.7067 15.0938 12.2934 15.0938 12.6345 14.7185L16.2619 10.7273C16.4225 10.5506 16.4106 10.2761 16.2355 10.1141Z" fill="#8395AC" stroke="#8395AC" stroke-width="0.75" stroke-linecap="round"></path> </svg>',
-            }}
-          />
-        </div>
+
+        <ChevronRight
+          className={cn(
+            'w-5 h-5 transition-transform duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] transform text-[var(--aiortho-gray-600)]',
+            isExpanded ? 'rotate-90 text-[var(--aiortho-gray-700)]' : '-rotate-90 ',
+            isActive && 'text-[var(--aiortho-gray-700)]'
+          )}
+        />
       </button>
       {isExpanded && (
         <ul
           id={`section-${label.replace(/\s+/g, '-').toLowerCase()}`}
-          className="w-full"
+          className="flex flex-col gap-2"
           role="region"
           aria-labelledby={`section-${label.replace(/\s+/g, '-').toLowerCase()}-heading`}
         >

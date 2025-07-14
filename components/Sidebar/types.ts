@@ -9,6 +9,7 @@ export interface NavSectionProps {
   icon: string | React.ReactNode;
   label: string;
   children: React.ReactNode;
+  isActive?: boolean;
   isExpanded?: boolean;
   onToggle?: () => void;
 }

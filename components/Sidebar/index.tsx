@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import NavItem from './NavItem';
 import NavSection from './NavSection';
 import SubNavItem from './SubNavItem';
@@ -14,6 +14,7 @@ import { useAuthStore } from '@/store/authStore';
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { isOpen, closeSidebar } = useSidebarStore();
   const { auth } = useAuthStore();
 
@@ -43,10 +44,22 @@ const Sidebar: React.FC = () => {
     // 드롭다운 토글만 수행, 사이드바는 닫지 않음
   };
 
+  // 현재 경로가 해당 메뉴와 일치하는지 확인하는 함수
+  const isActivePath = (path: string) => {
+    return pathname === path;
+  };
+
+  // // 현재 경로가 해당 섹션의 하위 경로인지 확인하는 함수
+  const isActiveSection = (sectionPath: string) => {
+    console.log(pathname, sectionPath);
+    console.log(pathname.startsWith(sectionPath));
+    return pathname.startsWith(sectionPath);
+  };
+
   // 모바일에서 사이드바 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const sidebar = document.getElementById('mobile-sidebar');
+      const sidebar = document.getElementById('sidebar');
       const hamburger = document.querySelector('[aria-label="메뉴 토글"]');
 
       if (
@@ -75,7 +88,7 @@ const Sidebar: React.FC = () => {
 
       {/* 사이드바 */}
       <nav
-        id="mobile-sidebar"
+        id="sidebar"
         className={`
           flex flex-col items-start px-0 w-60 bg-white gap-[542px] 
           max-md:gap-96 max-md:px-0 max-md:pt-1.5 max-md:pb-96 
@@ -94,28 +107,31 @@ const Sidebar: React.FC = () => {
               </div>
             </Link>
           </div>
-          <ul className="w-full">
+          <ul className="w-full flex flex-col gap-2">
             <NavItem
-              icon={HomeIcon}
+              icon={<HomeIcon />}
               label="홈"
-              isActive={true}
-              onClick={() => handleNavItemClick(() => router.push('/doctor/home'))}
+              isActive={isActivePath('/home')}
+              onClick={() => handleNavItemClick(() => router.push('/home'))}
             />
 
             <NavSection
-              icon={PrescriptionIcon}
+              icon={<PrescriptionIcon />}
               label="처방 관리"
-              isExpanded={true}
+              isActive={isActiveSection('/prescriptions')}
+              isExpanded={isActiveSection('/prescriptions')}
               onToggle={handleDropdownToggle}
             >
               <SubNavItem
                 label="환자 명단"
-                onClick={() => handleNavItemClick(() => router.push('/doctor/patient/list'))}
+                isActive={isActivePath('/prescriptions/patients')}
+                onClick={() => handleNavItemClick(() => router.push('/prescriptions/patients'))}
               />
 
               {(auth?.role === 'Doctor' || auth?.role === 'Root') && (
                 <SubNavItem
                   label="표준 치료 프로그램"
+                  isActive={isActivePath('/doctor/program')}
                   onClick={() => handleNavItemClick(() => router.push('/doctor/program'))}
                 />
               )}
@@ -125,14 +141,20 @@ const Sidebar: React.FC = () => {
               <NavItem
                 icon={<DoctorsIcon />}
                 label="의사 관리"
-                isActive={false}
+                isActive={isActivePath('/doctor/master')}
                 onClick={() => handleNavItemClick(() => router.push('/doctor/master'))}
               />
             )}
 
-            <NavSection icon={MyPageIcon} label="마이페이지" onToggle={handleDropdownToggle}>
+            <NavSection
+              icon={<MyPageIcon />}
+              label="마이페이지"
+              isExpanded={isActiveSection('/doctor/mypage')}
+              onToggle={handleDropdownToggle}
+            >
               <SubNavItem
                 label="개인정보 수정"
+                isActive={isActivePath('/doctor/mypage/check')}
                 onClick={() => handleNavItemClick(() => router.push('/doctor/mypage/check'))}
               />
             </NavSection>
