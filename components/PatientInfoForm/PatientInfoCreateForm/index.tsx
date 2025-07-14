@@ -7,10 +7,17 @@ import { patientFormSchema, PatientFormData } from '../schema';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { cn, formatPhoneNumber } from '@/lib/utils';
+import { useCreatePatient } from '../hooks';
+import { toast } from 'sonner';
+import { showSuccessToast } from '@/components/ui/toast-notification';
+import { useRouter } from 'next/navigation';
 
 interface PatientInfoCreateFormProps {}
 
 export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
+  const router = useRouter();
+  const createPatientMutation = useCreatePatient();
+
   const {
     register,
     handleSubmit,
@@ -58,9 +65,27 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
     setValue('hospitalNumber', value, { shouldValidate: true, shouldDirty: true });
   };
 
-  const onSubmit = (data: PatientFormData) => {
-    console.log('Form data:', data);
-    // API 호출 로직
+  const onSubmit = async (data: PatientFormData) => {
+    await createPatientMutation.mutateAsync(
+      {
+        name: data.patientName,
+        residentRegistrationNumber: `${data.birthDate}-${data.genderDigit}`,
+        hospitalPatientNum: data.hospitalNumber,
+        guardianName: data.guardianName,
+        guardianPhoneNum: data.guardianPhone,
+      },
+      {
+        onSuccess: ({ patientId }) => {
+          router.push(`/prescriptions/patients/${patientId}`);
+          showSuccessToast('환자 등록 완료', '환자 정보가 등록되었습니다.');
+        },
+        onError: () => {
+          toast.error('환자 정보 등록에 실패했습니다.', {
+            description: '잠시 후 다시 시도해주세요.',
+          });
+        },
+      }
+    );
   };
 
   return (

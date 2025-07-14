@@ -1,6 +1,6 @@
 import { Patient } from '@/models';
 
-export interface PatientListRequest {
+export interface GetPatientListRequest {
   count: number;
   pageNumber: number;
   searchKey?: string;
@@ -9,8 +9,18 @@ export interface PatientListRequest {
   sortBy?: string;
 }
 
-export interface PatientListResponse {
+export interface GetPatientListResponse {
   pageCount: number;
   patients: Patient[];
   totalCount: number;
 }
+
+export interface PostCreatePatientRequest {
+  name: string;
+  residentRegistrationNumber: string;
+  hospitalPatientNum: string;
+  guardianName: string;
+  guardianPhoneNum: string;
+}
+
+export interface PostCreatePatientResponse extends Patient {}
