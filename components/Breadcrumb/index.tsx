@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { findRouteByPath } from '@/constants/routes';
+import { findRouteByPath, generateDynamicLabel } from '@/constants/routes';
 
 // 경로 세그먼트에서 브레드크럼 정보를 생성하는 함수
 export const generateBreadcrumbs = (
@@ -18,7 +18,12 @@ export const generateBreadcrumbs = (
     const routeInfo = findRouteByPath(currentPath);
 
     if (routeInfo) {
-      breadcrumbs.push(routeInfo);
+      // 동적 라우트인 경우 더 나은 label 생성
+      const label = generateDynamicLabel(currentPath);
+      breadcrumbs.push({
+        ...routeInfo,
+        label,
+      });
     } else {
       // ROUTES에 없는 경로는 세그먼트를 그대로 사용
       breadcrumbs.push({
