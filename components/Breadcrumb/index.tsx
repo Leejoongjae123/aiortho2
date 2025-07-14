@@ -3,12 +3,9 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const PATH_SEGMENTS_MAP = {
-  home: '홈',
-};
+import { ROUTES } from '@/constants/routes';
 
 const Breadcrumb = () => {
   const pathname = usePathname();
@@ -16,12 +13,12 @@ const Breadcrumb = () => {
 
   const breadcrumbs = pathSegments.map((segment, index) => {
     const href = '/' + pathSegments.slice(0, index + 1).join('/');
-    const label = decodeURIComponent(segment) as keyof typeof PATH_SEGMENTS_MAP;
+    const key = decodeURIComponent(segment) as keyof typeof ROUTES;
     const isLast = index === pathSegments.length - 1;
 
     return (
       <Fragment key={href}>
-        {index > 0 && <span className="mx-2 text-[var(--aiortho-gray-400)]">/</span>}
+        {index > 0 && <ChevronRight className="w-4 h-4 text-[var(--aiortho-gray-400)] mx-2" />}
 
         <Link
           href={href}
@@ -30,7 +27,7 @@ const Breadcrumb = () => {
             isLast && 'text-[var(--aiortho-gray-600)] font-medium'
           )}
         >
-          {PATH_SEGMENTS_MAP[label]}
+          {ROUTES[key].label}
         </Link>
       </Fragment>
     );

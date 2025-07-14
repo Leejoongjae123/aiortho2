@@ -9,16 +9,25 @@ import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
 import { getStorage } from '@/lib/storage';
 import Sidebar from '@/components/Sidebar';
 import { cn } from '@/lib/utils';
+import Breadcrumb from '@/components/Breadcrumb';
+import { ROUTES } from '@/constants/routes';
 
-const HAS_BACKGROUND_COLOR_PATHS = ['/home'];
+type PATHNAME = keyof typeof ROUTES;
+
+const HAS_BACKGROUND_COLOR_PATHS: PATHNAME[] = ['home', 'patients'];
+
+const getPathnameKey = (pathname: string): PATHNAME | null => {
+  const routeEntry = Object.entries(ROUTES).find(([_, route]) => route.path === pathname);
+  return routeEntry ? (routeEntry[0] as PATHNAME) : null;
+};
 
 const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setAuth, setTokens } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
-
-  const hasBackgroundColor = HAS_BACKGROUND_COLOR_PATHS.includes(pathname);
+  const pathnameKey = getPathnameKey(pathname);
+  const hasBackgroundColor = pathnameKey ? HAS_BACKGROUND_COLOR_PATHS.includes(pathnameKey) : false;
 
   useEffect(() => {
     const accessToken = getStorage('local', TOKEN_KEY) || getStorage('session', TOKEN_KEY);
@@ -56,7 +65,10 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
           <Sidebar />
         </div>
 
-        <div className="flex flex-col w-full px-7 md:px-8">{children}</div>
+        <div className="flex flex-col w-full px-7 md:px-8">
+          <Breadcrumb />
+          {children}
+        </div>
       </div>
     </main>
   );

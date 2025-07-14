@@ -3,7 +3,6 @@
 import { useAuthStore } from '@/store/authStore';
 import useProfile from '@/hooks/useProfile';
 import Divider from '@/components/Divider';
-import Breadcrumb from '@/components/Breadcrumb';
 import HomeProfile from './components/HomeProfile';
 import QuickMenu from './components/QuickMenu';
 import PatientDashboard from '@/components/PatientDashboard';
@@ -18,9 +17,6 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* Breadcrumb */}
-      <Breadcrumb />
-
       {/* HomeProfile */}
       <HomeProfile name={name} role={auth.role} code={adminId} />
 
