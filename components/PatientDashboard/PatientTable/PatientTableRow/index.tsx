@@ -4,8 +4,8 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { StatusBadge } from '@/components/Badge';
 import { Patient, PrescriptionStatus } from '@/models';
-import { TableColumn } from '../types';
 import { formatPeriod, formatISODate } from '@/lib/utils';
+import { TableColumn } from '../types';
 
 interface PatientTableRowProps {
   patient: Patient;
@@ -16,7 +16,7 @@ const PatientTableRow = ({ patient, columnOrder }: PatientTableRowProps) => {
   const router = useRouter();
 
   const handleRowClick = () => {
-    router.push(`/doctor/patient/status/${patient.patientId}`);
+    router.push(`/prescriptions/patients/${patient.patientId}`);
   };
 
   // 컬럼 데이터 렌더링 함수

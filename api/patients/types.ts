@@ -1,4 +1,4 @@
-import { Patient } from '@/models';
+import { Patient, PatientListSortKey } from '@/models';
 
 export interface GetPatientListRequest {
   count: number;
@@ -6,7 +6,7 @@ export interface GetPatientListRequest {
   searchKey?: string;
   findMyPatient?: boolean;
   ascending?: boolean;
-  sortBy?: string;
+  sortBy?: PatientListSortKey;
 }
 
 export interface GetPatientListResponse {

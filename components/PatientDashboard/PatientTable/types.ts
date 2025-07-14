@@ -1,4 +1,4 @@
-import { Patient } from '@/models';
+import { Patient, PatientListSortKey } from '@/models';
 
 type TableColumnKey =
   | '병원 환자 번호'
@@ -15,4 +15,5 @@ export interface TableColumn {
   id: keyof Patient;
   flex: string;
   label: TableColumnKey;
+  sortKey: PatientListSortKey;
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -19,13 +18,13 @@ import {
 import { restrictToHorizontalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
 import PatientTableHeaderCell from '../PatientTableHeaderCell';
 import { TableColumn } from '../types';
-import { Patient } from '@/models';
+import { Patient, PatientListSortKey } from '@/models';
 
 interface DraggableTableHeaderProps {
   columns: TableColumn[];
-  sortBy: keyof Patient | 'createdAt';
+  sortBy: PatientListSortKey;
   onColumnOrderChange: (newColumns: TableColumn[]) => void;
-  onColumnSortChange: (newSortBy: keyof Patient | 'createdAt') => void;
+  onColumnSortChange: (newSortBy: PatientListSortKey) => void;
 }
 
 function DraggableTableHeader({
@@ -34,8 +33,6 @@ function DraggableTableHeader({
   onColumnOrderChange,
   onColumnSortChange,
 }: DraggableTableHeaderProps) {
-  const [selectedSortColumn, setSelectedSortColumn] = useState<keyof Patient | 'createdAt'>(sortBy);
-
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -59,9 +56,10 @@ function DraggableTableHeader({
     }
   };
 
-  const handleColumnSortChange = (newSortBy: keyof Patient | 'createdAt') => {
-    setSelectedSortColumn(newSortBy);
-    onColumnSortChange(newSortBy);
+  const handleColumnSortChange = (selectedSortColumn: keyof Patient | 'createdAt') => {
+    onColumnSortChange(
+      columns.find(column => column.id === selectedSortColumn)?.sortKey as PatientListSortKey
+    );
   };
 
   return (
@@ -80,7 +78,7 @@ function DraggableTableHeader({
             <PatientTableHeaderCell
               key={column.id}
               column={column}
-              sortBy={selectedSortColumn === column.id}
+              sortBy={sortBy === column.sortKey}
               onColumnSortChange={handleColumnSortChange}
             />
           ))}

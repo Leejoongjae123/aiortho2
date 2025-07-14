@@ -17,6 +17,16 @@ export enum ExerciseDirection {
   right = '오른쪽',
 }
 
+export type PatientListSortKey =
+  | 'createdAt'
+  | 'name'
+  | 'age'
+  | 'doctorName'
+  | 'prescriptionStatus'
+  | '_prescriptionstartDate'
+  | '_prescriptionupdatedAt'
+  | 'prescriptionStatus';
+
 export interface Hospital {
   hospitalCode: string;
   name: string;

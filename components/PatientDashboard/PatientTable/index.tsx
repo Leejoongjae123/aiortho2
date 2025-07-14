@@ -11,7 +11,7 @@ import { usePatients } from '@/hooks/usePatients';
 import Spinner from '@/components/Spinner';
 import Pagination from '@/components/Pagination';
 import Divider from '@/components/Divider';
-import { Patient } from '@/models';
+import { PatientListSortKey } from '@/models';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
@@ -24,7 +24,7 @@ const PatientTable = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [isFindMyPatient, setIsFindMyPatient] = useState(false);
   const [search, setSearch] = useState('');
-  const [sortBy, setSortBy] = useState<keyof Patient | 'createdAt'>('createdAt');
+  const [sortBy, setSortBy] = useState<PatientListSortKey>('createdAt');
   const debouncedSearch = useDebounce(search, 2000);
 
   const patientsQuery = usePatients({
@@ -55,7 +55,7 @@ const PatientTable = () => {
     saveColumnOrder(newColumns);
   };
 
-  const handleColumnSortChange = (newSortBy: keyof Patient | 'createdAt') => {
+  const handleColumnSortChange = (newSortBy: PatientListSortKey) => {
     setSortBy(newSortBy);
   };
 
