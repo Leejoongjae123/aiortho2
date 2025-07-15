@@ -223,7 +223,6 @@ const PatientTable = () => {
           {/* 드래그 가능한 헤더 */}
           <PatientTableHeader
             columns={columns}
-            sortBy={sortBy}
             sortDirection={sortDirection}
             currentSortedColumnId={currentSortedColumnId}
             onColumnSortChange={handleColumnSortChange}

@@ -21,7 +21,6 @@ import { TableColumn } from '../types';
 
 interface DraggableTableHeaderProps {
   columns: TableColumn[];
-  sortBy: TableColumn['sortKey'];
   sortDirection: 'asc' | 'desc' | null;
   currentSortedColumnId: TableColumn['id'];
   onColumnOrderChange: (newColumns: TableColumn[]) => void;
@@ -30,7 +29,6 @@ interface DraggableTableHeaderProps {
 
 function DraggableTableHeader({
   columns,
-  sortBy,
   sortDirection,
   currentSortedColumnId,
   onColumnOrderChange,
