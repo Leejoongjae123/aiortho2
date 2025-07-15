@@ -88,3 +88,62 @@ export const formatPhoneNumber = (value: string) => {
   if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
 };
+
+// 배열에서 요소 위치 변경 헬퍼 함수
+export const arrayMove = <T>(array: T[], from: number, to: number): T[] => {
+  const newArray = [...array];
+  const item = newArray.splice(from, 1)[0];
+  newArray.splice(to, 0, item);
+  return newArray;
+};
+
+// 제네릭 컬럼 타입 정의
+export interface GenericTableColumn<T = any> {
+  id: string;
+  flex: string;
+  label: string;
+  sortKey: string;
+}
+
+// localStorage에서 컬럼 순서 불러오기 (제네릭 함수)
+export const loadColumnOrder = <T extends GenericTableColumn>(
+  defaultColumns: T[],
+  storageKey: string
+): T[] => {
+  if (typeof window === 'undefined') return defaultColumns;
+
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (!saved) return defaultColumns;
+
+    const savedOrder: string[] = JSON.parse(saved);
+
+    // 저장된 순서에 따라 컬럼 재정렬
+    const orderedColumns = savedOrder
+      .map(id => defaultColumns.find(col => col.id === id))
+      .filter(Boolean) as T[];
+
+    // 새로 추가된 컬럼이 있다면 뒤에 추가
+    const missingColumns = defaultColumns.filter(col => !savedOrder.includes(col.id));
+
+    return [...orderedColumns, ...missingColumns];
+  } catch (error) {
+    console.warn('컬럼 순서 불러오기 실패:', error);
+    return defaultColumns;
+  }
+};
+
+// localStorage에 컬럼 순서 저장 (제네릭 함수)
+export const saveColumnOrder = <T extends GenericTableColumn>(
+  columns: T[],
+  storageKey: string
+): void => {
+  if (typeof window === 'undefined') return;
+
+  try {
+    const columnIds = columns.map(col => col.id);
+    localStorage.setItem(storageKey, JSON.stringify(columnIds));
+  } catch (error) {
+    console.warn('컬럼 순서 저장 실패:', error);
+  }
+};
