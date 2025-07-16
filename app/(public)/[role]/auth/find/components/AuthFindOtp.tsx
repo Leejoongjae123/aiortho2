@@ -12,6 +12,8 @@ import { useFindPassword } from '../hooks/useFindPassword';
 import { useFindPasswordOtp } from '../hooks/useFindPasswordOtp';
 import Spinner from '@/components/Spinner';
 import { AuthFindIdFormValues, AuthFindPasswordFormValues } from '../types';
+import { formatTime } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const otpSchema = z.object({
   otp: z.string().min(6, '6자리 이상 입력해주세요').max(6, '6자리 이하 입력해주세요'),
@@ -33,12 +35,6 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
   const postFindIdOtpMutation = useFindIdOtp();
   const postFindPasswordMutation = useFindPassword();
   const postFindPasswordOtpMutation = useFindPasswordOtp();
-
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
 
   const {
     register,
@@ -100,14 +96,20 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
           onSuccess: ({ accessToken }) => {
             onSubmit && onSubmit(accessToken);
           },
-          onError: () => {
-            setError('otp', {
-              type: 'manual',
-              message: '유효하지 않은 인증코드 입니다. 인증번호를 다시 전송 받으세요.',
-            });
-
-            setIsActive(false);
-            setTimer(0);
+          onError: err => {
+            if (err.statusSubCode === 4024) {
+              setError('otp', {
+                message: '인증 번호가 일치하지 않아요',
+              });
+            } else if (err.statusSubCode === 4004) {
+              setError('otp', {
+                message: '시간이 만료된 인증 번호에요',
+              });
+            } else {
+              toast.error('서버 오류가 발생했습니다.', {
+                description: '잠시 후 다시 시도해주세요.',
+              });
+            }
           },
         }
       );
@@ -121,14 +123,20 @@ const AuthFindOtp = ({ formValues, onSubmit }: AuthFindOtpProps) => {
           onSuccess: ({ email }) => {
             onSubmit && onSubmit(email);
           },
-          onError: () => {
-            setError('otp', {
-              type: 'manual',
-              message: '유효하지 않은 인증코드 입니다. 인증번호를 다시 전송 받으세요.',
-            });
-
-            setIsActive(false);
-            setTimer(0);
+          onError: err => {
+            if (err.statusSubCode === 4024) {
+              setError('otp', {
+                message: '인증 번호가 일치하지 않아요',
+              });
+            } else if (err.statusSubCode === 4004) {
+              setError('otp', {
+                message: '시간이 만료된 인증 번호에요',
+              });
+            } else {
+              toast.error('서버 오류가 발생했습니다.', {
+                description: '잠시 후 다시 시도해주세요.',
+              });
+            }
           },
         }
       );
