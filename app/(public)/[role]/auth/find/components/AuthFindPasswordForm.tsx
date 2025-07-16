@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 const findPasswordSchema = z.object({
   name: z.string().min(1, '이름을 입력해주세요'),
-  email: z.string().email({ message: '올바르지 않은 아이디(이메일) 형식이에요.' }),
+  email: z.string().email({ message: '아이디(이메일)가 올바르지 않아요' }),
   phoneNumber: z.string().min(10, '10자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
 });
 
