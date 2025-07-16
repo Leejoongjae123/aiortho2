@@ -52,7 +52,11 @@ export default function AuthFindIdForm({ onSubmit }: AuthFindIdFormProps) {
 
         if (err.statusSubCode === 4028) {
           setError('name', {
-            message: '존재하지 않는 사용자입니다',
+            message: ' ',
+          });
+
+          setError('phoneNumber', {
+            message: '올바른 정보를 입력해주세요',
           });
 
           return;

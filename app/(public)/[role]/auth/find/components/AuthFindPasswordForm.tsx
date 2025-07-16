@@ -53,9 +53,18 @@ const AuthFindPasswordForm = ({ onSubmit }: AuthFindPasswordFormProps) => {
         }
 
         if (err.statusSubCode === 4028) {
-          setError('email', {
-            message: '아이디(이메일)가 올바르지 않아요',
+          setError('name', {
+            message: ' ',
           });
+
+          setError('email', {
+            message: ' ',
+          });
+
+          setError('phoneNumber', {
+            message: '올바른 정보를 입력해주세요',
+          });
+
           return;
         }
 
