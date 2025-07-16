@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { useFindPassword } from '../hooks/useFindPassword';
 import Spinner from '@/components/Spinner';
 import { AuthFindPasswordFormValues } from '../types';
+import { toast } from 'sonner';
 
 const findPasswordSchema = z.object({
   name: z.string().min(1, '이름을 입력해주세요'),
-  email: z.string().email({ message: '올바르지 않은 아이디 (이메일) 형식이에요.' }),
-  phoneNumber: z.string().min(9, '9자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
+  email: z.string().email({ message: '올바르지 않은 아이디(이메일) 형식이에요.' }),
+  phoneNumber: z.string().min(10, '10자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
 });
 
 type FormPasswordValues = z.infer<typeof findPasswordSchema>;
@@ -30,12 +31,12 @@ const AuthFindPasswordForm = ({ onSubmit }: AuthFindPasswordFormProps) => {
     formState: { errors, isValid },
   } = useForm<FormPasswordValues>({
     resolver: zodResolver(findPasswordSchema),
+    mode: 'onChange',
     defaultValues: {
       name: '',
       phoneNumber: '',
       email: '',
     },
-    mode: 'onChange',
   });
 
   const onSubmitPassword: SubmitHandler<FormPasswordValues> = data => {
@@ -43,20 +44,23 @@ const AuthFindPasswordForm = ({ onSubmit }: AuthFindPasswordFormProps) => {
       onSuccess: () => {
         onSubmit && onSubmit(data);
       },
-      onError: () => {
-        setError('name', {
-          type: 'manual',
-          message: ' ',
-        });
+      onError: err => {
+        if (err.statusSubCode === 4002) {
+          setError('phoneNumber', {
+            message: '유효하지 않은 휴대폰 번호입니다',
+          });
+          return;
+        }
 
-        setError('email', {
-          type: 'manual',
-          message: ' ',
-        });
+        if (err.statusSubCode === 4028) {
+          setError('email', {
+            message: '아이디(이메일)가 올바르지 않아요',
+          });
+          return;
+        }
 
-        setError('phoneNumber', {
-          type: 'manual',
-          message: '비밀번호 찾기 실패, 올바른 정보를 입력해주세요.',
+        toast.error('서버 에러가 발생했습니다.', {
+          description: '잠시 후 다시 시도해주세요',
         });
       },
     });
