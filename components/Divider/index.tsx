@@ -15,15 +15,12 @@ const Divider = ({
 }: DividerProps) => {
   const isHorizontal = direction === 'horizontal';
 
-  return (
-    <div
-      className={cn(
-        'bg-slate-200',
-        isHorizontal ? `w-[${length}] h-[${thickness}]` : `h-[${length}] w-[${thickness}]`,
-        className
-      )}
-    />
-  );
+  const style = {
+    width: isHorizontal ? length : thickness,
+    height: isHorizontal ? thickness : length,
+  };
+
+  return <div className={cn('bg-slate-200', className)} style={style} />;
 };
 
 export default Divider;
