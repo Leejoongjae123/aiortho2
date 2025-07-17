@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { resetPassword } from '@/api/admin/common';
-import { ResetPasswordRequest } from '@/api/admin/common/types';
+import { ResetPasswordRequest, ResetPasswordResponse } from '@/api/admin/common/types';
+import { ErrorResponse } from '@/api/types';
 
 type ResetPasswordVariables = {
   data: ResetPasswordRequest;
@@ -8,7 +9,7 @@ type ResetPasswordVariables = {
 };
 
 export const useResetPassword = () => {
-  return useMutation({
+  return useMutation<ResetPasswordResponse, ErrorResponse, ResetPasswordVariables>({
     mutationFn: ({ data, token }: ResetPasswordVariables) => resetPassword(data, token),
   });
 };

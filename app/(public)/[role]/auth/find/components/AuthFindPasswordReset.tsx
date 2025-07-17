@@ -10,29 +10,27 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import Spinner from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
-import ToastNotification from '@/components/ui/toast-notification';
 import { useResetPassword } from '../hooks/useResetPassword';
+import { showSuccessToast } from '@/components/ui/toast-notification';
 
-const resetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(8, { message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.' })
-    .max(16, {
-      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.',
-    })
-    .regex(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\-+={\[}\]:;"'<,>.?/~])/, {
-      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요',
-    }),
-  confirmPassword: z
-    .string()
-    .min(8, { message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.' })
-    .max(16, {
-      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요.',
-    })
-    .regex(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\-+={\[}\]:;"'<,>.?/~])/, {
-      message: '8~16자리 영문/숫자/특수문자 조합만 입력할 수 있어요',
-    }),
-});
+const resetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(1, { message: '비밀번호를 입력해주세요.' })
+      .min(8, { message: '영문/숫자/특수문자 2가지 이상 조합 (8~16자)만 입력할 수 있어요' })
+      .max(16, {
+        message: '영문/숫자/특수문자 2가지 이상 조합 (8~16자)만 입력할 수 있어요',
+      })
+      .regex(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\-+={\[}\]:;"'<,>.?/~])/, {
+        message: '영문/숫자/특수문자 2가지 이상 조합 (8~16자)만 입력할 수 있어요',
+      }),
+    confirmPassword: z.string().min(1, { message: '비밀번호를 다시 입력해주세요.' }),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: '변경할 비밀번호와 일치하지 않아요',
+    path: ['confirmPassword'],
+  });
 
 type FormResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 
@@ -66,34 +64,6 @@ const AuthFindPasswordReset = ({ token, onCancel }: AuthFindPasswordResetProps) 
   const passwordValue = watch('password');
   const confirmPasswordValue = watch('confirmPassword');
 
-  const getPasswordError = () => {
-    if (errors.password?.message) {
-      return errors.password.message;
-    }
-
-    if (!passwordValue || passwordValue.trim() === '') {
-      return '비밀번호를 입력해주세요.';
-    }
-
-    return undefined;
-  };
-
-  const getConfirmPasswordError = () => {
-    if (errors.confirmPassword?.message) {
-      return errors.confirmPassword.message;
-    }
-
-    if (!confirmPasswordValue || confirmPasswordValue.trim() === '') {
-      return '비밀번호를 다시 입력해주세요.';
-    }
-
-    if (confirmPasswordValue && passwordValue !== confirmPasswordValue) {
-      return '비밀번호가 일치하지 않아요';
-    }
-
-    return undefined;
-  };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -114,14 +84,13 @@ const AuthFindPasswordReset = ({ token, onCancel }: AuthFindPasswordResetProps) 
       },
       {
         onSuccess: () => {
-          toast.custom(() => (
-            <ToastNotification title="비밀번호 변경 완료" description="다시 로그인 해주세요." />
-          ));
-
+          showSuccessToast('비밀번호 변경 완료', '다시 로그인 해주세요.');
           router.push('/');
         },
-        onError: () => {
-          toast.error('서버 에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        onError: err => {
+          toast.error('서버 에러가 발생했습니다.', {
+            description: '잠시 후 다시 시도해주세요.',
+          });
         },
       }
     );
@@ -143,7 +112,7 @@ const AuthFindPasswordReset = ({ token, onCancel }: AuthFindPasswordResetProps) 
           placeholder="8~16자리 영문/숫자/특수문자 조합"
           type={showPassword ? 'text' : 'password'}
           registration={register('password')}
-          error={getPasswordError()}
+          error={errors.password?.message}
           value={passwordValue}
           rightIcon={
             showPassword ? <EyeOff size={20} color="#97A8C4" /> : <Eye size={20} color="#97A8C4" />
@@ -156,7 +125,7 @@ const AuthFindPasswordReset = ({ token, onCancel }: AuthFindPasswordResetProps) 
           placeholder="변경할 새 비밀번호를 재입력해주세요"
           type={showConfirmPassword ? 'text' : 'password'}
           registration={register('confirmPassword')}
-          error={getConfirmPasswordError()}
+          error={errors.confirmPassword?.message}
           value={confirmPasswordValue}
           rightIcon={
             showConfirmPassword ? (
@@ -166,7 +135,7 @@ const AuthFindPasswordReset = ({ token, onCancel }: AuthFindPasswordResetProps) 
             )
           }
           onRightIconClick={toggleConfirmPasswordVisibility}
-          apiResponse={passwordValue !== confirmPasswordValue}
+          apiResponse={isValid && passwordValue !== confirmPasswordValue}
           apiResponseMessage={
             isValid && passwordValue === confirmPasswordValue ? '변경할 비밀번호와 일치해요' : ''
           }
