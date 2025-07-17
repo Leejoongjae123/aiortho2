@@ -4,9 +4,14 @@ import {
   PostCreatePatientResponse,
   GetPatientListRequest,
   GetPatientListResponse,
+  GetPatientRequest,
+  GetPatientResponse,
 } from './types';
 
 const RESOURCE = '/ums/patients';
+
+export const getPatient = async (params: GetPatientRequest): Promise<GetPatientResponse> =>
+  await apiClient.get(`${RESOURCE}/${params.patientId}`);
 
 export const getPatientList = async (
   params: GetPatientListRequest

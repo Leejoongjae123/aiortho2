@@ -1,5 +1,11 @@
 import { Patient, PatientListSortKey } from '@/models';
 
+export interface GetPatientRequest {
+  patientId: string;
+}
+
+export interface GetPatientResponse extends Patient {}
+
 export interface GetPatientListRequest {
   count: number;
   pageNumber: number;
