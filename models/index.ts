@@ -13,9 +13,14 @@ export const PrescriptionStatusLabel = {
 };
 
 export enum ExerciseDirection {
-  left = '왼쪽',
-  right = '오른쪽',
+  Left = 'left',
+  Right = 'right',
 }
+
+export const ExerciseDirectionLabel = {
+  [ExerciseDirection.Left]: '왼쪽 (Lt)',
+  [ExerciseDirection.Right]: '오른쪽 (Rt)',
+};
 
 export type PatientListSortKey =
   | 'createdAt'
