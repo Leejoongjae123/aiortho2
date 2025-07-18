@@ -81,6 +81,41 @@ export function formatPeriod(startDate: string, endDate: string): string {
   return `${formattedStart} - ${formattedEnd}`;
 }
 
+// 기간을 주(week) 단위로 계산하는 함수
+export function calculateWeeks(startDate: string, endDate: string): number {
+  if (!startDate || !endDate) return 1;
+
+  try {
+    // YYYYMMDD 형식을 Date 객체로 변환
+    const start = new Date(
+      parseInt(startDate.substring(0, 4)),
+      parseInt(startDate.substring(4, 6)) - 1, // 월은 0부터 시작
+      parseInt(startDate.substring(6, 8))
+    );
+
+    const end = new Date(
+      parseInt(endDate.substring(0, 4)),
+      parseInt(endDate.substring(4, 6)) - 1, // 월은 0부터 시작
+      parseInt(endDate.substring(6, 8))
+    );
+
+    // 유효한 날짜인지 확인
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return 1;
+
+    // 밀리초 차이를 일수로 변환
+    const timeDiff = end.getTime() - start.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    // 일수를 주로 변환 (7일 = 1주)
+    const weeks = Math.ceil(daysDiff / 7);
+
+    // 최소 1주 반환
+    return Math.max(1, weeks);
+  } catch (error) {
+    return 1;
+  }
+}
+
 // 휴대폰 번호 포맷팅 함수
 export const formatPhoneNumber = (value: string) => {
   const numbers = value.replace(/[^0-9]/g, '');
