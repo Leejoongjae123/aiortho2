@@ -96,7 +96,7 @@ export interface Patient {
   createdAt: string;
   updatedAt: string;
   prescription?: Prescription;
-  license: string;
+  license?: string;
   doctorId?: string;
   doctorName?: string;
   gender: string;
