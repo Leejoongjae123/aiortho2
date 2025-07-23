@@ -8,6 +8,7 @@ import {
   MedicalLicenseDetails,
   PrescriptionHistory,
   RehabilitationStatus,
+  PatientController,
 } from './components';
 
 export default function PatientDetailPage({}) {
@@ -21,12 +22,13 @@ export default function PatientDetailPage({}) {
   if (!patient) return null;
 
   return (
-    <div className="flex flex-col gap-16 lg:gap-22 max-w-[960px] pb-17">
+    <div className="flex flex-col gap-16 lg:gap-22 max-w-[680px] pb-17">
       <PatientInfoCard patient={patient} />
       <ActivePrescription prescription={activePrescription} />
       <PrescriptionHistory patientId={Number(id)} />
       <RehabilitationStatus license={patient.license} />
       <MedicalLicenseDetails />
+      <PatientController />
     </div>
   );
 }
