@@ -47,7 +47,6 @@ export default function PrescriptionProgramCard({
     }
   };
 
-  console.log(prescription);
   return (
     <Card
       className={`border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out ${isOpen ? 'shadow-md' : 'shadow-sm'}`}
@@ -198,7 +197,7 @@ export default function PrescriptionProgramCard({
                       size="icon"
                       className="cursor-pointer bg-[#F7F9FC] h-6 w-6 text-[var(--aiortho-gray-600)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9]"
                       onClick={() => handleRepetitionsChange(-1)}
-                      disabled={repetitions <= 3}
+                      disabled={repetitions <= 3 || disabled}
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
@@ -210,7 +209,7 @@ export default function PrescriptionProgramCard({
                       size="icon"
                       className="bg-[#F7F9FC] cursor-pointer h-6 w-6 text-[var(--aiortho-gray-600)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9]"
                       onClick={() => handleRepetitionsChange(1)}
-                      disabled={repetitions >= 12}
+                      disabled={repetitions >= 12 || disabled}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
