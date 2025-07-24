@@ -22,7 +22,6 @@ export default function DoctorRegistrationTable({
   onColumnSortChange,
   admins,
 }: DoctorRegistrationTableProps) {
-  console.log(columns);
   return (
     <div className="w-full overflow-x-auto mt-7">
       {/* 드래그 가능한 헤더 */}
