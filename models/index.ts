@@ -56,29 +56,22 @@ export interface Admin {
   createdAt: string;
 }
 
-export interface DoctorProfile {
+export interface Doctor {
+  signupCode: string;
   adminId: string;
   email: string;
   name: string;
   phoneNumber: string;
   licenseNumber: string;
-  medicalInstitutionId: string;
-  departmentId: string;
-  isVerified: true;
-  specialty: string;
+  isVerified: boolean;
   hospitalCode: string;
+  departmentCode: string;
+  specialtyField: string;
+  specialistLicenseNumber: string;
+  nurseIds: string[];
 }
 
 export interface Nurse {
-  id: number;
-  name: string;
-  department: string;
-  license: string;
-  experience?: string;
-  phone: string;
-}
-
-export interface NurseProfile {
   adminId: string;
   email: string;
   name: string;

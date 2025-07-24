@@ -1,7 +1,7 @@
 import apiClient from '@/lib/axios';
-import { NurseProfileResponse } from './types';
+import { GetNurseProfileResponse } from './types';
 
 const RESOURCE = '/ums/nurse';
 
-export const getNurseProfile = async (): Promise<NurseProfileResponse> =>
+export const getNurseProfile = async (): Promise<GetNurseProfileResponse> =>
   await apiClient.get(`${RESOURCE}`);

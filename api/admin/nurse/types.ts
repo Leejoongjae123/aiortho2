@@ -1,5 +1,5 @@
-import { NurseProfile } from '@/models';
+import { Nurse } from '@/models';
 
-export interface NurseProfileRequest {}
+export interface GetNurseProfileRequest {}
 
-export interface NurseProfileResponse extends NurseProfile {}
+export interface GetNurseProfileResponse extends Nurse {}

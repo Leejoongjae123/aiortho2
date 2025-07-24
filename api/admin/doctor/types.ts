@@ -1,4 +1,4 @@
-import { DoctorProfile } from '@/models';
+import { Doctor } from '@/models';
 
 export interface DoctorSignUpActivateCodeRequest {
   code: string;
@@ -8,6 +8,6 @@ export interface DoctorSignUpActivateCodeResponse {
   signupToken: string;
 }
 
-export interface DoctorProfileRequest {}
+export interface GetDoctorProfileRequest {}
 
-export interface DoctorProfileResponse extends DoctorProfile {}
+export interface GetDoctorProfileResponse extends Doctor {}
