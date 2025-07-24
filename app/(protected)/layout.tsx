@@ -13,7 +13,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { ROUTES } from '@/constants/routes';
 
 // 배경색이 필요한 경로들 (key 기준)
-const HAS_BACKGROUND_COLOR_PATHS = ['home', 'patients'];
+const HAS_BACKGROUND_COLOR_PATHS = ['home', 'patients', 'admin'];
 
 // pathname을 ROUTES key로 변환하는 함수
 const getPathnameKey = (pathname: string): string | null => {

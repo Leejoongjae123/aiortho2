@@ -100,9 +100,9 @@ export const arrayMove = <T>(array: T[], from: number, to: number): T[] => {
 // 제네릭 컬럼 타입 정의
 export interface GenericTableColumn<T = any> {
   id: string;
-  flex: string;
+  flex?: string;
   label: string;
-  sortKey: string;
+  sortKey?: string;
 }
 
 // localStorage에서 컬럼 순서 불러오기 (제네릭 함수)
