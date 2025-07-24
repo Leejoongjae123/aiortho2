@@ -17,7 +17,7 @@ const HomeProfile: React.FC<HomeProfileProps> = ({ name, role, code }: HomeProfi
           </span>
         </div>
         <p className="text-base leading-6 text-slate-500 sm:text-lg">
-          {role === 'Doctor' ? '의사' : '간호사'} 코드 - {code}
+          {role === 'Nurse' ? '간호사' : '의사'} 코드 - {code}
         </p>
       </div>
     </div>
