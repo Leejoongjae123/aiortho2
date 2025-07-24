@@ -123,14 +123,14 @@ export default function IssueCodeModal({ isOpen, onClose }: IssueCodeModalProps)
             <Button
               type="button"
               onClick={handleClose}
-              className="flex-1 rounded-full min-h-[48px] px-6 py-3 text-sm font-bold text-[#465463] bg-[#DADFE9] hover:bg-[#DADFE9]/80"
+              className="cursor-pointer flex-1 rounded-full min-h-[48px] px-6 py-3 text-sm font-bold text-[#465463] bg-[#DADFE9] hover:bg-[#DADFE9]/80"
             >
               취소
             </Button>
             <Button
               type="submit"
               disabled={!isValid || isPending}
-              className={`flex-1 rounded-full min-h-[48px] px-6 py-3 text-sm font-bold text-white ${
+              className={`cursor-pointer flex-1 rounded-full min-h-[48px] px-6 py-3 text-sm font-bold text-white ${
                 isValid ? 'bg-[#0054A6] hover:bg-[#0054A6]/90' : 'bg-[#BDD5FF] hover:bg-[#BDD5FF]'
               }`}
             >
