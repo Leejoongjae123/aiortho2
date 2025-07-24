@@ -4,7 +4,6 @@ import { Search } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import DoctorRegistrationTable from './DoctorRegistrationTable';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { useAdmins } from './hooks';
 import Pagination from '@/components/Pagination';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -15,7 +14,6 @@ import Divider from '@/components/Divider';
 const PER_PAGE_SIZE = 10;
 
 export default function DoctorRegistrationDashboard() {
-  const router = useRouter();
   const [pageNumber, setPageNumber] = useState(1);
   const [sortBy, setSortBy] = useState<TableColumn['id']>('createdAt');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | null>(null);
