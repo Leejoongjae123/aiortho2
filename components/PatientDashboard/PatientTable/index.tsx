@@ -19,9 +19,7 @@ const PER_PAGE_SIZE = 10;
 const PatientTable = () => {
   const router = useRouter();
   const tableRef = useRef<HTMLDivElement>(null);
-
   const [columns, setColumns] = useState<TableColumn[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isFindMyPatient, setIsFindMyPatient] = useState(false);
   const [search, setSearch] = useState('');
@@ -51,7 +49,6 @@ const PatientTable = () => {
   useEffect(() => {
     const savedColumns = loadColumnOrder();
     setColumns(savedColumns);
-    setIsLoading(false);
   }, []);
 
   // 검색/필터 변경 시 페이지 리셋 및 스크롤 활성화
