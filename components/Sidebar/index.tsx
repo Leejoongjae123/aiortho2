@@ -123,10 +123,7 @@ const Sidebar: React.FC = () => {
               >
                 <SubNavItem
                   label="환자 명단"
-                  isActive={
-                    isActivePath('/prescriptions/patients')
-                    // isActivePath('/prescriptions/patients/register')
-                  }
+                  isActive={isActivePath('/prescriptions/patients')}
                   onClick={() => handleNavItemClick(() => router.push('/prescriptions/patients'))}
                 />
 
@@ -143,8 +140,8 @@ const Sidebar: React.FC = () => {
                 <NavItem
                   icon={<DoctorsIcon />}
                   label="의사 관리"
-                  isActive={isActivePath('/doctor/master')}
-                  onClick={() => handleNavItemClick(() => router.push('/doctor/master'))}
+                  isActive={isActivePath('/admin')}
+                  onClick={() => handleNavItemClick(() => router.push('/admin'))}
                 />
               )}
 

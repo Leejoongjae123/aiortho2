@@ -11,6 +11,7 @@ export const ROUTES: Record<string, RouteConfig> = {
     path: '/home',
     label: '홈',
   },
+
   prescriptions: {
     key: 'prescriptions',
     path: '/prescriptions',
@@ -34,6 +35,12 @@ export const ROUTES: Record<string, RouteConfig> = {
         },
       },
     },
+  },
+
+  admin: {
+    key: 'admin',
+    path: '/admin',
+    label: '의사 관리',
   },
 } as const;
 
