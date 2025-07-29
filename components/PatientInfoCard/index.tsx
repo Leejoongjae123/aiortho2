@@ -3,6 +3,7 @@ import Divider from '@/components/Divider';
 import StatusToggle from '../ui/status-toggle';
 import EditIcon from './icon';
 import { formatPhoneNumber } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 interface PatientInfoCardProps {
   patient: Patient;
@@ -31,6 +32,12 @@ export default function PatientInfoCard({
   patient,
   hidePrescription = false,
 }: PatientInfoCardProps) {
+  const router = useRouter();
+
+  const handleEdit = () => {
+    router.push(`/prescriptions/patients/${patient.patientId}/edit`);
+  };
+
   return (
     <div className="flex flex-col rounded-2xl bg-[#F7F9FB] w-full p-6 gap-5 lg:p-8">
       <div className="flex flex-col gap-3">
@@ -38,9 +45,13 @@ export default function PatientInfoCard({
           <div className="flex  gap-2 items-center shrink-0">
             <span className="font-bold text-2xl">{patient.name}</span>
             <span className="text-2xl">님</span>
-            <div className="cursor-pointer hover:scale-120 transition-all duration-115">
+            <button
+              type="button"
+              className="cursor-pointer hover:scale-120 transition-all duration-115"
+              onClick={handleEdit}
+            >
               <EditIcon />
-            </div>
+            </button>
           </div>
 
           {!hidePrescription && (

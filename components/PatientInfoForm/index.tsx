@@ -3,27 +3,39 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import OrthoInput from '@/components/OrthoInput';
-import { patientFormSchema, PatientFormData } from '../schema';
+import { patientFormSchema, PatientFormData } from './schema';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { cn, formatPhoneNumber } from '@/lib/utils';
-import { useCreatePatient } from '../hooks';
+import { useCreatePatient, useEditPatient } from './hooks';
 import { toast } from 'sonner';
 import { showSuccessToast } from '@/components/ui/toast-notification';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { Patient } from '@/models';
+import { usePatient } from '@/hooks';
+import { useEffect } from 'react';
 
-interface PatientInfoCreateFormProps {}
+interface PatientInfoFormProps {
+  mode: 'create' | 'edit';
+}
 
-export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
+export default function PatientInfoForm({ mode }: PatientInfoFormProps) {
+  const { id } = useParams();
   const router = useRouter();
+
+  const { data: patient, isLoading } = usePatient(id as string);
   const createPatientMutation = useCreatePatient();
+  const editPatientMutation = useEditPatient(id as string);
+
+  const isEditMode = mode === 'edit';
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting, isValid, dirtyFields, isDirty },
     setValue,
-    watch,
+    // watch,
+    reset,
   } = useForm<PatientFormData>({
     resolver: zodResolver(patientFormSchema),
     mode: 'onBlur',
@@ -37,44 +49,71 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
     },
   });
 
-  const birthDate = watch('birthDate');
-  const genderDigit = watch('genderDigit');
+  useEffect(() => {
+    if (isEditMode && patient) {
+      reset({
+        patientName: patient.name || '',
+        birthDate: patient.residentRegistrationNumber.split('-')[0] || '',
+        genderDigit: patient.residentRegistrationNumber.split('-')[1] || '',
+        hospitalNumber: patient.hospitalPatientNum || '',
+        guardianName: patient.guardianName || '',
+        guardianPhone: formatPhoneNumber(patient.guardianPhoneNum) || '',
+      });
+    }
+  }, [patient, isEditMode, reset]);
 
-  // 휴대폰 번호 입력 처리
+  if (isLoading) return null;
+
+  // const birthDate = watch('birthDate');
+  // const genderDigit = watch('genderDigit');
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const formatted = formatPhoneNumber(value);
     setValue('guardianPhone', formatted, { shouldValidate: true, shouldDirty: true });
   };
 
-  // 생년월일 입력 처리
   const handleBirthDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
     setValue('birthDate', value, { shouldValidate: true, shouldDirty: true });
   };
 
-  // 성별 입력 처리
   const handleGenderDigitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
     setValue('genderDigit', value, { shouldValidate: true, shouldDirty: true });
   };
 
-  // 병원 환자 번호 입력 처리
   const handleHospitalNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
     setValue('hospitalNumber', value, { shouldValidate: true, shouldDirty: true });
   };
 
   const onSubmit = async (data: PatientFormData) => {
-    await createPatientMutation.mutateAsync(
-      {
-        name: data.patientName,
-        residentRegistrationNumber: `${data.birthDate}-${data.genderDigit}`,
-        hospitalPatientNum: data.hospitalNumber,
-        guardianName: data.guardianName,
-        guardianPhoneNum: data.guardianPhone,
-      },
-      {
+    const payload = {
+      name: data.patientName,
+      residentRegistrationNumber: `${data.birthDate}-${data.genderDigit}`,
+      hospitalPatientNum: data.hospitalNumber,
+      guardianName: data.guardianName,
+      guardianPhoneNum: data.guardianPhone,
+      prescriptionStatus: 'not_created',
+    };
+
+    if (isEditMode) {
+      if (!patient) return;
+
+      await editPatientMutation.mutateAsync(payload, {
+        onSuccess: () => {
+          router.back();
+          showSuccessToast('환자 정보 수정 완료', '환자 정보가 수정되었습니다.');
+        },
+        onError: () => {
+          toast.error('환자 정보 수정에 실패했습니다.', {
+            description: '잠시 후 다시 시도해주세요.',
+          });
+        },
+      });
+    } else {
+      await createPatientMutation.mutateAsync(payload, {
         onSuccess: ({ patientId }) => {
           router.push(`/prescriptions/patients/${patientId}`);
           showSuccessToast('환자 등록 완료', '환자 정보가 등록되었습니다.');
@@ -84,8 +123,8 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
             description: '잠시 후 다시 시도해주세요.',
           });
         },
-      }
-    );
+      });
+    }
   };
 
   return (
@@ -98,6 +137,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
         placeholder="환자명을 입력하세요"
         error={errors.patientName?.message}
         registration={register('patientName')}
+        isDirty={dirtyFields.patientName}
         required
       />
 
@@ -134,7 +174,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
                 'w-full placeholder:text-[var(--aiortho-gray-400)] h-12',
                 errors.birthDate?.message &&
                   'border-2 border-[color:var(--aiortho-danger)] focus:border-[color:var(--aiortho-danger)] focus:ring-0 focus:ring-offset-0',
-                birthDate &&
+                dirtyFields.birthDate &&
                   !errors.birthDate?.message &&
                   'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]'
               )}
@@ -160,7 +200,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
                 'w-[45px] placeholder:text-[var(--aiortho-gray-400)] h-12',
                 errors.genderDigit?.message &&
                   'border-2 border-[color:var(--aiortho-danger)] focus:border-[color:var(--aiortho-danger)] focus:ring-0 focus:ring-offset-0',
-                genderDigit &&
+                dirtyFields.genderDigit &&
                   !errors.genderDigit?.message &&
                   'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]'
               )}
@@ -189,6 +229,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
         registration={register('hospitalNumber', {
           onChange: handleHospitalNumberChange,
         })}
+        isDirty={dirtyFields.hospitalNumber}
         required
       />
 
@@ -197,6 +238,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
         placeholder="보호자명을 입력하세요"
         error={errors.guardianName?.message}
         registration={register('guardianName')}
+        isDirty={dirtyFields.guardianName}
         required
       />
 
@@ -208,6 +250,7 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
           onChange: handlePhoneChange,
         })}
         maxLength={13}
+        isDirty={dirtyFields.guardianPhone}
         required
       />
 
@@ -215,9 +258,9 @@ export default function PatientInfoCreateForm({}: PatientInfoCreateFormProps) {
         <button
           type="submit"
           className="bg-[var(--aiortho-primary)] text-white font-bold rounded-full min-w-[240px] min-h-[48px] w-full px-5 py-3 hover:bg-[var(--aiortho-primary)]/90 transition-colors disabled:bg-[var(--aiortho-disabled)] disabled:cursor-not-allowed cursor-pointer"
-          disabled={isSubmitting || !isValid}
+          disabled={isSubmitting || !isValid || (isEditMode && !isDirty)}
         >
-          등록하기
+          {isEditMode ? '수정하기' : '등록하기'}
         </button>
       </div>
     </form>

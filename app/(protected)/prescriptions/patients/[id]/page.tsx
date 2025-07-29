@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useActivePrescription, usePatient } from './hooks';
+import { useActivePrescription } from './hooks';
 import PatientInfoCard from '@/components/PatientInfoCard';
 import {
   ActivePrescription,
@@ -10,6 +10,7 @@ import {
   RehabilitationStatus,
   PatientController,
 } from './components';
+import { usePatient } from '@/hooks';
 
 export default function PatientDetailPage({}) {
   const { id } = useParams();

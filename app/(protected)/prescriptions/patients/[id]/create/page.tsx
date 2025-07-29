@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { usePatient } from '../hooks/usePatient';
+import { usePatient } from '@/hooks';
 import PatientInfoCard from '@/components/PatientInfoCard';
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
