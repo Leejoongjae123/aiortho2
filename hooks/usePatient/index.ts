@@ -5,5 +5,6 @@ export const usePatient = (patientId: string) => {
   return useQuery({
     queryKey: ['patient', patientId],
     queryFn: () => getPatient({ patientId }),
+    enabled: !!patientId,
   });
 };
