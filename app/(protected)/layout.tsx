@@ -80,7 +80,7 @@ const ProtectedLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
           <Sidebar />
         </div>
 
-        <div className="flex flex-col w-full px-7 md:px-8">
+        <div className="flex flex-col w-full px-7 pb-7 md:pb-8 md:px-8">
           <Breadcrumb />
           {children}
         </div>
