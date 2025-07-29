@@ -6,6 +6,8 @@ import {
   GetPatientListResponse,
   GetPatientRequest,
   GetPatientResponse,
+  UpdatePatientRequest,
+  UpdatePatientResponse,
 } from './types';
 
 const RESOURCE = '/ums/patients';
@@ -18,5 +20,11 @@ export const getPatientList = async (
 ): Promise<GetPatientListResponse> => await apiClient.get(`${RESOURCE}`, { params });
 
 export const postPatientCreate = async (
-  data: PostCreatePatientRequest
-): Promise<PostCreatePatientResponse> => await apiClient.post(`${RESOURCE}`, data);
+  params: PostCreatePatientRequest
+): Promise<PostCreatePatientResponse> => await apiClient.post(`${RESOURCE}`, params);
+
+export const updatePatient = async ({
+  patientId,
+  params,
+}: UpdatePatientRequest): Promise<UpdatePatientResponse> =>
+  await apiClient.put(`${RESOURCE}/${patientId}`, params);

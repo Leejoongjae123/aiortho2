@@ -1,1 +1,2 @@
-export { default as useCreatePatient } from './useCreatePatient';
+export * from './useCreatePatient';
+export * from './useEditPatient';

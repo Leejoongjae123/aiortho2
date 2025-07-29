@@ -30,3 +30,17 @@ export interface PostCreatePatientRequest {
 }
 
 export interface PostCreatePatientResponse extends Patient {}
+
+export interface UpdatePatientRequest {
+  patientId: string;
+  params: {
+    name: string;
+    residentRegistrationNumber: string;
+    hospitalPatientNum: string;
+    guardianName: string;
+    guardianPhoneNum: string;
+    prescriptionStatus: string;
+  };
+}
+
+export interface UpdatePatientResponse extends Patient {}
