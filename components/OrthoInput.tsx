@@ -21,6 +21,7 @@ interface OrthoInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 's
   minLength?: number;
   className?: string;
   value?: string;
+  isDirty?: boolean;
 }
 
 const OrthoInput: FC<OrthoInputProps> = ({
@@ -41,6 +42,7 @@ const OrthoInput: FC<OrthoInputProps> = ({
   className,
   value,
   readOnly,
+  isDirty,
   ...props
 }) => {
   const [hasValue, setHasValue] = useState(false);
@@ -78,7 +80,8 @@ const OrthoInput: FC<OrthoInputProps> = ({
             'w-full placeholder:text-[color:var(--aiortho-gray-400)] h-12',
             error &&
               'border-2 border-[color:var(--aiortho-danger)] focus:border-[color:var(--aiortho-danger)] focus:ring-0 focus:ring-offset-0',
-            hasValue &&
+            isDirty &&
+              hasValue &&
               !error &&
               'border-[color:var(--aiortho-primary)] ring-1 ring-[color:var(--aiortho-primary)]',
             readOnly &&
