@@ -1,13 +1,14 @@
 import { Button } from '@/components/ui/button';
 import PrescriptionProgramCard from '@/components/PrescriptionProgramCard';
 import { Prescription } from '@/models';
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 
 interface ActivePrescriptionProps {
   prescription?: Prescription;
+  onClick?: () => void;
 }
 
-export default function ActivePrescription({ prescription }: ActivePrescriptionProps) {
+export default function ActivePrescription({ prescription, onClick }: ActivePrescriptionProps) {
   return (
     <div className="w-full">
       <div className="w-full flex flex-col md:flex-row justify-between">
@@ -20,15 +21,23 @@ export default function ActivePrescription({ prescription }: ActivePrescriptionP
           </span>
         </div>
 
-        <Button size="lg" className="w-full mb-5 md:w-auto cursor-pointer">
-          처방하기
+        <Button
+          size="lg"
+          className={cn(
+            'w-full mb-5 md:w-auto cursor-pointer',
+            prescription &&
+              'text-[var(--aiortho-primary)] bg-[var(--aiortho-disabled)]/50 hover:bg-[var(--aiortho-disabled)]/80'
+          )}
+          onClick={onClick}
+        >
+          {prescription ? '수정' : '처방하기'}
         </Button>
       </div>
 
       {prescription ? (
         <div className="flex flex-col gap-3">
           <span className="text-[var(--aiortho-gray-600)]">
-            {formatDate(prescription.startDate, true)}
+            {formatDate(prescription.startDate ?? '', true)}
           </span>
 
           <PrescriptionProgramCard prescription={prescription} disabled />

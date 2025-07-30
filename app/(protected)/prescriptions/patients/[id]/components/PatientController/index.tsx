@@ -1,9 +1,17 @@
 import { Button } from '@/components/ui/button';
 
-export default function PatientController() {
+interface PatientControllerProps {
+  onClick?: () => void;
+}
+
+export default function PatientController({ onClick }: PatientControllerProps) {
   return (
     <div className="flex flex-col gap-4 items-center">
-      <Button type="button" className="w-full h-12 rounded-full font-bold cursor-pointer">
+      <Button
+        type="button"
+        className="w-full h-12 rounded-full font-bold cursor-pointer"
+        onClick={onClick}
+      >
         처방하기
       </Button>
       <span className="underline underline-offset-4 text-[var(--aiortho-gray-800)] text-sm cursor-pointer">
