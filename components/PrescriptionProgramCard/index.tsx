@@ -123,7 +123,11 @@ export default function PrescriptionProgramCard({
 
   const onSubmit = () => {
     setIsEdit(!isEdit);
-    onUpdate?.({ ...prescription, exercises: watchedExercises });
+    onUpdate?.({
+      ...prescription,
+      exercises: watchedExercises,
+      repeatCount: watchedRepetitions,
+    });
   };
 
   const handleCreateComplete = handleSubmit(onSubmit);
