@@ -28,6 +28,7 @@ interface PrescriptionProgramCardProps {
   prescription: Prescription;
   defaultIsOpen?: boolean;
   disabled?: boolean;
+  showControl?: boolean;
   onUpdate?: (prescription: Prescription) => void;
   onDelete?: () => void;
 }
@@ -55,6 +56,7 @@ export default function PrescriptionProgramCard({
   prescription,
   disabled = false,
   defaultIsOpen = false,
+  showControl = false,
   onUpdate,
   onDelete,
 }: PrescriptionProgramCardProps) {
@@ -122,7 +124,7 @@ export default function PrescriptionProgramCard({
   };
 
   const onSubmit = () => {
-    setIsEdit(!isEdit);
+    setIsEdit(false);
     onUpdate?.({
       ...prescription,
       exercises: watchedExercises,
@@ -152,7 +154,7 @@ export default function PrescriptionProgramCard({
         isOpen ? 'shadow-md' : 'shadow-sm'
       )}
     >
-      {!isEdit && (
+      {!isEdit && showControl && (
         <div className="flex absolute top-5 -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]">
           <button
             type="button"
@@ -220,8 +222,7 @@ export default function PrescriptionProgramCard({
                         >
                           <SelectTrigger
                             className={cn(
-                              'w-full border-[var(--aiortho-gray-200)] text-[var(--aiortho-gray-900)] focus-visible:ring-1 focus-visible:ring-[var(--aiortho-primary)] focus-visible:border-[var(--aiortho-primary)] px-4 py-3 data-[disabled]:opacity-100 disabled:bg-[#F0F3FA99] cursor-pointer',
-                              disabled && 'text-[var(--aiortho-gray-600)]',
+                              'w-full border-[var(--aiortho-gray-200)] text-[var(--aiortho-gray-900)] focus-visible:ring-1 focus-visible:ring-[var(--aiortho-primary)] focus-visible:border-[var(--aiortho-primary)] px-4 py-3 data-[disabled]:opacity-100 disabled:bg-[#F0F3FA99] cursor-pointer disabled:text-[var(--aiortho-gray-600)]',
                               errors.exercises?.[idx]?.exerciseId &&
                                 'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                             )}
@@ -236,8 +237,7 @@ export default function PrescriptionProgramCard({
                                   key={`표준 static 프로그램-${exercise.exerciseId}`}
                                   value={exercise.exerciseId}
                                   className={cn(
-                                    'cursor-pointer',
-                                    disabled && 'text-[var(--aiortho-gray-600)]'
+                                    'cursor-pointer disabled:text-[var(--aiortho-gray-600)]'
                                   )}
                                 >
                                   <span className="truncate">{exercise.name}</span>
@@ -258,7 +258,7 @@ export default function PrescriptionProgramCard({
 
                   {exercise.description && (
                     <div className="flex flex-col gap-3">
-                      <Label className="text-[var(--aiortho-gray-500)] text-sm px-0 py-0 ">
+                      <Label className="text-[var(--aiortho-gray-500)] text-sm px-0 py-0">
                         {exercise.description}
                       </Label>
                       <Controller
@@ -285,7 +285,7 @@ export default function PrescriptionProgramCard({
                                   htmlFor={`exercise-${idx}-direction-left`}
                                   className={cn(
                                     'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                    disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
+                                    !isEdit && 'text-[var(--aiortho-gray-600)] cursor-default'
                                   )}
                                 >
                                   {ExerciseDirectionLabel[ExerciseDirection.Left]}
@@ -303,7 +303,7 @@ export default function PrescriptionProgramCard({
                                   htmlFor={`exercise-${idx}-direction-right`}
                                   className={cn(
                                     'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                    disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
+                                    !isEdit && 'text-[var(--aiortho-gray-600)] cursor-default'
                                   )}
                                 >
                                   {ExerciseDirectionLabel[ExerciseDirection.Right]}
@@ -335,8 +335,7 @@ export default function PrescriptionProgramCard({
                           >
                             <SelectTrigger
                               className={cn(
-                                'w-full border-[var(--aiortho-gray-200)] text-[var(--aiortho-gray-900)] focus-visible:ring-1 focus-visible:ring-[var(--aiortho-primary)] focus-visible:border-[var(--aiortho-primary)] px-4 py-3 data-[disabled]:opacity-100 disabled:bg-[#F0F3FA99] cursor-pointer',
-                                disabled && 'text-[var(--aiortho-gray-600)]',
+                                'w-full border-[var(--aiortho-gray-200)] text-[var(--aiortho-gray-900)] focus-visible:ring-1 focus-visible:ring-[var(--aiortho-primary)] focus-visible:border-[var(--aiortho-primary)] px-4 py-3 data-[disabled]:opacity-100 disabled:bg-[#F0F3FA99] cursor-pointer disabled:text-[var(--aiortho-gray-600)]',
                                 errors.exercises?.[idx]?.duration &&
                                   'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                               )}
@@ -352,7 +351,7 @@ export default function PrescriptionProgramCard({
                                     value={String(i + 1)}
                                     className={cn(
                                       'cursor-pointer',
-                                      disabled && 'text-[var(--aiortho-gray-600)]'
+                                      !isEdit && 'text-[var(--aiortho-gray-600)]'
                                     )}
                                   >
                                     {i + 1}분
@@ -374,7 +373,7 @@ export default function PrescriptionProgramCard({
                 </div>
               ))}
 
-              {watchedExercises.length < MAX_EXERCISE_LENGTH && isEdit && (
+              {watchedExercises.length < MAX_EXERCISE_LENGTH && !showControl && (
                 <Button
                   type="button"
                   className="font-bold text-[var(--aiortho-primary)] bg-[#BDD5FF80] w-20 h-10 rounded-lg cursor-pointer hover:bg-[#BDD5FF]"
@@ -400,7 +399,7 @@ export default function PrescriptionProgramCard({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="cursor-pointer bg-[#F7F9FC] h-6 w-6 text-[var(--aiortho-gray-600)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9]"
+                    className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(-1)}
                     disabled={watchedRepetitions <= 3 || !isEdit}
                   >
@@ -412,7 +411,7 @@ export default function PrescriptionProgramCard({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="bg-[#F7F9FC] cursor-pointer h-6 w-6 text-[var(--aiortho-gray-600)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9]"
+                    className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(1)}
                     disabled={watchedRepetitions >= 12 || !isEdit}
                   >

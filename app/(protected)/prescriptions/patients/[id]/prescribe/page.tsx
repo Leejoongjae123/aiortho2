@@ -32,6 +32,7 @@ export default function CreatePrescriptionPage() {
   const standardProgramQuery = useStandardProgram();
   const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription | null>(null);
   const [isCreatedProgram, setIsCreatedProgram] = useState(false);
+  const [showControl, setShowControl] = useState(false);
   const createPrescriptionMutation = useCreatePrescription();
 
   const form = useForm<FormValues>({
@@ -52,17 +53,17 @@ export default function CreatePrescriptionPage() {
   const handleSetProgram = (program: Prescription) => {
     setPrescriptionProgram(program);
     setIsCreatedProgram(true);
+    setShowControl(true);
   };
 
   const handleDeleteProgram = () => {
     setPrescriptionProgram(null);
     setIsCreatedProgram(false);
+    setShowControl(false);
   };
 
   const onSubmit = (data: FormValues) => {
     if (!prescriptionProgram) return;
-
-    console.log(data);
 
     const { startDate, endDate } = getPeriodYYYYMMDD(Number(data.period));
 
@@ -114,6 +115,7 @@ export default function CreatePrescriptionPage() {
         <>
           <PrescriptionProgramCard
             prescription={prescriptionProgram}
+            showControl={showControl}
             onUpdate={handleSetProgram}
             onDelete={handleDeleteProgram}
             defaultIsOpen
