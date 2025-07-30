@@ -22,11 +22,14 @@ import { Button } from '../ui/button';
 import { useStandardProgramStaticExercise } from './hooks';
 import { createDefaultExercise } from './utils';
 import { z } from 'zod';
+import { EditIcon, DeleteIcon } from './icons';
 
 interface PrescriptionProgramCardProps {
   prescription: Prescription;
   defaultIsOpen?: boolean;
   disabled?: boolean;
+  onUpdate?: (prescription: Prescription) => void;
+  onDelete?: () => void;
 }
 
 // 검증 스키마 정의
@@ -35,6 +38,7 @@ const exerciseSchema = z.object({
   duration: z.number().min(1, '운동 시간을 선택해주세요.'),
   direction: z.nativeEnum(ExerciseDirection),
   description: z.string().optional(),
+  name: z.string(),
 });
 
 const formSchema = z.object({
@@ -51,6 +55,8 @@ export default function PrescriptionProgramCard({
   prescription,
   disabled = false,
   defaultIsOpen = false,
+  onUpdate,
+  onDelete,
 }: PrescriptionProgramCardProps) {
   const [isOpen, setIsOpen] = useState(defaultIsOpen);
   const [isEdit, setIsEdit] = useState<boolean>(!disabled);
@@ -86,7 +92,7 @@ export default function PrescriptionProgramCard({
       delete updatedExercises[idx].description;
     }
     updatedExercises[idx] = { ...updatedExercises[idx], ...newExercise };
-
+    console.log(newExercise);
     setValue('exercises', updatedExercises);
   };
 
@@ -115,12 +121,21 @@ export default function PrescriptionProgramCard({
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = () => {
     setIsEdit(!isEdit);
+    onUpdate?.({ ...prescription, exercises: watchedExercises });
   };
 
   const handleCreateComplete = handleSubmit(onSubmit);
+
+  const handleEdit = () => {
+    setIsEdit(true);
+    setIsOpen(true);
+  };
+
+  const handleDelete = () => {
+    onDelete?.();
+  };
 
   if (!staticExerciseList) {
     return null;
@@ -128,8 +143,30 @@ export default function PrescriptionProgramCard({
 
   return (
     <Card
-      className={`border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out ${isOpen ? 'shadow-md' : 'shadow-sm'}`}
+      className={cn(
+        'relative border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out',
+        isOpen ? 'shadow-md' : 'shadow-sm'
+      )}
     >
+      {!isEdit && (
+        <div className="flex absolute top-5 -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]">
+          <button
+            type="button"
+            className="cursor-pointer hover:scale-130 transition-all duration-300"
+            onClick={handleEdit}
+          >
+            <EditIcon />
+          </button>
+          <button
+            type="button"
+            className="cursor-pointer hover:scale-130 transition-all duration-300"
+            onClick={handleDelete}
+          >
+            <DeleteIcon />
+          </button>
+        </div>
+      )}
+
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger asChild>
           <div className="flex justify-between items-center cursor-pointer">

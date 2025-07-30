@@ -15,7 +15,7 @@ export default function CreatePrescriptionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const patientQuery = usePatient(id as string);
   const standardProgramQuery = useStandardProgram();
-  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription>();
+  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription | null>(null);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -25,8 +25,12 @@ export default function CreatePrescriptionPage() {
     setIsModalOpen(false);
   };
 
-  const handleSelectProgram = (program: Prescription) => {
+  const handleSetProgram = (program: Prescription) => {
     setPrescriptionProgram(program);
+  };
+
+  const handleDeleteProgram = () => {
+    setPrescriptionProgram(null);
   };
 
   if (!patientQuery.data || !standardProgramQuery.data) {
@@ -35,6 +39,8 @@ export default function CreatePrescriptionPage() {
 
   const { data: patient } = patientQuery;
   const { data: standardProgram } = standardProgramQuery;
+
+  console.log(prescriptionProgram);
 
   return (
     <section className="flex flex-col max-w-[680px]">
@@ -51,7 +57,12 @@ export default function CreatePrescriptionPage() {
       </h2>
 
       {prescriptionProgram ? (
-        <PrescriptionProgramCard prescription={prescriptionProgram} defaultIsOpen />
+        <PrescriptionProgramCard
+          prescription={prescriptionProgram}
+          onUpdate={handleSetProgram}
+          onDelete={handleDeleteProgram}
+          defaultIsOpen
+        />
       ) : (
         <button
           type="button"
@@ -67,7 +78,7 @@ export default function CreatePrescriptionPage() {
         isOpen={isModalOpen}
         standardProgram={standardProgram.presets}
         onClose={handleCloseModal}
-        onSelect={handleSelectProgram}
+        onSelect={handleSetProgram}
       />
     </section>
   );
