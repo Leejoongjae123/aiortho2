@@ -125,7 +125,6 @@ export interface Exercise {
   exerciseId: string;
   name: string;
   duration: number;
-  order?: number;
   direction: ExerciseDirection;
   description?: string;
 }
