@@ -182,3 +182,36 @@ export const saveColumnOrder = <T extends GenericTableColumn>(
     console.warn('컬럼 순서 저장 실패:', error);
   }
 };
+
+// 현재 날짜를 YYYYMMDD 형태로 반환하는 함수
+export function getCurrentDateYYYYMMDD(): string {
+  const now = new Date();
+  const year = now.getFullYear().toString();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+
+  return `${year}${month}${day}`;
+}
+
+// 현재 날짜를 기준으로 몇 주 뒤의 날짜를 YYYYMMDD 형태로 반환하는 함수
+export function getDateAfterWeeksYYYYMMDD(weeks: number): string {
+  const now = new Date();
+  const endDate = new Date(now.getTime() + weeks * 7 * 24 * 60 * 60 * 1000);
+
+  const year = endDate.getFullYear().toString();
+  const month = String(endDate.getMonth() + 1).padStart(2, '0');
+  const day = String(endDate.getDate()).padStart(2, '0');
+
+  return `${year}${month}${day}`;
+}
+
+// 현재 날짜와 주 수를 받아서 startDate와 endDate를 YYYYMMDD 형태로 반환하는 함수
+export function getPeriodYYYYMMDD(weeks: number): {
+  startDate: string;
+  endDate: string;
+} {
+  return {
+    startDate: getCurrentDateYYYYMMDD(),
+    endDate: getDateAfterWeeksYYYYMMDD(weeks),
+  };
+}
