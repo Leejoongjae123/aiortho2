@@ -20,7 +20,7 @@ interface PatientTableProps {
   keyword?: string;
   showMyPatientFilter?: boolean;
   showSearchBar?: boolean;
-  clickMode?: 'create' | 'detail';
+  clickMode?: 'prescribe' | 'detail';
 }
 
 const PatientTable = ({
@@ -169,8 +169,8 @@ const PatientTable = ({
   };
 
   const handleTableRowClick = (patientId: string) => {
-    if (clickMode === 'create') {
-      router.push(`/prescriptions/patients/${patientId}/create`);
+    if (clickMode === 'prescribe') {
+      router.push(`/prescriptions/patients/${patientId}/prescribe`);
     } else {
       router.push(`/prescriptions/patients/${patientId}`);
     }

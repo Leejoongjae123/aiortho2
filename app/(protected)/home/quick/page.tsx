@@ -58,7 +58,7 @@ export default function QuickMenuPage() {
           keyword={searchKeyword}
           showMyPatientFilter={false}
           showSearchBar={false}
-          clickMode="create"
+          clickMode="prescribe"
         />
       )}
     </section>

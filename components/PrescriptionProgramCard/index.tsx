@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Exercise, ExerciseDirection, ExerciseDirectionLabel, Prescription } from '@/models';
+import { ExerciseDirection, ExerciseDirectionLabel, Prescription } from '@/models';
 import Divider from '@/components/Divider';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
@@ -19,7 +19,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { calculateWeeks } from '@/lib/utils';
 import { ChevronUp, Minus, Plus } from 'lucide-react';
 import { Button } from '../ui/button';
-import { useStandardProgramStaticExercise } from '@/app/(protected)/prescriptions/patients/[id]/create/hooks/useStandardProgramStaticExercise';
+import { useStandardProgramStaticExercise } from './hooks';
 import { createDefaultExercise } from './utils';
 import { z } from 'zod';
 
@@ -125,7 +125,7 @@ export default function PrescriptionProgramCard({
   if (!staticExerciseList) {
     return null;
   }
-      
+
   return (
     <Card
       className={`border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out ${isOpen ? 'shadow-md' : 'shadow-sm'}`}
@@ -165,7 +165,7 @@ export default function PrescriptionProgramCard({
                     <Label className="text-[var(--aiortho-gray-500)] text-sm px-0 py-0 ">
                       운동 종류 선택
                     </Label>
-                    
+
                     <Controller
                       name={`exercises.${idx}.exerciseId`}
                       control={control}

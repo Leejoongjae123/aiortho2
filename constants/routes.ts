@@ -45,9 +45,9 @@ export const ROUTES: Record<string, RouteConfig> = {
                 label: '환자 정보 수정',
               },
 
-              prescription: {
+              prescribe: {
                 key: 'patientsPrescription',
-                path: '/prescriptions/patients/[id]/create',
+                path: '/prescriptions/patients/[id]/prescribe',
                 label: '처방하기',
               },
             },
