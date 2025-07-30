@@ -272,41 +272,43 @@ export default function PrescriptionProgramCard({
                               handleDirectionChange(value, idx);
                             }}
                           >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem
-                                value="left"
-                                id={`exercise-${idx}-direction-left`}
-                                className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-gray-500)] data-[state=checked]:bg-transparent cursor-pointer"
-                                checked={exercise.direction === ExerciseDirection.Left}
-                                disabled={!isEdit}
-                              />
-                              <Label
-                                htmlFor={`exercise-${idx}-direction-left`}
-                                className={cn(
-                                  'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                  disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
-                                )}
-                              >
-                                {ExerciseDirectionLabel[ExerciseDirection.Left]}
-                              </Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem
-                                value="right"
-                                id={`exercise-${idx}-direction-right`}
-                                className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-gray-500)] data-[state=checked]:bg-transparent cursor-pointer"
-                                checked={exercise.direction === ExerciseDirection.Right}
-                                disabled={!isEdit}
-                              />
-                              <Label
-                                htmlFor={`exercise-${idx}-direction-right`}
-                                className={cn(
-                                  'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                  disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
-                                )}
-                              >
-                                {ExerciseDirectionLabel[ExerciseDirection.Right]}
-                              </Label>
+                            <div className="flex gap-5">
+                              <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                  value="left"
+                                  id={`exercise-${idx}-direction-left`}
+                                  className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
+                                  checked={exercise.direction === ExerciseDirection.Left}
+                                  disabled={!isEdit}
+                                />
+                                <Label
+                                  htmlFor={`exercise-${idx}-direction-left`}
+                                  className={cn(
+                                    'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
+                                    disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
+                                  )}
+                                >
+                                  {ExerciseDirectionLabel[ExerciseDirection.Left]}
+                                </Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                  value="right"
+                                  id={`exercise-${idx}-direction-right`}
+                                  className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
+                                  checked={exercise.direction === ExerciseDirection.Right}
+                                  disabled={!isEdit}
+                                />
+                                <Label
+                                  htmlFor={`exercise-${idx}-direction-right`}
+                                  className={cn(
+                                    'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
+                                    disabled && 'text-[var(--aiortho-gray-500)] cursor-default'
+                                  )}
+                                >
+                                  {ExerciseDirectionLabel[ExerciseDirection.Right]}
+                                </Label>
+                              </div>
                             </div>
                           </RadioGroup>
                         )}

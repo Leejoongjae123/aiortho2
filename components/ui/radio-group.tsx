@@ -28,9 +28,9 @@ function RadioGroupItem({
       data-slot="radio-group-item"
       className={cn(
         'cursor-pointer border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
-        'border-[var(--aiortho-gray-300)] text-[var(--aiortho-gray-500)]',
-        'disabled:border-[var(--aiortho-gray-300)] disabled:text-[var(--aiortho-gray-500)]',
-        'data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:text-[var(--aiortho-primary)]',
+        'border-[var(--aiortho-gray-300)] ',
+        'disabled:border-[var(--aiortho-gray-300)] ',
+        'data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:text-[var(--aiortho-primary)] disabled:data-[state=checked]:text-[var(--aiortho-gray-300)]',
         'group',
         className
       )}
