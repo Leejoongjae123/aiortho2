@@ -44,3 +44,9 @@ export interface UpdatePatientRequest {
 }
 
 export interface UpdatePatientResponse extends Patient {}
+
+export interface DeletePatientRequest {
+  patientId: number;
+}
+
+export interface DeletePatientResponse {}

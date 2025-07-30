@@ -8,6 +8,8 @@ import {
   GetPatientResponse,
   UpdatePatientRequest,
   UpdatePatientResponse,
+  DeletePatientRequest,
+  DeletePatientResponse,
 } from './types';
 
 const RESOURCE = '/ums/patients';
@@ -28,3 +30,8 @@ export const updatePatient = async ({
   params,
 }: UpdatePatientRequest): Promise<UpdatePatientResponse> =>
   await apiClient.put(`${RESOURCE}/${patientId}`, params);
+
+export const deletePatient = async ({
+  patientId,
+}: DeletePatientRequest): Promise<DeletePatientResponse> =>
+  await apiClient.delete(`${RESOURCE}/${patientId}`);
