@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { usePatient } from '@/hooks';
 import PatientInfoCard from '@/components/PatientInfoCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { PrescriptionPeriodSelector, ProgramCreateModal } from './components';
 import { useCreatePrescription, useStandardProgram } from './hooks';
@@ -14,7 +14,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { getPeriodYYYYMMDD } from '@/lib/utils';
+import { calculateWeeks, getPeriodYYYYMMDD } from '@/lib/utils';
 import { showWarningToast } from '@/components/ui/toast-warning';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 
@@ -30,7 +30,7 @@ export default function CreatePrescriptionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const patientQuery = usePatient(id as string);
   const standardProgramQuery = useStandardProgram();
-  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription | null>(null);
+  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription>();
   const [isCreatedProgram, setIsCreatedProgram] = useState(false);
   const [showControl, setShowControl] = useState(false);
   const createPrescriptionMutation = useCreatePrescription();
@@ -57,7 +57,7 @@ export default function CreatePrescriptionPage() {
   };
 
   const handleDeleteProgram = () => {
-    setPrescriptionProgram(null);
+    setPrescriptionProgram(undefined);
     setIsCreatedProgram(false);
     setShowControl(false);
   };
@@ -89,6 +89,21 @@ export default function CreatePrescriptionPage() {
       },
     });
   };
+
+  useEffect(() => {
+    if (patientQuery.data?.prescription) {
+      setPrescriptionProgram(patientQuery.data.prescription);
+    }
+
+    if (patientQuery.data?.prescription?.startDate && patientQuery.data?.prescription?.endDate) {
+      const initialPeriod = calculateWeeks(
+        patientQuery.data.prescription.startDate,
+        patientQuery.data.prescription.endDate
+      );
+
+      form.setValue('period', String(initialPeriod));
+    }
+  }, [patientQuery.data?.prescription]);
 
   if (!patientQuery.data || !standardProgramQuery.data) {
     return null;

@@ -130,6 +130,9 @@ export default function PrescriptionProgramCard({
       exercises: watchedExercises,
       repeatCount: watchedRepetitions,
     });
+
+    // TODO: 표준 프로그램 생성 api
+    // 표준 프로그램 생성이 가능한 onStandardProgramSubmit 함수가 있다면 실행시키기
   };
 
   const handleCreateComplete = handleSubmit(onSubmit);

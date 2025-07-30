@@ -95,7 +95,7 @@ export interface Patient {
   guardianName: string;
   guardianPhoneNum: string;
   patientId: number;
-  prescriptionStatus?: PrescriptionStatus;
+  prescriptionStatus: PrescriptionStatus;
   createdAt: string;
   updatedAt: string;
   prescription?: Prescription;
