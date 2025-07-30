@@ -1,4 +1,4 @@
-import { Prescription } from '@/models';
+import { Exercise, Prescription } from '@/models';
 
 export interface GetActivePrescriptionRequest {
   patientId: number;
@@ -16,3 +16,14 @@ export interface GetPrescriptionHistoryResponse {
   prescriptions: Prescription[];
   totalCount: number;
 }
+
+export interface PostCreatePrescriptionRequest {
+  exercises: Exercise[];
+  repeatCount: number;
+  startDate: string;
+  endDate: string;
+  patientId: number;
+  name: string;
+}
+
+export interface PostCreatePrescriptionResponse extends Prescription {}

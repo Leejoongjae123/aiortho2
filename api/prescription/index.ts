@@ -4,6 +4,8 @@ import {
   GetActivePrescriptionResponse,
   GetPrescriptionHistoryRequest,
   GetPrescriptionHistoryResponse,
+  PostCreatePrescriptionRequest,
+  PostCreatePrescriptionResponse,
 } from './types';
 
 const RESOURCE = '/ums/prescriptions';
@@ -18,3 +20,7 @@ export const getPrescriptionHistory = async (
   params: GetPrescriptionHistoryRequest
 ): Promise<GetPrescriptionHistoryResponse> =>
   await apiClient.get(`${RESOURCE}/${patientId}/history`, { params });
+
+export const postCreatePrescription = async (
+  params: PostCreatePrescriptionRequest
+): Promise<PostCreatePrescriptionResponse> => await apiClient.post(`${RESOURCE}`, params);
