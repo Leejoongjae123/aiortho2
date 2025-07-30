@@ -373,7 +373,7 @@ export default function PrescriptionProgramCard({
                 </div>
               ))}
 
-              {watchedExercises.length < MAX_EXERCISE_LENGTH && !showControl && (
+              {watchedExercises.length < MAX_EXERCISE_LENGTH && isEdit && (
                 <Button
                   type="button"
                   className="font-bold text-[var(--aiortho-primary)] bg-[#BDD5FF80] w-20 h-10 rounded-lg cursor-pointer hover:bg-[#BDD5FF]"
