@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuthStore } from '@/store/authStore';
-import useProfile from '@/hooks/useProfile';
+import { useProfile } from '@/hooks';
 import Divider from '@/components/Divider';
 import PatientDashboard from '@/components/PatientDashboard';
 import { HomeProfile, QuickMenu } from './components';
