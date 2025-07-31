@@ -1,14 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useCreateStandardProgram, useStandardProgram, useDeleteStandardProgram } from '@/hooks';
+import {
+  useCreateStandardProgram,
+  useStandardProgram,
+  useDeleteStandardProgram,
+  useUpdateStandardProgram,
+} from '@/hooks';
 import { Prescription } from '@/models';
 import PrescriptionProgramCard from '@/components/PrescriptionProgramCard';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import { createDefaultExercise } from '@/components/PrescriptionProgramCard/utils';
 
-// 표준 프로그램 번호 확인 정규식
 const isStandardProgramNumber = (name: string): boolean => {
   const standardProgramRegex = /^표준 프로그램 \d+$/;
   return standardProgramRegex.test(name);
@@ -17,13 +21,25 @@ const isStandardProgramNumber = (name: string): boolean => {
 export default function StandardTreatmentProgramPage() {
   const standardProgramQuery = useStandardProgram();
   const createStandardProgramMutation = useCreateStandardProgram();
+  const updateStandardProgramMutation = useUpdateStandardProgram();
   const deleteStandardProgramMutation = useDeleteStandardProgram();
   const [standardProgram, setStandardProgram] = useState<Prescription[]>([]);
   const [currentCustomStandardProgramNumber, setCurrentCustomStandardProgramNumber] =
     useState<number>(1);
   const [editingPrograms, setEditingPrograms] = useState<boolean[]>([]);
+  const [newProgramIndices, setNewProgramIndices] = useState<Set<number>>(new Set());
+
+  const removeFromNewProgramIndices = (index: number) => {
+    setNewProgramIndices(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(index);
+      return newSet;
+    });
+  };
 
   const handleAddCustomStandardProgramClick = () => {
+    const newIndex = standardProgram.length;
+
     setStandardProgram(prev => [
       ...prev,
       {
@@ -33,7 +49,9 @@ export default function StandardTreatmentProgramPage() {
       },
     ]);
 
+    setCurrentCustomStandardProgramNumber(currentCustomStandardProgramNumber + 1);
     setEditingPrograms(prev => [...prev, true]);
+    setNewProgramIndices(prev => new Set([...prev, newIndex]));
   };
 
   const handleStartEditing = (index: number) => {
@@ -45,11 +63,24 @@ export default function StandardTreatmentProgramPage() {
   };
 
   const handleUpdateProgram = (program: Prescription, index: number) => {
-    createStandardProgramMutation.mutateAsync({
-      name: program.name,
-      exercises: program.exercises,
-      repeatCount: program.repeatCount,
-    });
+    const isNewProgram = newProgramIndices.has(index);
+
+    if (isNewProgram) {
+      createStandardProgramMutation.mutateAsync({
+        name: program.name,
+        exercises: program.exercises,
+        repeatCount: program.repeatCount,
+      });
+
+      removeFromNewProgramIndices(index);
+    } else {
+      updateStandardProgramMutation.mutateAsync({
+        presetIndex: index,
+        name: program.name,
+        exercises: program.exercises,
+        repeatCount: program.repeatCount,
+      });
+    }
 
     handleStopEditing(index);
   };
@@ -58,6 +89,8 @@ export default function StandardTreatmentProgramPage() {
     deleteStandardProgramMutation.mutateAsync({
       presetIndex: index,
     });
+
+    removeFromNewProgramIndices(index);
   };
 
   const isAnyProgramEditing = editingPrograms.some(Boolean);
@@ -70,6 +103,8 @@ export default function StandardTreatmentProgramPage() {
         standardProgramQuery.data.presets.filter(program => isStandardProgramNumber(program.name))
           .length + 1
       );
+
+      setNewProgramIndices(new Set());
     }
   }, [standardProgramQuery.data]);
 
@@ -95,7 +130,7 @@ export default function StandardTreatmentProgramPage() {
             isPending={createStandardProgramMutation.isPending}
             onStartEditing={() => handleStartEditing(idx)}
             onStopEditing={() => handleStopEditing(idx)}
-            onUpdate={program => handleUpdateProgram(program, idx)}
+            onUpdate={() => handleUpdateProgram(program, idx)}
             onDelete={() => handleDeleteProgram(idx)}
             defaultIsOpen={editingPrograms[idx]}
             showControl={!isAnyProgramEditing}
