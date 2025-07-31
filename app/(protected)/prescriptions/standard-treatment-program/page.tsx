@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useCreateStandardProgram, useStandardProgram } from '@/hooks';
+import { useCreateStandardProgram, useStandardProgram, useDeleteStandardProgram } from '@/hooks';
 import { Prescription } from '@/models';
 import PrescriptionProgramCard from '@/components/PrescriptionProgramCard';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,7 @@ const isStandardProgramNumber = (name: string): boolean => {
 export default function StandardTreatmentProgramPage() {
   const standardProgramQuery = useStandardProgram();
   const createStandardProgramMutation = useCreateStandardProgram();
+  const deleteStandardProgramMutation = useDeleteStandardProgram();
   const [standardProgram, setStandardProgram] = useState<Prescription[]>([]);
   const [currentCustomStandardProgramNumber, setCurrentCustomStandardProgramNumber] =
     useState<number>(1);
@@ -54,8 +55,9 @@ export default function StandardTreatmentProgramPage() {
   };
 
   const handleDeleteProgram = (index: number) => {
-    setStandardProgram(prev => prev.filter((_, i) => i !== index));
-    setEditingPrograms(prev => prev.filter((_, i) => i !== index));
+    deleteStandardProgramMutation.mutateAsync({
+      presetIndex: index,
+    });
   };
 
   const isAnyProgramEditing = editingPrograms.some(Boolean);
