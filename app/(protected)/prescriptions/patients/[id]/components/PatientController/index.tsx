@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import ConfirmModal from '@/components/ConfirmModal';
 
 interface PatientControllerProps {
   name: string;
@@ -51,39 +52,14 @@ export default function PatientController({ name, onClick, onDelete }: PatientCo
         환자 삭제
       </button>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="flex flex-col justify-between h-60">
-          <DialogHeader>
-            <DialogTitle className="font-bold text-2xl">
-              {name}님을 정말 삭제하시겠어요?
-            </DialogTitle>
-            <DialogDescription className="text-[var(--aiortho-gray-600)]">
-              삭제된 환자는 복구할 수 없어요.
-            </DialogDescription>
-            <button
-              onClick={handleClose}
-              className="absolute z-0 rounded-[29px] flex min-h-6 min-w-6 p-1 items-center justify-center right-3 top-3 cursor-pointer"
-            >
-              <X className="w-5 h-5 text-[#66798D]" />
-            </button>
-          </DialogHeader>
-          <DialogFooter className="flex gap-3">
-            <Button
-              type="button"
-              variant="secondary"
-              className="cursor-pointer flex-1 h-12 font-bold m-0 rounded-full"
-              onClick={handleDelete}
-            >
-              네, 삭제할게요
-            </Button>
-            <DialogClose asChild>
-              <Button type="button" className="cursor-pointer flex-1 h-12 font-bold rounded-full">
-                취소
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmModal
+        isOpen={isOpen}
+        title={`${name}님을 정말 삭제하시겠어요?`}
+        description="삭제된 환자는 복구할 수 없어요."
+        confirmText="네, 삭제할게요"
+        onClose={handleClose}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }
