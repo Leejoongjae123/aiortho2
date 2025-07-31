@@ -30,10 +30,9 @@ export default function CreatePrescriptionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const patientQuery = usePatient(id as string);
   const standardProgramQuery = useStandardProgram();
-  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription>();
-  const [isCreatedProgram, setIsCreatedProgram] = useState(false);
-  const [showControl, setShowControl] = useState(false);
   const createPrescriptionMutation = useCreatePrescription();
+  const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription>();
+  const [isEditing, setIsEditing] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -52,14 +51,12 @@ export default function CreatePrescriptionPage() {
 
   const handleSetProgram = (program: Prescription) => {
     setPrescriptionProgram(program);
-    setIsCreatedProgram(true);
-    setShowControl(true);
+    setIsEditing(true);
   };
 
   const handleDeleteProgram = () => {
     setPrescriptionProgram(undefined);
-    setIsCreatedProgram(false);
-    setShowControl(false);
+    setIsEditing(false);
   };
 
   const onSubmit = (data: FormValues) => {
@@ -130,10 +127,13 @@ export default function CreatePrescriptionPage() {
         <>
           <PrescriptionProgramCard
             prescription={prescriptionProgram}
-            showControl={showControl}
+            isEditing={isEditing}
+            onStartEditing={() => setIsEditing(true)}
+            onStopEditing={() => setIsEditing(false)}
             onUpdate={handleSetProgram}
             onDelete={handleDeleteProgram}
             defaultIsOpen
+            showControl
           />
 
           <Form {...form}>
@@ -173,7 +173,10 @@ export default function CreatePrescriptionPage() {
         <Button
           className="flex-1 h-12 rounded-full cursor-pointer"
           disabled={
-            !form.formState.isValid || !isCreatedProgram || createPrescriptionMutation.isPending
+            !form.formState.isValid ||
+            !prescriptionProgram ||
+            isEditing ||
+            createPrescriptionMutation.isPending
           }
           onClick={form.handleSubmit(onSubmit)}
         >

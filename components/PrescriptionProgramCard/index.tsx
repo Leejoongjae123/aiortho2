@@ -29,8 +29,11 @@ interface PrescriptionProgramCardProps {
   defaultIsOpen?: boolean;
   disabled?: boolean;
   showControl?: boolean;
-  onUpdate?: (prescription: Prescription) => void;
-  onDelete?: () => void;
+  isEditing?: boolean;
+  onUpdate?: (prescription: Prescription, index?: number) => void;
+  onDelete?: (index?: number) => void;
+  onStartEditing?: () => void;
+  onStopEditing?: () => void;
 }
 
 // 검증 스키마 정의
@@ -54,14 +57,15 @@ const MAX_EXERCISE_LENGTH = 4;
 
 export default function PrescriptionProgramCard({
   prescription,
-  disabled = false,
   defaultIsOpen = false,
   showControl = false,
+  isEditing = false,
   onUpdate,
   onDelete,
+  onStartEditing,
+  onStopEditing,
 }: PrescriptionProgramCardProps) {
   const [isOpen, setIsOpen] = useState(defaultIsOpen);
-  const [isEdit, setIsEdit] = useState<boolean>(!disabled);
 
   const staticExerciseListQuery = useStandardProgramStaticExercise();
   const { data: staticExerciseList } = staticExerciseListQuery;
@@ -124,12 +128,13 @@ export default function PrescriptionProgramCard({
   };
 
   const onSubmit = () => {
-    setIsEdit(false);
+    // setIsEdit(false);
     onUpdate?.({
       ...prescription,
       exercises: watchedExercises,
       repeatCount: watchedRepetitions,
     });
+    onStopEditing?.();
 
     // TODO: 표준 프로그램 생성 api
     // 표준 프로그램 생성이 가능한 onStandardProgramSubmit 함수가 있다면 실행시키기
@@ -138,12 +143,13 @@ export default function PrescriptionProgramCard({
   const handleCreateComplete = handleSubmit(onSubmit);
 
   const handleEdit = () => {
-    setIsEdit(true);
     setIsOpen(true);
+    onStartEditing?.();
   };
 
   const handleDelete = () => {
     onDelete?.();
+    onStopEditing?.();
   };
 
   if (!staticExerciseList) {
@@ -157,7 +163,7 @@ export default function PrescriptionProgramCard({
         isOpen ? 'shadow-md' : 'shadow-sm'
       )}
     >
-      {!isEdit && showControl && (
+      {!isEditing && showControl && (
         <div
           className={cn(
             'flex absolute top-[30px] -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]',
@@ -234,7 +240,7 @@ export default function PrescriptionProgramCard({
                               errors.exercises?.[idx]?.exerciseId &&
                                 'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                             )}
-                            disabled={!isEdit}
+                            disabled={!isEditing}
                           >
                             <SelectValue placeholder="운동 종류를 선택해주세요." />
                           </SelectTrigger>
@@ -287,13 +293,13 @@ export default function PrescriptionProgramCard({
                                   id={`exercise-${idx}-direction-left`}
                                   className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
                                   checked={exercise.direction === ExerciseDirection.Left}
-                                  disabled={!isEdit}
+                                  disabled={!isEditing}
                                 />
                                 <Label
                                   htmlFor={`exercise-${idx}-direction-left`}
                                   className={cn(
                                     'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                    !isEdit && 'text-[var(--aiortho-gray-600)] cursor-default'
+                                    !isEditing && 'text-[var(--aiortho-gray-600)] cursor-default'
                                   )}
                                 >
                                   {ExerciseDirectionLabel[ExerciseDirection.Left]}
@@ -305,13 +311,13 @@ export default function PrescriptionProgramCard({
                                   id={`exercise-${idx}-direction-right`}
                                   className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
                                   checked={exercise.direction === ExerciseDirection.Right}
-                                  disabled={!isEdit}
+                                  disabled={!isEditing}
                                 />
                                 <Label
                                   htmlFor={`exercise-${idx}-direction-right`}
                                   className={cn(
                                     'text-[var(--aiortho-gray-900)] text-sm cursor-pointer',
-                                    !isEdit && 'text-[var(--aiortho-gray-600)] cursor-default'
+                                    !isEditing && 'text-[var(--aiortho-gray-600)] cursor-default'
                                   )}
                                 >
                                   {ExerciseDirectionLabel[ExerciseDirection.Right]}
@@ -347,7 +353,7 @@ export default function PrescriptionProgramCard({
                                 errors.exercises?.[idx]?.duration &&
                                   'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                               )}
-                              disabled={!isEdit}
+                              disabled={!isEditing}
                             >
                               <SelectValue placeholder="시간을 선택해주세요." />
                             </SelectTrigger>
@@ -359,7 +365,7 @@ export default function PrescriptionProgramCard({
                                     value={String(i + 1)}
                                     className={cn(
                                       'cursor-pointer',
-                                      !isEdit && 'text-[var(--aiortho-gray-600)]'
+                                      !isEditing && 'text-[var(--aiortho-gray-600)]'
                                     )}
                                   >
                                     {i + 1}분
@@ -381,7 +387,7 @@ export default function PrescriptionProgramCard({
                 </div>
               ))}
 
-              {watchedExercises.length < MAX_EXERCISE_LENGTH && isEdit && (
+              {watchedExercises.length < MAX_EXERCISE_LENGTH && isEditing && (
                 <Button
                   type="button"
                   className="font-bold text-[var(--aiortho-primary)] bg-[#BDD5FF80] w-20 h-10 rounded-lg cursor-pointer hover:bg-[#BDD5FF]"
@@ -409,7 +415,7 @@ export default function PrescriptionProgramCard({
                     size="icon"
                     className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(-1)}
-                    disabled={watchedRepetitions <= 3 || !isEdit}
+                    disabled={watchedRepetitions <= 3 || !isEditing}
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
@@ -421,14 +427,14 @@ export default function PrescriptionProgramCard({
                     size="icon"
                     className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(1)}
-                    disabled={watchedRepetitions >= 12 || !isEdit}
+                    disabled={watchedRepetitions >= 12 || !isEditing}
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
-              {isEdit && (
+              {isEditing && (
                 <Button
                   type="button"
                   className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
