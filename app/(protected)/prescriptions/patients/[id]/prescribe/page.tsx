@@ -1,12 +1,12 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { usePatient } from '@/hooks';
+import { usePatient, useStandardProgram } from '@/hooks';
 import PatientInfoCard from '@/components/PatientInfoCard';
 import { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { PrescriptionPeriodSelector, ProgramCreateModal } from './components';
-import { useCreatePrescription, useStandardProgram } from './hooks';
+import { useCreatePrescription } from './hooks';
 import PrescriptionProgramCard from '@/components/PrescriptionProgramCard';
 import { Prescription } from '@/models';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
