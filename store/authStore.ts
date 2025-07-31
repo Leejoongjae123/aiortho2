@@ -1,6 +1,4 @@
 import { create } from 'zustand';
-// import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
-// import { setStorage, removeStorage } from '@/lib/storage';
 import { UserRole } from '@/models';
 
 interface JWTTokenPayload {
@@ -32,12 +30,6 @@ export const useAuthStore = create<AuthState>(set => ({
   },
 
   setTokens: (accessToken, refreshToken) => {
-    // FIXME: 기획 고도화 필요
-    // const isLocal = localStorage.getItem(TOKEN_KEY) && localStorage.getItem(REFRESH_KEY);
-
-    // setStorage(isLocal ? 'local' : 'session', TOKEN_KEY, accessToken);
-    // setStorage(isLocal ? 'local' : 'session', REFRESH_KEY, refreshToken);
-
     set({
       accessToken,
       refreshToken,
@@ -49,13 +41,6 @@ export const useAuthStore = create<AuthState>(set => ({
   },
 
   clearTokens: () => {
-    // FIXME: 기획 고도화 필요
-
-    // const isLocal = localStorage.getItem(TOKEN_KEY) && localStorage.getItem(REFRESH_KEY);
-
-    // removeStorage(isLocal ? 'local' : 'session', TOKEN_KEY);
-    // removeStorage(isLocal ? 'local' : 'session', REFRESH_KEY);
-
     set({
       accessToken: null,
       refreshToken: null,
