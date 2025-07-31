@@ -1,15 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useStandardProgram } from '@/hooks';
+import { useCreateStandardProgram, useStandardProgram } from '@/hooks';
 import { Prescription } from '@/models';
 import PrescriptionProgramCard from '@/components/PrescriptionProgramCard';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import { createDefaultExercise } from '@/components/PrescriptionProgramCard/utils';
 
+// 표준 프로그램 번호 확인 정규식
+const isStandardProgramNumber = (name: string): boolean => {
+  const standardProgramRegex = /^표준 프로그램 \d+$/;
+  return standardProgramRegex.test(name);
+};
+
 export default function StandardTreatmentProgramPage() {
   const standardProgramQuery = useStandardProgram();
+  const createStandardProgramMutation = useCreateStandardProgram();
   const [standardProgram, setStandardProgram] = useState<Prescription[]>([]);
   const [currentCustomStandardProgramNumber, setCurrentCustomStandardProgramNumber] =
     useState<number>(1);
@@ -25,7 +32,6 @@ export default function StandardTreatmentProgramPage() {
       },
     ]);
 
-    setCurrentCustomStandardProgramNumber(currentCustomStandardProgramNumber + 1);
     setEditingPrograms(prev => [...prev, true]);
   };
 
@@ -38,16 +44,18 @@ export default function StandardTreatmentProgramPage() {
   };
 
   const handleUpdateProgram = (program: Prescription, index: number) => {
-    setStandardProgram(prev => prev.map((p, i) => (i === index ? { ...p, ...program } : p)));
+    createStandardProgramMutation.mutateAsync({
+      name: program.name,
+      exercises: program.exercises,
+      repeatCount: program.repeatCount,
+    });
+
+    handleStopEditing(index);
   };
 
   const handleDeleteProgram = (index: number) => {
     setStandardProgram(prev => prev.filter((_, i) => i !== index));
     setEditingPrograms(prev => prev.filter((_, i) => i !== index));
-
-    if (standardProgram[index].name.includes('표준 프로그램')) {
-      setCurrentCustomStandardProgramNumber(currentCustomStandardProgramNumber - 1);
-    }
   };
 
   const isAnyProgramEditing = editingPrograms.some(Boolean);
@@ -56,6 +64,10 @@ export default function StandardTreatmentProgramPage() {
     if (standardProgramQuery.data) {
       setStandardProgram(standardProgramQuery.data.presets);
       setEditingPrograms(standardProgramQuery.data.presets.map(() => false));
+      setCurrentCustomStandardProgramNumber(
+        standardProgramQuery.data.presets.filter(program => isStandardProgramNumber(program.name))
+          .length + 1
+      );
     }
   }, [standardProgramQuery.data]);
 
@@ -78,11 +90,12 @@ export default function StandardTreatmentProgramPage() {
             key={`${program.name}-${idx}`}
             prescription={program}
             isEditing={editingPrograms[idx]}
+            isPending={createStandardProgramMutation.isPending}
             onStartEditing={() => handleStartEditing(idx)}
             onStopEditing={() => handleStopEditing(idx)}
             onUpdate={program => handleUpdateProgram(program, idx)}
             onDelete={() => handleDeleteProgram(idx)}
-            defaultIsOpen={program.name.includes('표준 프로그램')}
+            defaultIsOpen={editingPrograms[idx]}
             showControl={!isAnyProgramEditing}
           />
         ))}

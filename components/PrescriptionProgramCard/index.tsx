@@ -27,9 +27,9 @@ import { EditIcon, DeleteIcon } from './icons';
 interface PrescriptionProgramCardProps {
   prescription: Prescription;
   defaultIsOpen?: boolean;
-  disabled?: boolean;
   showControl?: boolean;
   isEditing?: boolean;
+  isPending?: boolean;
   onUpdate?: (prescription: Prescription, index?: number) => void;
   onDelete?: (index?: number) => void;
   onStartEditing?: () => void;
@@ -60,6 +60,7 @@ export default function PrescriptionProgramCard({
   defaultIsOpen = false,
   showControl = false,
   isEditing = false,
+  isPending = false,
   onUpdate,
   onDelete,
   onStartEditing,
@@ -94,11 +95,8 @@ export default function PrescriptionProgramCard({
     if (!newExercise) return;
 
     const updatedExercises = [...watchedExercises];
-    if (!('description' in newExercise)) {
-      delete updatedExercises[idx].description;
-    }
+
     updatedExercises[idx] = { ...updatedExercises[idx], ...newExercise };
-    console.log(newExercise);
     setValue('exercises', updatedExercises);
   };
 
@@ -128,16 +126,11 @@ export default function PrescriptionProgramCard({
   };
 
   const onSubmit = () => {
-    // setIsEdit(false);
     onUpdate?.({
       ...prescription,
       exercises: watchedExercises,
       repeatCount: watchedRepetitions,
     });
-    onStopEditing?.();
-
-    // TODO: 표준 프로그램 생성 api
-    // 표준 프로그램 생성이 가능한 onStandardProgramSubmit 함수가 있다면 실행시키기
   };
 
   const handleCreateComplete = handleSubmit(onSubmit);
@@ -240,7 +233,7 @@ export default function PrescriptionProgramCard({
                               errors.exercises?.[idx]?.exerciseId &&
                                 'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                             )}
-                            disabled={!isEditing}
+                            disabled={!isEditing || isPending}
                           >
                             <SelectValue placeholder="운동 종류를 선택해주세요." />
                           </SelectTrigger>
@@ -293,7 +286,7 @@ export default function PrescriptionProgramCard({
                                   id={`exercise-${idx}-direction-left`}
                                   className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
                                   checked={exercise.direction === ExerciseDirection.Left}
-                                  disabled={!isEditing}
+                                  disabled={!isEditing || isPending}
                                 />
                                 <Label
                                   htmlFor={`exercise-${idx}-direction-left`}
@@ -311,7 +304,7 @@ export default function PrescriptionProgramCard({
                                   id={`exercise-${idx}-direction-right`}
                                   className="text-[var(--aiortho-gray-500)] border-2 border-[var(--aiortho-gray-200)] data-[state=checked]:border-[var(--aiortho-primary)] data-[state=checked]:bg-transparent cursor-pointer disabled:border-[var(--aiortho-gray-200)] disabled:data-[state=checked]:border-[var(--aiortho-gray-200)]"
                                   checked={exercise.direction === ExerciseDirection.Right}
-                                  disabled={!isEditing}
+                                  disabled={!isEditing || isPending}
                                 />
                                 <Label
                                   htmlFor={`exercise-${idx}-direction-right`}
@@ -353,7 +346,7 @@ export default function PrescriptionProgramCard({
                                 errors.exercises?.[idx]?.duration &&
                                   'border-red-500 focus-visible:ring-red-500 focus-visible:border-red-500'
                               )}
-                              disabled={!isEditing}
+                              disabled={!isEditing || isPending}
                             >
                               <SelectValue placeholder="시간을 선택해주세요." />
                             </SelectTrigger>
@@ -415,7 +408,7 @@ export default function PrescriptionProgramCard({
                     size="icon"
                     className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(-1)}
-                    disabled={watchedRepetitions <= 3 || !isEditing}
+                    disabled={watchedRepetitions <= 3 || !isEditing || isPending}
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
@@ -427,7 +420,7 @@ export default function PrescriptionProgramCard({
                     size="icon"
                     className="cursor-pointer h-6 w-6 text-[var(--aiortho-gray-500)] bg-[var(--aiortho-gray-100)] hover:text-[var(--aiortho-gray-900)] disabled:text-[#DADFE9] disabled:bg-[#F7F9FC]"
                     onClick={() => handleRepetitionsChange(1)}
-                    disabled={watchedRepetitions >= 12 || !isEditing}
+                    disabled={watchedRepetitions >= 12 || !isEditing || isPending}
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
@@ -438,6 +431,7 @@ export default function PrescriptionProgramCard({
                 <Button
                   type="button"
                   className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
+                  disabled={isPending}
                   onClick={handleCreateComplete}
                 >
                   생성 완료
