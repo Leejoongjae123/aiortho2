@@ -5,3 +5,4 @@ export * from './useMedicalDepartments';
 export * from './usePatient';
 export * from './useStandardProgram';
 export * from './useCreateStandardProgram';
+export * from './useDeleteStandardProgram';
