@@ -23,6 +23,7 @@ import { useStandardProgramStaticExercise } from './hooks';
 import { createDefaultExercise } from './utils';
 import { z } from 'zod';
 import { EditIcon, DeleteIcon } from './icons';
+import ConfirmModal from '../ConfirmModal';
 
 interface PrescriptionProgramCardProps {
   prescription: Prescription;
@@ -30,6 +31,7 @@ interface PrescriptionProgramCardProps {
   showControl?: boolean;
   isEditing?: boolean;
   isPending?: boolean;
+  isDeleteConfirm?: boolean;
   checkIsDirty?: boolean;
   onUpdate?: (prescription: Prescription, index?: number) => void;
   onDelete?: (index?: number) => void;
@@ -62,13 +64,15 @@ export default function PrescriptionProgramCard({
   showControl = false,
   isEditing = false,
   isPending = false,
+  isDeleteConfirm = false,
   checkIsDirty = false,
   onUpdate,
   onDelete,
   onStartEditing,
   onStopEditing,
 }: PrescriptionProgramCardProps) {
-  const [isOpen, setIsOpen] = useState(defaultIsOpen);
+  const [isCardOpen, setIsCardOpen] = useState(defaultIsOpen);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const staticExerciseListQuery = useStandardProgramStaticExercise();
   const { data: staticExerciseList } = staticExerciseListQuery;
@@ -139,11 +143,16 @@ export default function PrescriptionProgramCard({
   const handleCreateComplete = handleSubmit(onSubmit);
 
   const handleEdit = () => {
-    setIsOpen(true);
+    setIsCardOpen(true);
     onStartEditing?.();
   };
 
   const handleDelete = () => {
+    if (isDeleteConfirm) {
+      setIsConfirmModalOpen(true);
+      return;
+    }
+
     onDelete?.();
   };
 
@@ -155,14 +164,14 @@ export default function PrescriptionProgramCard({
     <Card
       className={cn(
         'relative border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out min-h-21 flex justify-center',
-        isOpen ? 'shadow-md' : 'shadow-sm'
+        isCardOpen ? 'shadow-md' : 'shadow-sm'
       )}
     >
       {!isEditing && showControl && (
         <div
           className={cn(
             'flex absolute top-[30px] -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]',
-            isOpen && 'top-[22px]'
+            isCardOpen && 'top-[22px]'
           )}
         >
           <button
@@ -172,6 +181,7 @@ export default function PrescriptionProgramCard({
           >
             <EditIcon />
           </button>
+
           <button
             type="button"
             className="cursor-pointer hover:scale-130 transition-all duration-300"
@@ -179,10 +189,19 @@ export default function PrescriptionProgramCard({
           >
             <DeleteIcon />
           </button>
+
+          <ConfirmModal
+            isOpen={isConfirmModalOpen}
+            title="표준 프로그램 5를 삭제하시겠어요?"
+            description="삭제된 프로그램 내역은 복구할 수 없어요."
+            confirmText="네, 삭제할게요"
+            onClose={() => setIsConfirmModalOpen(false)}
+            onConfirm={() => onDelete?.()}
+          />
         </div>
       )}
 
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <Collapsible open={isCardOpen} onOpenChange={setIsCardOpen}>
         <CollapsibleTrigger asChild>
           <div className="flex justify-between items-center cursor-pointer">
             <div className="flex gap-2">
@@ -198,7 +217,7 @@ export default function PrescriptionProgramCard({
             </div>
 
             <ChevronUp
-              className={`text-[var(--aiortho-gray-700)] h-5 w-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+              className={`text-[var(--aiortho-gray-700)] h-5 w-5 transition-transform duration-300 ${isCardOpen ? 'rotate-180' : 'rotate-0'}`}
             />
           </div>
         </CollapsibleTrigger>
