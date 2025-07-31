@@ -5,6 +5,8 @@ import {
   PostCreateStandardProgramResponse,
   DeleteStandardProgramRequest,
   DeleteStandardProgramResponse,
+  UpdateStandardProgramResponse,
+  UpdateStandardProgramRequest,
 } from './types';
 import apiClient from '@/lib/axios';
 
@@ -25,3 +27,9 @@ export const deleteStandardProgram = async (
   params: DeleteStandardProgramRequest
 ): Promise<DeleteStandardProgramResponse> =>
   await apiClient.delete(`${RESOURCE}/${params.presetIndex}`);
+
+export const updateStandardProgram = async ({
+  presetIndex,
+  ...params
+}: UpdateStandardProgramRequest): Promise<UpdateStandardProgramResponse> =>
+  await apiClient.put(`${RESOURCE}/${presetIndex}`, params);

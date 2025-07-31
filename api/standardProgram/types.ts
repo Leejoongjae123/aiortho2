@@ -26,3 +26,15 @@ export interface DeleteStandardProgramResponse {
   adminId: string;
   presets: Program[];
 }
+
+export interface UpdateStandardProgramRequest {
+  presetIndex: number;
+  name: string;
+  exercises: Exercise[];
+  repeatCount: number;
+}
+
+export interface UpdateStandardProgramResponse {
+  adminId: string;
+  presets: Program[];
+}
