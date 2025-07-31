@@ -54,6 +54,11 @@ export const ROUTES: Record<string, RouteConfig> = {
           },
         },
       },
+      standardTreatmentProgram: {
+        key: 'standardTreatmentProgram',
+        path: '/prescriptions/standard-treatment-program',
+        label: '표준 치료 프로그램',
+      },
     },
   },
 

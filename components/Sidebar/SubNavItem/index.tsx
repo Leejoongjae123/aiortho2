@@ -13,7 +13,7 @@ const SubNavItem: React.FC<SubNavItemProps> = ({ label, isActive = false, onClic
     <li className="relative w-full">
       <button
         className={cn(
-          'flex items-center w-full h-12 max-md:h-11 max-sm:h-10 rounded-xl',
+          'flex items-center w-full h-12 max-md:h-11 max-sm:h-10 rounded-xl cursor-pointer',
           isActive
             ? 'font-bold text-[var(--aiortho-primary)] bg-[#EEF4FF]'
             : 'font-medium text-[var(--aiortho-gray-600)] hover:bg-gray-100'

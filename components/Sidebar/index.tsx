@@ -130,8 +130,12 @@ const Sidebar: React.FC = () => {
                 {(auth?.role === 'Doctor' || auth?.role === 'Root') && (
                   <SubNavItem
                     label="표준 치료 프로그램"
-                    isActive={isActivePath('/doctor/program')}
-                    onClick={() => handleNavItemClick(() => router.push('/doctor/program'))}
+                    isActive={isActivePath('/prescriptions/standard-treatment-program')}
+                    onClick={() =>
+                      handleNavItemClick(() =>
+                        router.push('/prescriptions/standard-treatment-program')
+                      )
+                    }
                   />
                 )}
               </NavSection>
