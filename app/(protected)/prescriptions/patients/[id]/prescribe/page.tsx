@@ -56,7 +56,6 @@ export default function CreatePrescriptionPage() {
 
   const handleDeleteProgram = () => {
     setPrescriptionProgram(undefined);
-    setIsEditing(false);
   };
 
   const onSubmit = (data: FormValues) => {

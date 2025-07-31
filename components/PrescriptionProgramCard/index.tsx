@@ -30,6 +30,7 @@ interface PrescriptionProgramCardProps {
   showControl?: boolean;
   isEditing?: boolean;
   isPending?: boolean;
+  checkIsDirty?: boolean;
   onUpdate?: (prescription: Prescription, index?: number) => void;
   onDelete?: (index?: number) => void;
   onStartEditing?: () => void;
@@ -61,6 +62,7 @@ export default function PrescriptionProgramCard({
   showControl = false,
   isEditing = false,
   isPending = false,
+  checkIsDirty = false,
   onUpdate,
   onDelete,
   onStartEditing,
@@ -131,6 +133,7 @@ export default function PrescriptionProgramCard({
       exercises: watchedExercises,
       repeatCount: watchedRepetitions,
     });
+    onStopEditing?.();
   };
 
   const handleCreateComplete = handleSubmit(onSubmit);
@@ -142,7 +145,6 @@ export default function PrescriptionProgramCard({
 
   const handleDelete = () => {
     onDelete?.();
-    onStopEditing?.();
   };
 
   if (!staticExerciseList) {
@@ -427,16 +429,29 @@ export default function PrescriptionProgramCard({
                 </div>
               </div>
 
-              {isEditing && (
-                <Button
-                  type="button"
-                  className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
-                  disabled={isPending || !isDirty}
-                  onClick={handleCreateComplete}
-                >
-                  생성 완료
-                </Button>
-              )}
+              <div className="flex gap-4">
+                {isEditing && (
+                  <Button
+                    type="button"
+                    className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
+                    disabled={isPending || (checkIsDirty && !isDirty)}
+                    onClick={handleCreateComplete}
+                  >
+                    생성 완료
+                  </Button>
+                )}
+
+                {isEditing && checkIsDirty && !isDirty && (
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
+                    onClick={() => onStopEditing?.()}
+                  >
+                    수정 취소
+                  </Button>
+                )}
+              </div>
             </CardContent>
           </form>
         </CollapsibleContent>

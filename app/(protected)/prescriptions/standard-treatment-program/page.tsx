@@ -138,6 +138,7 @@ export default function StandardTreatmentProgramPage() {
             onStopEditing={() => handleStopEditing(idx)}
             onUpdate={() => handleUpdateProgram(program, idx)}
             onDelete={() => handleDeleteProgram(idx)}
+            checkIsDirty
           />
         ))}
 
