@@ -127,13 +127,17 @@ export default function StandardTreatmentProgramPage() {
             key={`${program.name}-${idx}`}
             prescription={program}
             isEditing={editingPrograms[idx]}
-            isPending={createStandardProgramMutation.isPending}
+            isPending={
+              createStandardProgramMutation.isPending ||
+              updateStandardProgramMutation.isPending ||
+              deleteStandardProgramMutation.isPending
+            }
+            defaultIsOpen={editingPrograms[idx]}
+            showControl={!isAnyProgramEditing}
             onStartEditing={() => handleStartEditing(idx)}
             onStopEditing={() => handleStopEditing(idx)}
             onUpdate={() => handleUpdateProgram(program, idx)}
             onDelete={() => handleDeleteProgram(idx)}
-            defaultIsOpen={editingPrograms[idx]}
-            showControl={!isAnyProgramEditing}
           />
         ))}
 

@@ -76,7 +76,7 @@ export default function PrescriptionProgramCard({
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -431,7 +431,7 @@ export default function PrescriptionProgramCard({
                 <Button
                   type="button"
                   className="cursor-pointer w-27 h-11 font-semibold rounded-lg"
-                  disabled={isPending}
+                  disabled={isPending || !isDirty}
                   onClick={handleCreateComplete}
                 >
                   생성 완료
