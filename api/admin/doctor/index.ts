@@ -9,6 +9,8 @@ import {
   GetSearchNursesResponse,
   PostDoctorSignUpRequest,
   PostDoctorSignUpResponse,
+  PostDoctorProfileVerifyResponse,
+  PostDoctorProfileVerifyRequest,
 } from './types';
 
 const RESOURCE = '/ums/doctor';
@@ -44,3 +46,7 @@ export const postDoctorSignUp = async (
       Authorization: `Bearer ${token}`,
     },
   });
+
+export const postDoctorProfileVerify = async (
+  data: PostDoctorProfileVerifyRequest
+): Promise<PostDoctorProfileVerifyResponse> => await apiClient.post(`${RESOURCE}/verify`, data);

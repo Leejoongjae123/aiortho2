@@ -44,3 +44,10 @@ export interface PostDoctorSignUpRequest {
 }
 
 export interface PostDoctorSignUpResponse {}
+
+export interface PostDoctorProfileVerifyRequest {
+  email: string;
+  password: string;
+}
+
+export interface PostDoctorProfileVerifyResponse {}
