@@ -10,3 +10,10 @@ export interface GetStandardProgramListResponse {
 export interface GetStaticProgramExerciseListRequest {}
 
 export interface GetStaticProgramExerciseListResponse extends Array<Exercise> {}
+
+export interface PostCreateStandardProgramRequest extends Program {}
+
+export interface PostCreateStandardProgramResponse {
+  adminId: string;
+  presets: Program[];
+}
