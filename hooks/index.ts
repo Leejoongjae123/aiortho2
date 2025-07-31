@@ -6,3 +6,4 @@ export * from './usePatient';
 export * from './useStandardProgram';
 export * from './useCreateStandardProgram';
 export * from './useDeleteStandardProgram';
+export * from './useUpdateStandardProgram';
