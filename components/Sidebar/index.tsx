@@ -152,13 +152,13 @@ const Sidebar: React.FC = () => {
               <NavSection
                 icon={<MyPageIcon />}
                 label="마이페이지"
-                isExpanded={isActiveSection('/doctor/mypage')}
+                isExpanded={isActiveSection('/profile')}
                 onToggle={handleDropdownToggle}
               >
                 <SubNavItem
                   label="개인정보 수정"
-                  isActive={isActivePath('/doctor/mypage/check')}
-                  onClick={() => handleNavItemClick(() => router.push('/doctor/mypage/check'))}
+                  isActive={isActivePath('/profile/edit')}
+                  onClick={() => handleNavItemClick(() => router.push('/profile/edit'))}
                 />
               </NavSection>
             </ul>

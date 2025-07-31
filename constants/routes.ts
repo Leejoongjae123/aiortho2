@@ -67,6 +67,19 @@ export const ROUTES: Record<string, RouteConfig> = {
     path: '/admin',
     label: '의사 관리',
   },
+
+  profile: {
+    key: 'profile',
+    path: '/profile',
+    label: '마이페이지',
+    children: {
+      edit: {
+        key: 'profileEdit',
+        path: '/profile/edit',
+        label: '개인정보 수정',
+      },
+    },
+  },
 } as const;
 
 // key로 route를 찾는 유틸리티 함수
