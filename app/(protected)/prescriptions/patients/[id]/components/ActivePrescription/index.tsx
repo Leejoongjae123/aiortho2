@@ -40,7 +40,7 @@ export default function ActivePrescription({ prescription, onClick }: ActivePres
             {formatDate(prescription.startDate ?? '', true)}
           </span>
 
-          <PrescriptionProgramCard prescription={prescription} disabled />
+          <PrescriptionProgramCard prescription={prescription} />
         </div>
       ) : (
         <div className="flex justify-center items-center w-full h-25">

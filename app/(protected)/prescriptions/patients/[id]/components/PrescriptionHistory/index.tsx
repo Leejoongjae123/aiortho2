@@ -51,7 +51,7 @@ export default function PrescriptionHistory({ patientId }: PrescriptionHistoryPr
                 </span>
               )}
 
-              <PrescriptionProgramCard prescription={prescription} disabled />
+              <PrescriptionProgramCard prescription={prescription} />
             </div>
           ))
         ) : (
@@ -61,7 +61,7 @@ export default function PrescriptionHistory({ patientId }: PrescriptionHistoryPr
         )}
       </div>
 
-      {pageCount > 0 && (
+      {pageCount > 1 && (
         <Pagination currentPage={page} totalPages={pageCount} onPageChange={handlePageChange} />
       )}
     </div>
