@@ -153,12 +153,17 @@ export default function PrescriptionProgramCard({
   return (
     <Card
       className={cn(
-        'relative border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out',
+        'relative border border-[var(--aiortho-gray-100)] p-5 transition-all duration-300 ease-in-out min-h-21 flex justify-center',
         isOpen ? 'shadow-md' : 'shadow-sm'
       )}
     >
       {!isEdit && showControl && (
-        <div className="flex absolute top-5 -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]">
+        <div
+          className={cn(
+            'flex absolute top-[30px] -right-5 translate-x-full gap-3 text-[var(--aiortho-gray-400)]',
+            isOpen && 'top-[22px]'
+          )}
+        >
           <button
             type="button"
             className="cursor-pointer hover:scale-130 transition-all duration-300"
