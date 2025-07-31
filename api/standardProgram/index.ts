@@ -3,6 +3,8 @@ import {
   GetStaticProgramExerciseListResponse,
   PostCreateStandardProgramRequest,
   PostCreateStandardProgramResponse,
+  DeleteStandardProgramRequest,
+  DeleteStandardProgramResponse,
 } from './types';
 import apiClient from '@/lib/axios';
 
@@ -16,5 +18,10 @@ export const getStaticProgramExerciseList =
     await apiClient.get(`${RESOURCE}/programs`);
 
 export const postCreateStandardProgram = async (
-  request: PostCreateStandardProgramRequest
-): Promise<PostCreateStandardProgramResponse> => await apiClient.post(`${RESOURCE}`, request);
+  params: PostCreateStandardProgramRequest
+): Promise<PostCreateStandardProgramResponse> => await apiClient.post(`${RESOURCE}`, params);
+
+export const deleteStandardProgram = async (
+  params: DeleteStandardProgramRequest
+): Promise<DeleteStandardProgramResponse> =>
+  await apiClient.delete(`${RESOURCE}/${params.presetIndex}`);

@@ -17,3 +17,12 @@ export interface PostCreateStandardProgramResponse {
   adminId: string;
   presets: Program[];
 }
+
+export interface DeleteStandardProgramRequest {
+  presetIndex: number;
+}
+
+export interface DeleteStandardProgramResponse {
+  adminId: string;
+  presets: Program[];
+}
