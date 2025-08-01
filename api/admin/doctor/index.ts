@@ -11,6 +11,8 @@ import {
   PostDoctorSignUpResponse,
   PostDoctorProfileVerifyResponse,
   PostDoctorProfileVerifyRequest,
+  PutDoctorProfileResponse,
+  PutDoctorProfileRequest,
 } from './types';
 
 const RESOURCE = '/ums/doctor';
@@ -50,3 +52,7 @@ export const postDoctorSignUp = async (
 export const postDoctorProfileVerify = async (
   data: PostDoctorProfileVerifyRequest
 ): Promise<PostDoctorProfileVerifyResponse> => await apiClient.post(`${RESOURCE}/verify`, data);
+
+export const putDoctorProfile = async (
+  data: PutDoctorProfileRequest
+): Promise<PutDoctorProfileResponse> => await apiClient.put(`${RESOURCE}`, data);

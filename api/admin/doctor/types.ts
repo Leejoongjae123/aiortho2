@@ -51,3 +51,17 @@ export interface PostDoctorProfileVerifyRequest {
 }
 
 export interface PostDoctorProfileVerifyResponse {}
+
+export interface PutDoctorProfileRequest {
+  password?: string;
+  name: string;
+  licenseNumber: string;
+  phoneNumber: string;
+  hospitalCode: string;
+  departmentCode: string;
+  specialtyField?: string;
+  specialistLicenseNumber?: string;
+  nurseIds?: string[];
+}
+
+export interface PutDoctorProfileResponse {}
