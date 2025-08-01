@@ -12,6 +12,7 @@ interface MedicalDepartmentSelectorProps {
   error?: string;
   items: ArrayItem[];
   required?: boolean;
+  isDirty?: boolean;
   selectedDepartmentName?: string;
   onChange?: (department?: MedicalDepartment) => void;
 }
@@ -23,6 +24,7 @@ export default function MedicalDepartmentSelector({
   registration,
   error,
   required = false,
+  isDirty = false,
   selectedDepartmentName,
   onChange,
 }: MedicalDepartmentSelectorProps) {
@@ -52,6 +54,7 @@ export default function MedicalDepartmentSelector({
           rightIcon={<ChevronDown size={20} color="#97A8C4" />}
           error={error}
           required={required}
+          isDirty={isDirty}
         />
       </div>
 
