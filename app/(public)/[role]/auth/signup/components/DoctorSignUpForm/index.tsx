@@ -11,17 +11,15 @@ import MedicalDepartmentSelector from '@/components/MedicalDepartmentSelector';
 import NurseManagerSelector from '@/components/NurseManagerSelector';
 import SignupCheckList from '../SignupCheckList';
 import { formatTime } from '@/lib/utils';
-import { usePhoneVerifySend } from '@/hooks';
 import { useTimer } from '@/hooks/useTimer';
 import { decodeJWT } from '@/lib/utils';
 import { Hospital, MedicalDepartment } from '@/models';
 import { useMedicalDepartments } from '@/hooks';
-import usePhoneVerifyCheck from '@/hooks/usePhoneVerifyCheck';
 import { useDoctorSignUp } from '../../hooks/useDoctorSignUp';
 import { useRouter } from 'next/navigation';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 import { toast } from 'sonner';
-import { useMedicalLicenseCheck } from '@/hooks';
+import { useMedicalLicenseCheck, usePhoneVerifyCheck, usePhoneVerifySend } from '@/hooks';
 
 const schema = z
   .object({
