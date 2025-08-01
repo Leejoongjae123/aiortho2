@@ -2,19 +2,14 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import {
-  useNurseProfile,
-  useDoctorProfile,
-  useNurseVerifyProfile,
-  useDoctorVerifyProfile,
-} from '@/hooks';
+import { useNurseVerifyProfile, useDoctorVerifyProfile } from '@/hooks';
 import { isDoctorRole } from '@/lib/utils';
 import { toast } from 'sonner';
+import { Doctor, Nurse, UserRole } from '@/models';
 
 const schema = z.object({
   email: z.string(),
@@ -34,22 +29,20 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 interface VerifyProfileProps {
+  role: UserRole;
+  profile: Doctor | Nurse;
   onClick?: () => void;
 }
 
-export default function VerifyProfile({ onClick }: VerifyProfileProps) {
-  const { auth } = useAuthStore();
-  if (!auth) return null;
-
+export default function VerifyProfile({ role, profile, onClick }: VerifyProfileProps) {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
-  const profileQuery = isDoctorRole(auth.role) ? useDoctorProfile() : useNurseProfile();
-  const verifyProfileMutation = isDoctorRole(auth.role)
+  const verifyProfileMutation = isDoctorRole(role)
     ? useDoctorVerifyProfile()
     : useNurseVerifyProfile();
 
-  const { name, email } = profileQuery.data || {};
+  const { name, email } = profile;
   const { mutate: postVerifyProfile, isPending } = verifyProfileMutation;
 
   const {
@@ -89,8 +82,6 @@ export default function VerifyProfile({ onClick }: VerifyProfileProps) {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  if (!profileQuery.data) return null;
 
   return (
     <div className="flex flex-col">
