@@ -49,7 +49,10 @@ const schema = z
         },
         { message: '자음이나 모음만 사용할 수 없습니다' }
       ),
-    medicalLicense: z.string().min(1, { message: '의료 면허 번호를 입력해주세요' }),
+    medicalLicense: z
+      .string()
+      .min(5, { message: '의사 면허 번호 숫자 5자리를 입력해주세요' })
+      .max(5, { message: '의사 면허 번호 숫자 5자리를 입력해주세요' }),
     medicalInstitution: z.string().min(1, { message: '의료 기관명을 선택해주세요' }),
     medicalDepartment: z.string().min(1, { message: '진료과를 선택해주세요' }),
     specialties: z.string().optional(),
