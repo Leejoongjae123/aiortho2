@@ -12,9 +12,8 @@ interface MedicalDepartmentSelectorProps {
   error?: string;
   items: ArrayItem[];
   required?: boolean;
-  selectedDepartment?: MedicalDepartment;
   selectedDepartmentName?: string;
-  onChange?: (department: MedicalDepartment) => void;
+  onChange?: (department?: MedicalDepartment) => void;
 }
 
 export default function MedicalDepartmentSelector({
@@ -24,19 +23,22 @@ export default function MedicalDepartmentSelector({
   registration,
   error,
   required = false,
-  selectedDepartment,
   selectedDepartmentName,
   onChange,
 }: MedicalDepartmentSelectorProps) {
   const [departmentDropDownIsOpen, setDepartmentDropDownIsOpen] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState<MedicalDepartment>();
 
   const toggleDropdown = () => {
     setDepartmentDropDownIsOpen(!departmentDropDownIsOpen);
   };
 
-  const handleDepartmentSelect = (department: MedicalDepartment) => {
-    setDepartmentDropDownIsOpen(false);
-    onChange?.(department);
+  const handleSelectDepartment = (department?: MedicalDepartment) => {
+    setSelectedDepartment(department);
+
+    if (onChange) {
+      onChange(department);
+    }
   };
 
   return (
@@ -56,7 +58,7 @@ export default function MedicalDepartmentSelector({
       <MultiColumnDropdown
         isOpen={departmentDropDownIsOpen}
         onClose={() => setDepartmentDropDownIsOpen(false)}
-        onSelect={handleDepartmentSelect}
+        onSelect={handleSelectDepartment}
         className="mt-3"
         items={items}
         width="w-full"

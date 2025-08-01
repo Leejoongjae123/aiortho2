@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import NurseSearchModal from './NurseSearchModal';
 import { Nurse } from '@/models';
+import { cn } from '@/lib/utils';
 
 interface NurseManagerProps {
   label: string;
@@ -51,39 +52,46 @@ const NurseManager: React.FC<NurseManagerProps> = ({ label, error, onChange }) =
   return (
     <div className="nurse-manager w-full">
       <div className="flex justify-between items-center mb-2">
-        <label className="text-sm font-medium text-[#8395AC]">{label}</label>
+        <label className="text-sm font-medium text-[var(--aiortho-gray-500)]">{label}</label>
       </div>
 
       {/* 담당 간호사 추가 버튼 */}
       <button
         type="button"
         onClick={handleOpenModal}
-        className="flex w-full h-12 px-4 py-3 items-center justify-center gap-2 self-stretch rounded-xl bg-white border border-[#DADFE9] cursor-pointer hover:border-[#0054A6] transition-colors mb-3"
+        className={cn(
+          'flex w-full h-12 px-4 py-3 items-center justify-center gap-2 self-stretch rounded-xl border border-[var(--aiortho-gray-200)] cursor-pointer hover:border-[var(--aiortho-primary)] transition-colors mb-3',
+          error && 'border-2 border-[color:var(--aiortho-danger)]'
+        )}
       >
-        <Plus className="w-5 h-5 text-[#0054A6] font-bold" />
-        <span className="text-base text-[#0054A6] font-bold">담당 간호사 추가</span>
+        <Plus className="w-5 h-5 text-[var(--aiortho-primary)] font-bold" />
+        <span className="text-base text-[var(--aiortho-primary)] font-bold">담당 간호사 추가</span>
       </button>
 
       {/* 선택된 간호사들 표시 */}
       <div className="space-y-2">
         {selectedNurses.length === 0 ? (
-          <div className="flex h-12 px-4 py-3.5 items-center self-stretch rounded-xl border border-[#DADFE9] bg-[#F8F9FA]">
-            <span className="text-[#8395AC] text-base font-normal">담당 간호사를 추가해주세요</span>
+          <div className="flex h-12 px-4 py-3.5 items-center self-stretch rounded-xl border border-[var(--aiortho-gray-200)] bg-[#F0F3FA]/60">
+            <span className="text-[var(--aiortho-gray-500)] text-base font-normal">
+              담당 간호사가 없습니다
+            </span>
           </div>
         ) : (
           selectedNurses.map(nurse => (
             <div key={nurse.adminId} className="flex items-center gap-2 w-full">
-              <div className="flex h-12 px-4 py-3.5 items-center justify-between self-stretch rounded-xl border border-[#DADFE9] bg-[#F0F3FA]/60 w-full">
+              <div className="flex h-12 px-4 py-3.5 items-center justify-between self-stretch rounded-xl border border-[var(--aiortho-gray-200)] bg-[#F0F3FA]/60 w-full">
                 <div className="flex items-center gap-2">
-                  <div className="text-[#66798D] text-base font-medium">{nurse.name}</div>
+                  <div className="text-[var(--aiortho-gray-600)] text-base font-medium">
+                    {nurse.name}
+                  </div>
                 </div>
                 <div className="flex items-center"></div>
               </div>
               <button
                 onClick={() => handleRemoveNurse(nurse.adminId)}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-[#F0F3FA]/60 "
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-[var(--aiortho-gray-100)]"
               >
-                <X className="w-4 h-4 text-[#8395AC] cursor-pointer" />
+                <X className="w-4 h-4 text-[var(--aiortho-gray-600)] cursor-pointer" />
               </button>
             </div>
           ))

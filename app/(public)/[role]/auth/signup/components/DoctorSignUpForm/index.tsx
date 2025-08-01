@@ -3,9 +3,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import OrthoInput from '@/components/OrthoInput';
 import { Button } from '@/components/ui/button';
-import { useForm, useController } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
-import { useCheckEmail, useMedicalLicenseCheck } from '../../hooks';
+import { useCheckEmail } from '../../hooks';
 import MedicalInstitutionSelector from '@/components/MedicalInstitutionSelector';
 import MedicalDepartmentSelector from '@/components/MedicalDepartmentSelector';
 import NurseManagerSelector from '@/components/NurseManagerSelector';
@@ -21,6 +21,7 @@ import { useDoctorSignUp } from '../../hooks/useDoctorSignUp';
 import { useRouter } from 'next/navigation';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 import { toast } from 'sonner';
+import { useMedicalLicenseCheck } from '@/hooks';
 
 const schema = z
   .object({
@@ -146,16 +147,6 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
 
   const doctorSignUpMutation = useDoctorSignUp(signUpToken);
 
-  // nurseIds 컨트롤러
-  const {
-    field: nurseIdsField,
-    fieldState: { error: nurseIdsError },
-  } = useController({
-    name: 'nurseIds',
-    control,
-    defaultValue: [],
-  });
-
   const DEFAULT_TIMER = 300;
   const { timer, isActive, setTimer, setIsActive } = useTimer();
 
@@ -267,17 +258,17 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
     setSelectedInstitutionName(institution?.name ?? '');
   };
 
-  const handleMedicalDepartmentChange = (department: MedicalDepartment) => {
-    setValue('medicalDepartment', department.code ?? '', {
+  const handleMedicalDepartmentChange = (department?: MedicalDepartment) => {
+    setValue('medicalDepartment', department?.code ?? '', {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
     });
-    setSelectedDepartmentName(department.name ?? '');
+    setSelectedDepartmentName(department?.name ?? '');
   };
 
-  const handleSpecialtiesChange = (department: MedicalDepartment) => {
-    if (department.name === '선택 안함') {
+  const handleSpecialtiesChange = (department?: MedicalDepartment) => {
+    if (department?.name === '선택 안함') {
       setValue('specialties', '', {
         shouldValidate: true,
         shouldDirty: true,
@@ -285,13 +276,21 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
       });
       setSelectedSpecialtiesName('');
     } else {
-      setValue('specialties', department.code ?? '', {
+      setValue('specialties', department?.code ?? '', {
         shouldValidate: true,
         shouldDirty: true,
         shouldTouch: true,
       });
-      setSelectedSpecialtiesName(department.name ?? '');
+      setSelectedSpecialtiesName(department?.name ?? '');
     }
+  };
+
+  const handleNurseIdsChange = (nurseIds: string[]) => {
+    setValue('nurseIds', nurseIds, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
   const handlePhoneNumberCheck = () => {
@@ -540,10 +539,8 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
 
           <NurseManagerSelector
             label="담당 간호사"
-            error={nurseIdsError?.message || errors.nurseIds?.message}
-            onChange={(nurseIds: string[]) => {
-              nurseIdsField.onChange(nurseIds);
-            }}
+            error={errors.nurseIds?.message}
+            onChange={handleNurseIdsChange}
           />
 
           <OrthoInput
