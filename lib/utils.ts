@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { UserRole } from '@/models';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -215,3 +216,7 @@ export function getPeriodYYYYMMDD(weeks: number): {
     endDate: getDateAfterWeeksYYYYMMDD(weeks),
   };
 }
+
+export const isDoctorRole = (role: UserRole): role is 'Doctor' | 'Root' => {
+  return role === 'Doctor' || role === 'Root';
+};

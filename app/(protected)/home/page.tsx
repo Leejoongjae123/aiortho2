@@ -1,16 +1,19 @@
 'use client';
 
 import { useAuthStore } from '@/store/authStore';
-import { useProfile } from '@/hooks';
+import { useDoctorProfile, useNurseProfile } from '@/hooks';
 import Divider from '@/components/Divider';
 import PatientDashboard from '@/components/PatientDashboard';
 import { HomeProfile, QuickMenu } from './components';
+import { isDoctorRole } from '@/lib/utils';
 
 const HomePage = () => {
   const { auth } = useAuthStore();
-  const profileQuery = useProfile(auth!.role);
+  if (!auth) return null;
 
-  if (!auth || !profileQuery.data) return null;
+  const profileQuery = isDoctorRole(auth.role) ? useDoctorProfile() : useNurseProfile();
+
+  if (!profileQuery.data) return null;
 
   const { name, adminId } = profileQuery.data;
 

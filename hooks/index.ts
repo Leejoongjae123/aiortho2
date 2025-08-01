@@ -1,6 +1,7 @@
 export { default as useFunnel } from './useFunnel';
 export { default as usePhoneVerifySend } from './usePhoneVerifySend';
-export * from './useProfile';
+export * from './useDoctorProfile';
+export * from './useNurseProfile';
 export * from './useMedicalDepartments';
 export * from './usePatient';
 export * from './useStandardProgram';
