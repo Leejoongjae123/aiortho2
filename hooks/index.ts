@@ -8,4 +8,5 @@ export * from './useStandardProgram';
 export * from './useCreateStandardProgram';
 export * from './useDeleteStandardProgram';
 export * from './useUpdateStandardProgram';
-export * from './useVerifyProfile';
+export * from './useDoctorVerifyProfile';
+export * from './useNurseVerifyProfile';
