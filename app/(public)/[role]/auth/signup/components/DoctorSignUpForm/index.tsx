@@ -62,7 +62,7 @@ const schema = z
         message: '담당 간호사는 최대 10명까지 선택할 수 있습니다.',
       })
       .optional(),
-    phoneNumber: z.string().min(9, '9자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
+    phoneNumber: z.string().min(10, '10자리 이상 입력해주세요').max(11, '11자리 이하 입력해주세요'),
     certificationNumber: z
       .string()
       .min(6, '6자리 이상 입력해주세요')
@@ -93,7 +93,6 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
     setValue,
     setError,
     clearErrors,
-    control,
     formState: { errors, isValid, isSubmitting },
     watch,
   } = useForm<FormValues>({
