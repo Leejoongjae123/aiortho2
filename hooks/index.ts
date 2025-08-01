@@ -10,3 +10,4 @@ export * from './useDeleteStandardProgram';
 export * from './useUpdateStandardProgram';
 export * from './useDoctorVerifyProfile';
 export * from './useNurseVerifyProfile';
+export * from './useMedicalLicenseCheck';
