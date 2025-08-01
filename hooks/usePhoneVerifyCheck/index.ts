@@ -6,10 +6,8 @@ import {
   PostPhoneVerifyCheckResponse,
 } from '@/api/admin/common/types';
 
-const usePhoneVerifyCheck = () => {
+export const usePhoneVerifyCheck = () => {
   return useMutation<PostPhoneVerifyCheckResponse, ErrorResponse, PostPhoneVerifyCheckRequest>({
     mutationFn: postPhoneVerifyCheck,
   });
 };
-
-export default usePhoneVerifyCheck;
