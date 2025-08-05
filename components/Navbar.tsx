@@ -44,8 +44,6 @@ const Navbar = () => {
     router.replace('/');
   };
 
-  console.log(profile);
-
   return (
     <div className="w-full h-[72px] bg-white border-b border-[var(--aiortho-gray-100)]">
       <div className="w-full h-full flex items-center justify-between px-4 md:px-7">
