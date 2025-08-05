@@ -14,7 +14,7 @@ export default function ProfileEditPage() {
   const profileQuery = isDoctorRole(auth.role) ? useDoctorProfile() : useNurseProfile();
 
   const [Funnel, nextStep] = useFunnel(EDIT_PROFILE_STEPS, {
-    initialStep: 'edit-profile',
+    initialStep: 'verify-profile',
   });
 
   const handleVerifyProfileSuccess = () => {
