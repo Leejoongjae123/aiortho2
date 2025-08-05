@@ -97,7 +97,7 @@ const Navbar = () => {
                   </div>
                   <hr className="my-2" />
                   <Link
-                    href="/profile/edit"
+                    href="/profile"
                     className="text-sm hover:bg-accent hover:text-accent-foreground rounded p-2 -mx-2"
                     onClick={() => {
                       setOpen(false);
