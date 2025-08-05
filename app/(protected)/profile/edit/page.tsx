@@ -11,19 +11,23 @@ export default function ProfileEditPage() {
   const { auth } = useAuthStore();
   if (!auth) return null;
 
-  const profileQuery = isDoctorRole(auth.role) ? useDoctorProfile() : useNurseProfile();
-
   const [Funnel, nextStep] = useFunnel(EDIT_PROFILE_STEPS, {
     initialStep: 'verify-profile',
   });
+
+  const isDoctor = isDoctorRole(auth.role);
+  const doctorProfileQuery = useDoctorProfile({ enabled: isDoctor });
+  const nurseProfileQuery = useNurseProfile({ enabled: !isDoctor });
+
+  const profileQuery = isDoctor ? doctorProfileQuery : nurseProfileQuery;
 
   const handleVerifyProfileSuccess = () => {
     nextStep('edit-profile');
   };
 
-  if (!profileQuery.data) return null;
-
   const profile = profileQuery.data;
+
+  if (!profile) return null;
 
   return (
     <section className="flex flex-col max-w-[680px]">
