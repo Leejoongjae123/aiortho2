@@ -8,9 +8,13 @@ import { useAuthStore } from '@/store/authStore';
 import { isDoctorRole } from '@/lib/utils';
 import { useDoctorProfile } from '@/hooks/useDoctorProfile';
 import { useNurseProfile } from '@/hooks/useNurseProfile';
+import { removeStorage } from '@/lib/storage';
+import { REFRESH_KEY, TOKEN_KEY } from '@/constants/auth';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
-  const { auth } = useAuthStore();
+  const router = useRouter();
+  const { auth, clearAuth, clearTokens } = useAuthStore();
   const { isOpen, toggleSidebar } = useSidebarStore();
   const [open, setOpen] = useState(false);
 
@@ -20,6 +24,17 @@ const Navbar = () => {
   const profileQuery = auth ? (isDoctorRole(auth.role) ? doctorProfile : nurseProfile) : null;
 
   const profile = profileQuery?.data;
+
+  const handleLogout = () => {
+    removeStorage('local', TOKEN_KEY);
+    removeStorage('local', REFRESH_KEY);
+    removeStorage('session', TOKEN_KEY);
+    removeStorage('session', REFRESH_KEY);
+    clearAuth();
+    clearTokens();
+
+    router.replace('/');
+  };
 
   return (
     <div className="w-full h-[72px] bg-white border-b border-[var(--aiortho-gray-100)]">
@@ -92,9 +107,7 @@ const Navbar = () => {
                   </Link>
                   <button
                     className="text-sm text-red-500 hover:bg-red-50 text-left rounded p-2 -mx-2 cursor-pointer"
-                    onClick={() => {
-                      // 로그아웃 로직 추가
-                    }}
+                    onClick={handleLogout}
                   >
                     로그아웃
                   </button>
