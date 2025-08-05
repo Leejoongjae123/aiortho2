@@ -350,16 +350,13 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
     );
   };
 
-  const handleRequiredTermsChange = useCallback(
-    (isValid: boolean) => {
-      setValue('requiredTermsAgreed', isValid, {
-        shouldValidate: true,
-        shouldDirty: true,
-        shouldTouch: true,
-      });
-    },
-    [setValue]
-  );
+  const handleRequiredTermsChange = (isValid: boolean) => {
+    setValue('requiredTermsAgreed', isValid, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
 
   const onSubmit = (data: FormValues) => {
     const payload = {

@@ -45,13 +45,6 @@ export default function SignupCheckList({ error, onRequiredTermsChange }: Signup
 
   const isAllChecked = checkedItems.length === termsData.length;
 
-  // useEffect에서 상태 변경 시에만 부모에게 알림
-  useEffect(() => {
-    if (onRequiredTermsChange) {
-      onRequiredTermsChange(isRequiredTermsValid);
-    }
-  }, [isRequiredTermsValid, onRequiredTermsChange]);
-
   const toggleAll = () => {
     setCheckedItems(isAllChecked ? [] : termsData.map(t => t.id));
   };
@@ -73,6 +66,10 @@ export default function SignupCheckList({ error, onRequiredTermsChange }: Signup
       {<Check size={14} color="white" strokeWidth={3} />}
     </div>
   );
+
+  useEffect(() => {
+    onRequiredTermsChange?.(isRequiredTermsValid);
+  }, [checkedItems]);
 
   return (
     <div className="space-y-4 p-4">
