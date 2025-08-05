@@ -38,8 +38,6 @@ const Navbar = () => {
     removeStorage('local', REFRESH_KEY);
     removeStorage('session', TOKEN_KEY);
     removeStorage('session', REFRESH_KEY);
-    clearAuth();
-    clearTokens();
 
     router.replace('/');
   };
