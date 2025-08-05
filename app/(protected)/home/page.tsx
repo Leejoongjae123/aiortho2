@@ -11,11 +11,17 @@ const HomePage = () => {
   const { auth } = useAuthStore();
   if (!auth) return null;
 
-  const profileQuery = isDoctorRole(auth.role) ? useDoctorProfile() : useNurseProfile();
+  const isDoctor = isDoctorRole(auth.role);
 
-  if (!profileQuery.data) return null;
+  const doctorProfileQuery = useDoctorProfile({ enabled: isDoctor });
+  const nurseProfileQuery = useNurseProfile({ enabled: !isDoctor });
 
-  const { name, adminId } = profileQuery.data;
+  const profileQuery = isDoctor ? doctorProfileQuery : nurseProfileQuery;
+  const { data: profile } = profileQuery;
+
+  if (!profile) return null;
+
+  const { name, adminId } = profile;
 
   return (
     <div className="flex flex-1 flex-col">

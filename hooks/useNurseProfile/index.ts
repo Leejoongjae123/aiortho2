@@ -1,9 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { getNurseProfile } from '@/api/admin/nurse';
+import { NURSE_PROFILE_QUERY_KEY } from '@/constants/queryKey';
 
-export const useNurseProfile = () => {
+interface UseNurseProfileProps extends Partial<UseQueryOptions> {
+  enabled?: boolean;
+}
+
+export const useNurseProfile = ({ enabled = true }: UseNurseProfileProps) => {
   return useQuery({
-    queryKey: ['nurse-profile'],
+    queryKey: [NURSE_PROFILE_QUERY_KEY],
     queryFn: getNurseProfile,
+    enabled,
   });
 };

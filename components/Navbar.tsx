@@ -18,12 +18,20 @@ const Navbar = () => {
   const { isOpen, toggleSidebar } = useSidebarStore();
   const [open, setOpen] = useState(false);
 
-  const doctorProfile = useDoctorProfile();
-  const nurseProfile = useNurseProfile();
+  const doctorProfileQuery = useDoctorProfile({
+    enabled: !!auth && isDoctorRole(auth.role),
+  });
+  const nurseProfileQuery = useNurseProfile({
+    enabled: !!auth && !isDoctorRole(auth.role),
+  });
 
-  const profileQuery = auth ? (isDoctorRole(auth.role) ? doctorProfile : nurseProfile) : null;
+  const profileQuery = auth
+    ? isDoctorRole(auth.role)
+      ? doctorProfileQuery
+      : nurseProfileQuery
+    : null;
 
-  const profile = profileQuery?.data;
+  const { data: profile } = profileQuery ?? {};
 
   const handleLogout = () => {
     removeStorage('local', TOKEN_KEY);
@@ -35,6 +43,8 @@ const Navbar = () => {
 
     router.replace('/');
   };
+
+  console.log(profile);
 
   return (
     <div className="w-full h-[72px] bg-white border-b border-[var(--aiortho-gray-100)]">
