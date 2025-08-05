@@ -41,9 +41,13 @@ export default function ProfilePage() {
         <OrthoInput label="이름" value={profile.name} readOnly />
 
         {isDoctor && (
+          <OrthoInput label="의사 면허 번호" value={(profile as Doctor).licenseNumber} readOnly />
+        )}
+
+        <OrthoInput label="의료 기관명" value={profile.hospitalCode} readOnly />
+
+        {isDoctor && (
           <>
-            <OrthoInput label="의사 면허 번호" value={(profile as Doctor).licenseNumber} readOnly />
-            <OrthoInput label="의료 기관명" value={(profile as Doctor).hospitalCode} readOnly />
             <OrthoInput label="진료과" value={(profile as Doctor).departmentCode} readOnly />
             <OrthoInput label="전문의 과목" value={(profile as Doctor).specialtyField} readOnly />
             <OrthoInput
@@ -51,10 +55,6 @@ export default function ProfilePage() {
               value={(profile as Doctor).specialistLicenseNumber}
               readOnly
             />
-
-            {(profile as Doctor).nurseIds.map(nurseId => (
-              <OrthoInput key={nurseId} label="간호사 이름" value={nurseId} readOnly />
-            ))}
           </>
         )}
 
