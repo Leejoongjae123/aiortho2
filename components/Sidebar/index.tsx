@@ -159,7 +159,7 @@ const Sidebar: React.FC = () => {
                 <SubNavItem
                   label="개인정보 수정"
                   isActive={isActivePath('/profile')}
-                  onClick={() => handleNavItemClick(() => router.push('/profile'))}
+                  onClick={() => handleNavItemClick(() => router.push('/profile/edit'))}
                 />
               </NavSection>
             </ul>

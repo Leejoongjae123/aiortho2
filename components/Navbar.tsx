@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const router = useRouter();
-  const { auth, clearAuth, clearTokens } = useAuthStore();
+  const { auth } = useAuthStore();
   const { isOpen, toggleSidebar } = useSidebarStore();
   const [open, setOpen] = useState(false);
 
@@ -103,7 +103,7 @@ const Navbar = () => {
                   </div>
                   <hr className="my-2" />
                   <Link
-                    href="/profile"
+                    href="/profile/edit"
                     className="text-sm hover:bg-accent hover:text-accent-foreground rounded p-2 -mx-2"
                     onClick={() => {
                       setOpen(false);
