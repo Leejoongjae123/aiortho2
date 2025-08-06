@@ -71,9 +71,23 @@ export interface Doctor {
   isVerified: boolean;
   hospitalCode: string;
   departmentCode: string;
-  specialtyField: string;
-  specialistLicenseNumber: string;
+  specialtyField?: string;
+  specialistLicenseNumber?: string;
   nurseIds: string[];
+  nurseInfos: Nurse[];
+  specialityFieldInfo: {
+    code: string;
+    name: string;
+  };
+  hospitalInfo: {
+    hospitalCode: string;
+    name: string;
+    address: string;
+  };
+  departmentInfo: {
+    code: string;
+    name: string;
+  };
 }
 
 export interface Nurse {
@@ -85,6 +99,11 @@ export interface Nurse {
   doctorInfo: {
     name: string;
     adminId: string;
+  };
+  hospitalInfo: {
+    hospitalCode: string;
+    name: string;
+    address: string;
   };
 }
 

@@ -22,8 +22,6 @@ export default function ProfilePage() {
 
   if (!profile) return null;
 
-  // FIXME: 라벨값 api 수정시 적용 필요
-
   return (
     <section className="flex flex-col max-w-[680px]">
       <h1 className="text-3xl font-bold text-[var(--aiortho-gray-900)] mb-5">개인정보 수정</h1>
@@ -43,17 +41,36 @@ export default function ProfilePage() {
           <OrthoInput label="의사 면허 번호" value={(profile as Doctor).licenseNumber} readOnly />
         )}
 
-        <OrthoInput label="의료 기관명" value={profile.hospitalCode} readOnly />
+        <OrthoInput label="의료 기관명" value={profile.hospitalInfo.name} readOnly />
 
         {isDoctor && (
           <>
-            <OrthoInput label="진료과" value={(profile as Doctor).departmentCode} readOnly />
-            <OrthoInput label="전문의 과목" value={(profile as Doctor).specialtyField} readOnly />
+            <OrthoInput label="진료과" value={(profile as Doctor).departmentInfo.name} readOnly />
             <OrthoInput
-              label="전문 면허 번호"
-              value={(profile as Doctor).specialistLicenseNumber}
+              label="전문의 과목"
+              value={
+                (profile as Doctor).specialityFieldInfo
+                  ? (profile as Doctor).specialityFieldInfo.name
+                  : '전문의 과목이 없습니다'
+              }
               readOnly
             />
+            <OrthoInput
+              label="전문 면허 번호"
+              value={
+                (profile as Doctor).specialistLicenseNumber
+                  ? (profile as Doctor).specialistLicenseNumber
+                  : '전문 면허 번호가 없습니다'
+              }
+              readOnly
+            />
+            {(profile as Doctor).nurseInfos.length ? (
+              (profile as Doctor).nurseInfos.map(nurse => (
+                <OrthoInput key={nurse.adminId} label="담당 간호사" value={nurse.name} readOnly />
+              ))
+            ) : (
+              <OrthoInput label="담당 간호사" value="담당 간호사가 없습니다" readOnly />
+            )}
           </>
         )}
 
