@@ -22,6 +22,8 @@ import {
   PostPhoneVerifyCheckResponse,
   PostPhoneVerifyCheckRequest,
   GetHospitalListRequest,
+  PostDeleteAccountResponse,
+  PostDeleteAccountRequest,
 } from './types';
 
 const RESOURCE = '/ums/common';
@@ -72,3 +74,7 @@ export const postPhoneVerifyCheck = async (
   data: PostPhoneVerifyCheckRequest
 ): Promise<PostPhoneVerifyCheckResponse> =>
   await apiClient.post(`${RESOURCE}/phoneverify/verify`, data);
+
+export const postDeleteAccount = async (
+  data: PostDeleteAccountRequest
+): Promise<PostDeleteAccountResponse> => await apiClient.post(`${RESOURCE}/withdraw`, data);

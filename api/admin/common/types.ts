@@ -83,3 +83,13 @@ export interface PostPhoneVerifyCheckRequest {
 }
 
 export interface PostPhoneVerifyCheckResponse {}
+
+export interface PostDeleteAccountRequest {
+  adminId: string;
+  password: string;
+}
+
+export interface PostDeleteAccountResponse {
+  success: boolean;
+  adminId: string;
+}
