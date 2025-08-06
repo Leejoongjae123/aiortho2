@@ -87,7 +87,7 @@ export default function ProfilePage() {
 
         <button
           className="text-sm text-[var(--aiortho-gray-800)] underline underline-offset-4 cursor-pointer"
-          onClick={() => router.push('/profile/delete')}
+          onClick={() => router.push('/profile/edit/delete')}
         >
           회원탈퇴
         </button>

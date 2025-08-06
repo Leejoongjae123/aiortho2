@@ -77,6 +77,13 @@ export const ROUTES: Record<string, RouteConfig> = {
         key: 'profileEdit',
         path: '/profile/edit',
         label: '개인정보 수정',
+        children: {
+          delete: {
+            key: 'profileDelete',
+            path: '/profile/edit/delete',
+            label: '회원 탈퇴',
+          },
+        },
       },
     },
   },
