@@ -10,3 +10,12 @@ export interface PostNurseProfileVerifyRequest {
 }
 
 export interface PostNurseProfileVerifyResponse {}
+
+export interface PostUpdateNurseProfileRequest {
+  password?: string;
+  name: string;
+  phoneNumber: string;
+  hospitalCode: string;
+}
+
+export interface PostUpdateNurseProfileResponse {}

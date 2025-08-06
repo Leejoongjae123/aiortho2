@@ -13,3 +13,4 @@ export * from './useDoctorVerifyProfile';
 export * from './useNurseVerifyProfile';
 export * from './useMedicalLicenseCheck';
 export * from './useUpdateDoctorProfile';
+export * from './useUpdateNurseProfile';
