@@ -90,7 +90,13 @@ export default function VerifyProfile({ role, profile, onClick }: VerifyProfileP
         {name}님의 정보를 안전하게 보호하기 위해 비밀번호를 확인합니다.
       </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit(onSubmit)();
+        }}
+        className="flex flex-col gap-6"
+      >
         <OrthoInput
           label="아이디 (이메일)"
           registration={register('email')}
@@ -117,13 +123,18 @@ export default function VerifyProfile({ role, profile, onClick }: VerifyProfileP
 
         <div className="flex gap-5 mt-4">
           <Button
+            type="button"
             className="flex-1 rounded-full h-12 cursor-pointer"
             variant="secondary"
             onClick={() => router.back()}
           >
             취소
           </Button>
-          <Button className="flex-1 rounded-full h-12 cursor-pointer" disabled={isPending}>
+          <Button
+            type="submit"
+            className="flex-1 rounded-full h-12 cursor-pointer"
+            disabled={isPending}
+          >
             확인
           </Button>
         </div>
