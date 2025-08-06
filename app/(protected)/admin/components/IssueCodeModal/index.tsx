@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import useInviteCodeSend from '@/app/(protected)/master/hooks/useInviteCodeSend';
+import { useInviteCodeSend } from '../../hooks';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 
 const phoneNumberSchema = z.object({
