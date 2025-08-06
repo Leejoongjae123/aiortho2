@@ -1,12 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useDoctorProfile, useNurseProfile } from '@/hooks';
 import { isDoctorRole } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
 import OrthoInput from '@/components/OrthoInput';
 import { Doctor } from '@/models';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const router = useRouter();
