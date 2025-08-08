@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import OrthoInput from '@/components/OrthoInput';
@@ -15,7 +15,7 @@ import { useTimer } from '@/hooks/useTimer';
 import { decodeJWT } from '@/lib/utils';
 import { Hospital, MedicalDepartment } from '@/models';
 import { useMedicalDepartments } from '@/hooks';
-import { useDoctorSignUp } from '../../hooks/useDoctorSignUp';
+import { useDoctorSignUp } from '../../hooks';
 import { useRouter } from 'next/navigation';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 import { toast } from 'sonner';
@@ -85,7 +85,7 @@ interface DoctorSignupFormProps {
   signUpToken: string;
 }
 
-const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
+export default function DoctorSignUpForm({ signUpToken }: DoctorSignupFormProps) {
   const router = useRouter();
 
   const {
@@ -621,6 +621,4 @@ const DoctorSignUpForm = ({ signUpToken }: DoctorSignupFormProps) => {
       </div>
     </div>
   );
-};
-
-export default DoctorSignUpForm;
+}
