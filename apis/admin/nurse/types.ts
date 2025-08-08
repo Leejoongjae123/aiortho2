@@ -19,3 +19,13 @@ export interface PostUpdateNurseProfileRequest {
 }
 
 export interface PostUpdateNurseProfileResponse {}
+
+export interface PostNurseSignUpRequest {
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber: string;
+  hospitalCode: string;
+}
+
+export interface PostNurseSignUpResponse {}

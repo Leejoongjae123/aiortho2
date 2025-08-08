@@ -3,6 +3,8 @@ import {
   GetNurseProfileResponse,
   PostNurseProfileVerifyRequest,
   PostNurseProfileVerifyResponse,
+  PostNurseSignUpRequest,
+  PostNurseSignUpResponse,
   PostUpdateNurseProfileRequest,
   PostUpdateNurseProfileResponse,
 } from './types';
@@ -19,3 +21,7 @@ export const postNurseProfileVerify = async (
 export const putUpdateNurseProfile = async (
   data: PostUpdateNurseProfileRequest
 ): Promise<PostUpdateNurseProfileResponse> => await apiClient.put(`${RESOURCE}`, data);
+
+export const postNurseSignUp = async (
+  data: PostNurseSignUpRequest
+): Promise<PostNurseSignUpResponse> => await apiClient.post(`${RESOURCE}/signup`, data);
