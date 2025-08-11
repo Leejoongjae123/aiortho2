@@ -249,7 +249,15 @@ export default function PatientInfoForm({ mode }: PatientInfoFormProps) {
         required
       />
 
-      <div className="flex mt-12 justify-end">
+      <div className="flex mt-12 justify-end gap-5">
+        <button
+          type="button"
+          className="bg-[var(--aiortho-secondary)] font-bold rounded-full min-w-[240px] min-h-[48px] w-full px-5 py-3 hover:bg-[var(--aiortho-secondary)]/70 transition-colors cursor-pointer"
+          onClick={() => router.back()}
+        >
+          취소
+        </button>
+
         <button
           type="submit"
           className="bg-[var(--aiortho-primary)] text-white font-bold rounded-full min-w-[240px] min-h-[48px] w-full px-5 py-3 hover:bg-[var(--aiortho-primary)]/90 transition-colors disabled:bg-[var(--aiortho-disabled)] disabled:cursor-not-allowed cursor-pointer"
