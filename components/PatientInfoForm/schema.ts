@@ -2,7 +2,18 @@ import { z } from 'zod';
 
 // Zod 스키마 정의
 export const patientFormSchema = z.object({
-  patientName: z.string().min(1, '환자명을 입력해주세요'),
+  patientName: z
+    .string()
+    .min(2, { message: '이름은 2자 이상 입력해주세요' })
+    .max(10, { message: '이름은 10자 이하로 입력해주세요' })
+    .regex(/^[가-힣]+$/, { message: '한글만 입력 가능합니다' })
+    .refine(
+      val => {
+        const singleConsonantVowel = /[ㄱ-ㅎㅏ-ㅣ]/;
+        return !singleConsonantVowel.test(val);
+      },
+      { message: '자음이나 모음만 사용할 수 없습니다' }
+    ),
   birthDate: z
     .string()
     .length(6, '생년월일 6자리를 입력해주세요')
