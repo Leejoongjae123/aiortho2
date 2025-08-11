@@ -11,7 +11,6 @@ import { useCreatePatient, useEditPatient } from './hooks';
 import { toast } from 'sonner';
 import { showSuccessToast } from '@/components/ui/toast-notification';
 import { useParams, useRouter } from 'next/navigation';
-import { Patient } from '@/models';
 import { usePatient } from '@/hooks';
 import { useEffect } from 'react';
 
@@ -34,7 +33,6 @@ export default function PatientInfoForm({ mode }: PatientInfoFormProps) {
     handleSubmit,
     formState: { errors, isSubmitting, isValid, dirtyFields, isDirty },
     setValue,
-    // watch,
     reset,
   } = useForm<PatientFormData>({
     resolver: zodResolver(patientFormSchema),
@@ -63,9 +61,6 @@ export default function PatientInfoForm({ mode }: PatientInfoFormProps) {
   }, [patient, isEditMode, reset]);
 
   if (isLoading) return null;
-
-  // const birthDate = watch('birthDate');
-  // const genderDigit = watch('genderDigit');
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -115,8 +110,8 @@ export default function PatientInfoForm({ mode }: PatientInfoFormProps) {
     } else {
       await createPatientMutation.mutateAsync(payload, {
         onSuccess: ({ patientId }) => {
-          router.push(`/prescriptions/patients/${patientId}`);
           showSuccessToast('환자 등록 완료', '환자 정보가 등록되었습니다.');
+          router.push(`/prescriptions/patients/${patientId}`);
         },
         onError: () => {
           toast.error('환자 정보 등록에 실패했습니다.', {
