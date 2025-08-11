@@ -14,9 +14,11 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { calculateWeeks, getPeriodYYYYMMDD } from '@/lib/utils';
+import { calculateWeeks, getPeriodYYYYMMDD, isDoctorRole } from '@/lib/utils';
 import { showWarningToast } from '@/components/ui/toast-warning';
 import { showSuccessToast } from '@/components/ui/toast-notification';
+import { useAuthStore } from '@/store/authStore';
+import { useCreatePrescriptionRequest } from './hooks/useCreatePrescriptionRequest';
 
 const formSchema = z.object({
   period: z.string().min(1, '치료 기간을 선택해주세요.'),
@@ -25,12 +27,15 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 export default function CreatePrescriptionPage() {
+  const { auth } = useAuthStore();
+  if (!auth) return null;
   const router = useRouter();
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const patientQuery = usePatient(id as string);
   const standardProgramQuery = useStandardProgram();
   const createPrescriptionMutation = useCreatePrescription();
+  const createPrescriptionRequestMutation = useCreatePrescriptionRequest();
   const [prescriptionProgram, setPrescriptionProgram] = useState<Prescription>();
   const [prescriptionProgramIsDirty, setPrescriptionProgramIsDirty] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -73,18 +78,27 @@ export default function CreatePrescriptionPage() {
       name: prescriptionProgram.name,
     };
 
-    createPrescriptionMutation.mutateAsync(payload, {
-      onSuccess: () => {
-        showSuccessToast(
-          '프로그램 처방 완료',
-          '처방된 프로그램 내역은 처방 상세 내역에서 확인할 수 있어요.'
-        );
-        router.push(`/prescriptions/patients/${id}`);
-      },
-      onError: () => {
-        showWarningToast('프로그램 처방 실패', '잠시 후 시도하세요.');
-      },
-    });
+    if (isDoctorRole(auth.role)) {
+      createPrescriptionMutation.mutateAsync(payload, {
+        onSuccess: () => {
+          showSuccessToast(
+            '프로그램 처방 완료',
+            '처방된 프로그램 내역은 처방 상세 내역에서 확인할 수 있어요.'
+          );
+          router.push(`/prescriptions/patients/${id}`);
+        },
+        onError: () => {
+          showWarningToast('프로그램 처방 실패', '잠시 후 시도하세요.');
+        },
+      });
+    } else {
+      createPrescriptionRequestMutation.mutateAsync(payload, {
+        onSuccess: () => {
+          showSuccessToast('프로그램 처방 요청 완료', '처방 요청이 완료되었습니다.');
+          router.push(`/prescriptions/patients/${id}`);
+        },
+      });
+    }
   };
 
   useEffect(() => {
