@@ -3,8 +3,14 @@
 import { useRouter } from 'next/navigation';
 import QuickMenuCard from './QuickMenuCard';
 import { PrescriptionIcon } from '../Icons';
+import { UserRole } from '@/models';
+import { isDoctorRole } from '@/lib/utils';
 
-const QuickMenu: React.FC = () => {
+interface QuickMenuProps {
+  role: UserRole;
+}
+
+export default function QuickMenu({ role }: QuickMenuProps) {
   const router = useRouter();
 
   const handlePrescriptionClick = () => {
@@ -12,8 +18,7 @@ const QuickMenu: React.FC = () => {
   };
 
   const handlePatientRegistrationClick = () => {
-    // FIXME: 환자 등록 페이지 추가 후 수정
-    // router.push('/doctor/patient/register');
+    router.push('/prescriptions/patients/register');
   };
 
   return (
@@ -21,12 +26,14 @@ const QuickMenu: React.FC = () => {
       <h2 className="flex-1 text-2xl font-bold text-zinc-900 lg:text-3xl">Quick Menu</h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
-        <QuickMenuCard
-          onClick={handlePrescriptionClick}
-          subtitle="빠르고 간편하게"
-          title="처방하기"
-          icon={<PrescriptionIcon />}
-        />
+        {isDoctorRole(role) && (
+          <QuickMenuCard
+            onClick={handlePrescriptionClick}
+            subtitle="빠르고 간편하게"
+            title="처방하기"
+            icon={<PrescriptionIcon />}
+          />
+        )}
 
         <QuickMenuCard
           onClick={handlePatientRegistrationClick}
@@ -37,6 +44,4 @@ const QuickMenu: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default QuickMenu;
+}
