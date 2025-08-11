@@ -31,7 +31,7 @@ const HomePage = () => {
       <Divider className="my-13" />
 
       {/* QuickMenu */}
-      <QuickMenu />
+      <QuickMenu role={auth.role} />
 
       <Divider className="my-13 bg-transparent" />
 
